@@ -17,7 +17,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/attestation', function(){
-    return view('pages/attestation');
+    return view('attestation');
 })->middleware(['auth', 'verified'])->name('attestation');
 
 Route::middleware('auth')->group(function () {
