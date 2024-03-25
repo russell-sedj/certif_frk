@@ -102,7 +102,7 @@
             </li>
             <li
                 class="sidebar-item">
-                <a href="index.html" class='sidebar-link'>
+                <a href="{{route('lieus.index')}}" class='sidebar-link'>
                     <i class="bi bi-geo-alt-fill"></i>
                     <span>Lieux</span>
                 </a>
