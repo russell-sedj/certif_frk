@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategorieController;
 use App\Models\Categorie;
 use App\Models\User;
+use App\Models\Lieu;
+use App\Http\Controllers\LieuController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -15,7 +17,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/attestation', function(){
-    return view('pages/attestation');
+    return view('attestation');
 })->middleware(['auth', 'verified'])->name('attestation');
 
 Route::middleware('auth')->group(function () {
@@ -24,6 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile/{user}', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile/{user}', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 Route::resource('categories', CategorieController::class);
 
 Route::get('/agents', function () {
@@ -31,4 +34,7 @@ Route::get('/agents', function () {
     return view('agents.index', compact('users'));
 })->name('agents');
 
+require __DIR__.'/auth.php';
+
+Route::resource('lieus', LieuController::class);
 require __DIR__.'/auth.php';
