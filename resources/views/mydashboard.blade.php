@@ -10,7 +10,7 @@
                     <p class="card-text">{{$category->description}}</p>
                 </div>
                 <div class="card-footer">
-                    <a href="" class="btn btn-primary">Formations</a>
+                    <a href="{{route('formations.index', $category)}}" class="btn btn-primary">Formations</a>
                 </div>
             </div>
         </div>
