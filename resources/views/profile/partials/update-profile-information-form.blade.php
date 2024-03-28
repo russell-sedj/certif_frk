@@ -1,64 +1,104 @@
-<section>
-    <header>
-        <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Profile Information') }}
-        </h2>
+@extends('layouts.myapp')
 
-        <p class="mt-1 text-sm text-gray-600">
-            {{ __("Update your account's profile information and email address.") }}
-        </p>
-    </header>
+@section('content')
+<div class="row justify-content-center">
+    <div class="col-md-6 col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Profile Information</h4>
+            </div>
+            <div class="card-content">
+                <div class="card-body">
+                    <form class="form form-horizontal" action="{{ route('profile.update', $user) }}" method="POST">
+                        @csrf
+                        @method('patch')
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="matricule">Matricule</label>
+                                </div>
+                                <div class="col-md-10 form-group">
+                                    <input type="text" id="matricule" class="form-control" name="matricule" placeholder="Matricule" value="{{ old('matricule', $user->matricule) }}" required autofocus autocomplete="matricule">
+                                </div>
+                            </div>
 
-    <form id="send-verification" method="post" action="{{ route('verification.send') }}">
-        @csrf
-    </form>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="name">Nom</label>
+                                </div>
+                                <div class="col-md-10 form-group">
+                                    <input type="text" id="name" class="form-control" name="name" placeholder="Name" value="{{ old('name', $user->name) }}" required autocomplete="name">
+                                </div>
+                            </div>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
-        @csrf
-        @method('patch')
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="surname">Prénoms</label>
+                                </div>
+                                <div class="col-md-10 form-group">
+                                    <input type="text" id="surname" class="form-control" name="surname" placeholder="Prénoms" value="{{ old('surname', $user->surname) }}" required autocomplete="surname">
+                                </div>
+                            </div>
 
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
-            <x-input-error class="mt-2" :messages="$errors->get('name')" />
-        </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="sexe">Sexe</label>
+                                </div>
+                                <div class="col-md-10 form-group">
+                                    <select id="sexe" name="sexe" class="form-select">
+                                        <option value="M" @if(old('sexe', $user->sexe) == 'M') selected @endif>Masculin</option>
+                                        <option value="F" @if(old('sexe', $user->sexe) == 'F') selected @endif>Féminin</option>
+                                    </select>
+                                </div>
+                            </div>
 
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
-            <x-input-error class="mt-2" :messages="$errors->get('email')" />
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="email">Email</label>
+                                </div>
+                                <div class="col-md-10 form-group">
+                                    <input type="email" id="email" class="form-control" name="email" placeholder="Email" value="{{ old('email', $user->email) }}" required autocomplete="email">
+                                </div>
+                            </div>
 
-            @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
-                <div>
-                    <p class="text-sm mt-2 text-gray-800">
-                        {{ __('Your email address is unverified.') }}
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="titre">Titre</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-check">
+                                        <input type="radio" id="titre1" class="form-check-input" name="titre" value="DGTCP" @if(old('titre', $user->titre) == 'DGTCP') checked @endif>
+                                        <label class="form-check-label" for="titre1">DGTCP</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="radio" id="titre2" class="form-check-input" name="titre" value="DFPT" @if(old('titre', $user->titre) == 'DFPT') checked @endif>
+                                        <label class="form-check-label" for="titre2">DFPT</label>
+                                    </div>
+                                </div>
+                            </div>
 
-                        <button form="send-verification" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            {{ __('Click here to re-send the verification email.') }}
-                        </button>
-                    </p>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="role">Role</label>
+                                </div>
+                                <div class="col-md-10 form-check">
+                                    <input type="hidden" id="role" class="form-check-input" name="role" value="0">
+                                    <input type="checkbox" id="role" class="form-check-input" name="role" @if(old('role', $user->role) == "2") checked @endif>
+                                    <label for="role">Agent Superviseur</label>
+                                </div>
+                            </div>
 
-                    @if (session('status') === 'verification-link-sent')
-                        <p class="mt-2 font-medium text-sm text-green-600">
-                            {{ __('A new verification link has been sent to your email address.') }}
-                        </p>
-                    @endif
+                            <div class="row">
+                                <div class="col-sm-12 d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-primary me-1 mb-1">Save</button>
+                                    <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            @endif
+            </div>
         </div>
-
-        <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
-
-            @if (session('status') === 'profile-updated')
-                <p
-                    x-data="{ show: true }"
-                    x-show="show"
-                    x-transition
-                    x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-gray-600"
-                >{{ __('Saved.') }}</p>
-            @endif
-        </div>
-    </form>
-</section>
+    </div>
+</div>    
+@endsection

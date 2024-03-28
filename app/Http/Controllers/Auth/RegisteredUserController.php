@@ -31,20 +31,29 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'matricule'=>['required', 'string','unique:'.User::class],
+            'surname'=>['required', 'string', 'max:255'],
+            'sexe'=>'required',
+            'role',
+            'titre',
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
             'name' => $request->name,
+            'matricule'=> $request->matricule,
+            'surname'=>$request->surname,
+            'sexe'=>$request->sexe,
+            'role'=>$request->role,
+            'titre'=>$request->titre,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
         event(new Registered($user));
 
-        Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('agents', absolute: false));
     }
 }
