@@ -7,6 +7,7 @@ use App\Http\Controllers\CategorieController;
 use App\Models\Categorie;
 use App\Models\User;
 use App\Http\Controllers\LieuController;
+use App\Http\Controllers\SessionproController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -45,7 +46,15 @@ Route::controller(FormationController::class)->group(function () {
     Route::delete('/formation/{formation}/{categorie}', 'destroy')->name('formations.destroy');
     Route::get('/formations/{categorie}/create','create')->name('formations.create');
     Route::get('/formations/{formation}/edit','edit')->name('formations.edit');
-
-
 });
+
+Route::controller(SessionproController::class)->group(function(){
+    Route::post('/sessionpros', 'store')->name('sessionpros.store');
+    Route::get('/sessionpros/{formation}', 'index')->name('sessionpros.index');
+    Route::put('/sessionpros/{sessionpro}', 'update')->name('sessionpros.update');
+    Route::delete('/sessionpros/{sessionpro}/{formation}', 'destroy')->name('sessionpros.destroy');
+    Route::get('/sessionpros/{formation}/create', 'create')->name('sessionpros.create');
+    Route::get('/sessionpros/{sessionpro}/edit', 'edit')->name('sessionpros.edit');
+});
+
 require __DIR__.'/auth.php';
