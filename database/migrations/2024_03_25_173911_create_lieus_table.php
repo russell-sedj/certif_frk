@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('lieus', function (Blueprint $table) {
             $table->id();
             $table->string('ville');
-            $table->string('addresse');
+            $table->string('adresse');
             $table->timestamps();
         });
     }
