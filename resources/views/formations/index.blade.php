@@ -25,6 +25,7 @@
                                 <td>{{$formation->description}}</td>
                                 <td>
                                     <a href=""class="btn btn-sm btn-primary">Voir</a>
+                                    <a href="{{route('sessionpros.index', $formation)}} "class="btn btn-sm btn-primary">Sessions</a>
                                     <a href="{{route('formations.edit', $formation)}}" class="btn btn-sm btn-secondary">Modifier</a>
                                     <form action="{{route('formations.destroy', [$formation->id, $formation->categorie])}}" method="POST" style="display: inline;">
                                     @csrf
