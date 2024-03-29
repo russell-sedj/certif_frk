@@ -32,7 +32,7 @@ class LieuController extends Controller
     {
         $lieu = new Lieu;
         $lieu->ville = $request->ville;
-        $lieu->addresse = $request->addresse;
+        $lieu->adresse = $request->adresse;
         $lieu->save();
 
         return redirect()->route('lieus.index');
@@ -61,7 +61,7 @@ class LieuController extends Controller
     {
         $lieu = Lieu::find($lieu->id);
         $lieu->ville = $request->ville;
-        $lieu->addresse = $request->addresse;
+        $lieu->adresse = $request->adresse;
         $lieu->save();
         
         return redirect()->route('lieus.index');
