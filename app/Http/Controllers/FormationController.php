@@ -6,6 +6,8 @@ use App\Models\Formation;
 use App\Http\Requests\StoreFormationRequest;
 use App\Http\Requests\UpdateFormationRequest;
 use App\Models\Categorie;
+use App\Models\Sessionpro;
+
 class FormationController extends Controller
 {
     /**
@@ -37,6 +39,12 @@ class FormationController extends Controller
         $formation->description=$request->description;
         $formation->categorie_id=$request->categorie_id;
         $formation->save();
+
+        // create an empty session directly when the formation is created 
+        $sessionpro = new Sessionpro;
+        $sessionpro->formation_id = $formation->id;
+        $sessionpro->save();
+
         return redirect()->route('formations.index', $formation->categorie_id);
     }
 
