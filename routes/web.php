@@ -10,7 +10,12 @@ use App\Http\Controllers\LieuController;
 use App\Http\Controllers\SessionproController;
 
 Route::get('/', function () {
+    if (Route::has('login')){
+    return redirect()->route('dashboard');
+    }
+    else{                      
     return view('auth.login');
+    }
 });
 Route::get('/dashboard', function () {
     $categories=Categorie::all();

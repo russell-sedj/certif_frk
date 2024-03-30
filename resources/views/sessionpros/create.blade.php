@@ -40,8 +40,9 @@
                                         </div>
                                         <div class="col-md-10 form-froup">
                                             <select id="lieu_id" name="lieu_id">
+                                            <option disable selected>Choisissez...</option>
                                                 @foreach($lieus as $lieu)
-                                                    <option value="{{$lieu->id}}">{{$lieu->ville}}, {{$lieu->adresse}}</option>
+                                                    <option value="{{$lieu->id}}">{{$lieu->ville}}@if($lieu->adresse), {{$lieu->adresse}} @endif</option>
                                                 @endforeach
                                             </select>
                                         </div>

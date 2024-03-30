@@ -10,7 +10,7 @@
                         <a href="{{route('sessionpros.create',$formation)}}" class="btn btn-success">Ajouter une session</a>
                     </div>
                 </div>
-                    <table class="table">
+                    <table class="table table-responsive">
                         <thead>
                             <tr>
                                 <th scope="col">Date de debut</th>
@@ -18,6 +18,7 @@
                                 <th scope="col">Heure de debut</th>
                                 <th scope="col">Heure de fin</th>
                                 <th scope="col">Lieu</th>
+                                <th scope="col">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -29,11 +30,7 @@
                                 <td>{{$sessionpro->heure_debut}}</td>
                                 <td>{{$sessionpro->heure_fin}}</td>
                                 <td>
-                                    @if ($sessionpro->lieu)
-                                        {{$sessionpro->lieu->ville}}, {{$sessionpro->lieu->adresse}}
-                                    @else
-                                        Lieu non défini
-                                    @endif
+                                        {{$sessionpro->lieu->ville}}@if($sessionpro->lieu->adresse), {{$sessionpro->lieu->adresse}}@endif                                    
                                 </td>
                                 <td>
                                     <a href=""class="btn btn-sm btn-primary">Voir</a>

@@ -6,6 +6,7 @@ use App\Models\Formation;
 use App\Http\Requests\StoreFormationRequest;
 use App\Http\Requests\UpdateFormationRequest;
 use App\Models\Categorie;
+use App\Models\Lieu;
 use App\Models\Sessionpro;
 
 class FormationController extends Controller
@@ -25,7 +26,8 @@ class FormationController extends Controller
     public function create(Categorie $categorie)
     {
         //
-        return view('formations.create', compact('categorie'));
+        $lieus = Lieu::all();
+        return view('formations.create', compact('categorie','lieus'));
     }
 
     /**
@@ -34,17 +36,26 @@ class FormationController extends Controller
     public function store(StoreFormationRequest $request)
     {
         //
-        $formation= new Formation;
-        $formation->theme=$request->theme;
-        $formation->description=$request->description;
-        $formation->categorie_id=$request->categorie_id;
+        $formation = new Formation;
+        $formation->theme = $request->theme;
+        $formation->description = $request->description;
+        $formation->categorie_id = $request->categorie_id;
         $formation->save();
-
-        // create an empty session directly when the formation is created 
-        $sessionpro = new Sessionpro;
-        $sessionpro->formation_id = $formation->id;
-        $sessionpro->save();
-
+        
+        $nombre_sessions = $request->nombre_sessions;
+        
+        for ($i = 0; $i < $nombre_sessions; $i++) {
+            $sessionpro = new Sessionpro;
+            $sessionpro->date_debut = $request->input("date_debut_$i");
+            $sessionpro->date_fin = $request->input("date_fin_$i");
+            $sessionpro->heure_debut = $request->input("heure_debut_$i");
+            $sessionpro->heure_fin = $request->input("heure_fin_$i");
+            $sessionpro->lieu_id = $request->input("lieu_$i");
+            $sessionpro->formation_id = $formation->id;
+            $sessionpro->save();
+        }
+        
+        
         return redirect()->route('formations.index', $formation->categorie_id);
     }
 

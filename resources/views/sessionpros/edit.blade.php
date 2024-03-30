@@ -47,7 +47,7 @@
                                             <select name="lieu_id" id="lieu_id">
                                             @foreach ($lieus as $lieu)
                                                 <option value="{{$lieu->id}}" {{ $sessionpro->lieu_id == $lieu->id ? 'selected' : '' }}>
-                                                    {{$lieu->ville}}, {{$lieu->adresse}}
+                                                   {{$lieu->ville}}@if($lieu->adresse), {{$lieu->adresse}}@endif
                                                 </option>
                                             @endforeach
                                             </select>
