@@ -29,7 +29,7 @@
                                              <label for="nombre_sessions">Nombre de sessions</label>
                                         </div>
                                         <div class="col-md-10 form-group">
-                                          <input type="number" id="nombre_sessions" class="form-control" name="nombre_sessions" value="1" min="1">
+                                          <input type="number" id="nombre_sessions" class="form-control" name="nombre_sessions" value="0" min="0">
                                         </div>
                                         <div id="sessions-container">
                                         <!-- Les champs de sessions générés dynamiquement seront placés ici -->
