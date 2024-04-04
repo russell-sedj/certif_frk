@@ -33,12 +33,33 @@
                                         {{$sessionpro->lieu->ville}}@if($sessionpro->lieu->adresse), {{$sessionpro->lieu->adresse}}@endif                                    
                                 </td>
                                 <td>
-                                    <a href=""class="btn btn-sm btn-primary">Voir</a>
-                                    <a href="{{route('sessionpros.edit', $sessionpro)}}" class="btn btn-sm btn-secondary">Modifier</a>
+                                    <a href="{{ route('presences.index', $sessionpro) }}"class="btn btn-sm btn-primary mb-2 mt-2">Voir</a>
+                                    
+                                    <form action="{{route('sessionpros.actionInscription', $sessionpro)}}" method="post">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="btn btn-sm mb-2 {{$sessionpro->peut_inscrire ? 'btn-warning' : 'btn-info'}}">
+                                            {{ !$sessionpro->peut_inscrire ? 'Ouvrir inscription' : 'Cloturer inscription'}}
+                                        </button>
+                                    </form>
+                                    
+                                    @if(!$sessionpro->peut_demander)
+                                        <form action="{{route('sessionpros.openRequest', $sessionpro)}}" method="post">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="btn btn-sm btn-success mb-2"  
+                                            onclick="return confirm('Vous ne pourrez plus modifer cette valeur, etes vous sur ?')" >
+                                                Autoriser demande
+                                            </button>
+                                        </form>
+                                    @endif
+                                    
+                                    <a href="{{route('sessionpros.edit', $sessionpro)}}" class="btn btn-sm btn-secondary mb-2">Modifier</a>
+                                    
                                     <form action="{{route('sessionpros.destroy', [$sessionpro->id, $sessionpro->formation])}}" method="POST" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette session ?')">Supprimer</button>
+                                        <button type="submit" class="btn btn-sm btn-danger mb-2" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette session ?')">Supprimer</button>
                                     </form>
                                 </td>
                             </tr>

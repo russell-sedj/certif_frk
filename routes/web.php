@@ -8,6 +8,7 @@ use App\Models\Categorie;
 use App\Models\User;
 use App\Http\Controllers\LieuController;
 use App\Http\Controllers\SessionproController;
+use App\Http\Controllers\PresenceController;
 
 Route::get('/', function () {
     if (Route::has('login')){
@@ -57,9 +58,21 @@ Route::controller(SessionproController::class)->group(function(){
     Route::post('/sessionpros', 'store')->name('sessionpros.store');
     Route::get('/sessionpros/{formation}', 'index')->name('sessionpros.index');
     Route::put('/sessionpros/{sessionpro}', 'update')->name('sessionpros.update');
+    Route::put('/sessionpros/{sessionpro}/actionInscription', 'actionInscription')->name('sessionpros.actionInscription');
+    Route::put('/sessionpros/{sessionpro}/openRequest', 'openRequest')->name('sessionpros.openRequest');
     Route::delete('/sessionpros/{sessionpro}/{formation}', 'destroy')->name('sessionpros.destroy');
     Route::get('/sessionpros/{formation}/create', 'create')->name('sessionpros.create');
     Route::get('/sessionpros/{sessionpro}/edit', 'edit')->name('sessionpros.edit');
+});
+
+Route::controller(PresenceController::class)->group(function(){
+    Route::post('/presences', 'store')->name('presences.store');
+    Route::get('/presences/{sessionpro}', 'index')->name('presences.index');
+    Route::put('/presences/{presence}', 'update')->name('presences.update');
+    Route::put('/presences/{presence}/activate', 'activate')->name('presences.activate');
+    Route::delete('/presences/{presence}/{sessionpro}', 'destroy')->name('presences.destroy');
+    Route::get('/presences/{sessionpro}/create', 'create')->name('presences.create');
+    Route::get('/presences/{presence}/edit', 'edit')->name('presences.edit');
 });
 
 require __DIR__.'/auth.php';

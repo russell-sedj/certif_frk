@@ -27,4 +27,8 @@ class Sessionpro extends Model
     public function lieu(){
         return $this->belongsTo(Lieu::class);
     }
+
+    public function presences(){
+        return $this->hasMany(Presence::class);
+    }
 }

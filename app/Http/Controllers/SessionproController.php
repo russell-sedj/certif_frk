@@ -97,4 +97,25 @@ class SessionproController extends Controller
         $sessionpro->delete();
         return redirect()->route('sessionpros.index', $formation);
     }
+
+    public function actionInscription(Sessionpro $sessionpro)
+    {
+        if($sessionpro->peut_inscrire == false){
+            $sessionpro->peut_inscrire = true;
+        }
+        else {
+            $sessionpro->peut_inscrire = false;
+        }
+        $sessionpro->save();
+
+        return redirect()->route('sessionpros.index', $sessionpro->formation_id);
+    }
+    
+    public function openRequest(Sessionpro $sessionpro)
+    {
+        $sessionpro->peut_demander = true;
+        $sessionpro-> save();
+
+        return redirect()->route('sessionpros.index', $sessionpro->formation_id);
+    }
 }
