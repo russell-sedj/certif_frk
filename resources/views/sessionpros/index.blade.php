@@ -42,7 +42,15 @@
                                             {{ !$sessionpro->peut_inscrire ? 'Ouvrir inscription' : 'Cloturer inscription'}}
                                         </button>
                                     </form>
-                                    
+                                    @if($sessionpro->peut_inscrire)
+                                    <form action="{{route('inscription', $sessionpro)}}" method="post">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="btn btn-sm mb-2 {{$user->sessionpros->contains($sessionpro->id)? 'btn-warning' : 'btn-info'}}">
+                                            {{ !$user->sessionpros->contains($sessionpro->id)? "S'inscrire" : "Se désinscrire"}}
+                                        </button>
+                                    </form>
+                                    @endif
                                     @if(!$sessionpro->peut_demander)
                                         <form action="{{route('sessionpros.openRequest', $sessionpro)}}" method="post">
                                             @csrf

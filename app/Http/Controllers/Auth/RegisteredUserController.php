@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Sessionpro;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -55,5 +56,13 @@ class RegisteredUserController extends Controller
 
 
         return redirect(route('agents', absolute: false));
+    }
+
+    public function enrollment(Request $request, Sessionpro $sessionpro)
+    {
+        $user=$request->user();
+        $sessionpro=Sessionpro::find($sessionpro->id);
+        $user->sessionpros->contains($sessionpro->id)?$user->sessionpros()->detach($sessionpro->id):$user->sessionpros()->attach($sessionpro->id); 
+        return redirect()->route('sessionpros.index', $sessionpro->formation_id);
     }
 }

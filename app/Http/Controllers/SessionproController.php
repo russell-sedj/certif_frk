@@ -7,18 +7,18 @@ use App\Http\Requests\StoreSessionproRequest;
 use App\Http\Requests\UpdateSessionproRequest;
 use App\Models\Formation;
 use App\Models\Lieu;
-
+use Illuminate\Http\Request;
 class SessionproController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Formation $formation)
+    public function index(Formation $formation, Request $request)
     {
         $sessionpros = $formation->sessionpros;
         $lieus=Lieu::all();
-
-        return view('sessionpros.index', compact('sessionpros', 'formation', 'lieus'));
+        $user=$request->user();
+        return view('sessionpros.index', compact('sessionpros', 'formation', 'lieus','user'));
     }
 
     /**
@@ -76,12 +76,12 @@ class SessionproController extends Controller
         $sessionpro->date_fin = $request->date_fin;
         $sessionpro->heure_debut = $request->heure_debut;
         $sessionpro->heure_fin = $request->heure_fin;
-        if ($request->has('peut_inscrire')) {
+        /*if ($request->has('peut_inscrire')) {
             $sessionpro->peut_inscrire = $request->peut_inscrire;
         }
         if ($request->has('peut_demander')) {
             $sessionpro->peut_demander = $request->peut_demander;
-        }
+        }*/
         $sessionpro->lieu_id = $request->lieu_id;
         $sessionpro->formation_id = $request->formation_id;
         $sessionpro->save();
@@ -100,6 +100,7 @@ class SessionproController extends Controller
 
     public function actionInscription(Sessionpro $sessionpro)
     {
+        //$sessionpro = Sessionpro::find($sessionpro->id);
         if($sessionpro->peut_inscrire == false){
             $sessionpro->peut_inscrire = true;
         }

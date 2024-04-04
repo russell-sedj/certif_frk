@@ -28,7 +28,7 @@ class Sessionpro extends Model
         return $this->belongsTo(Lieu::class);
     }
 
-    public function presences(){
-        return $this->hasMany(Presence::class);
+    public function users(){
+        return $this->belongsToMany(User::class);
     }
 }

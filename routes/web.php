@@ -9,9 +9,11 @@ use App\Models\User;
 use App\Http\Controllers\LieuController;
 use App\Http\Controllers\SessionproController;
 use App\Http\Controllers\PresenceController;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 Route::get('/', function () {
-    if (Route::has('login')){
+    if(Auth::check()){
     return redirect()->route('dashboard');
     }
     else{                      
@@ -75,4 +77,10 @@ Route::controller(PresenceController::class)->group(function(){
     Route::get('/presences/{presence}/edit', 'edit')->name('presences.edit');
 });
 
+Route::put('/inscription/{sessionpro}', [RegisteredUserController::class, 'enrollment'])->name('inscription');
+
+Route::get('/mesformations', function (Request $request) {
+    $user=$request->user();
+    return view('mesformations', compact('user'));
+})->name('mesformations');
 require __DIR__.'/auth.php';

@@ -6,7 +6,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -50,7 +49,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function presences(){
-        return $this->belongsToMany(Presence::class);
+    public function sessionpros(){
+        return $this->belongsToMany(Sessionpro::class);
     }
 }

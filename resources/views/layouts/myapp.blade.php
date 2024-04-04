@@ -95,9 +95,9 @@
             </li>
             <li
                 class="sidebar-item">
-                <a href="index.html" class='sidebar-link'>
+                <a href="{{route('mesformations')}}" class='sidebar-link'>
                     <i class="bi bi-mortarboard-fill"></i>
-                    <span>Formations</span>
+                    <span>Mes formations</span>
                 </a>
                 
 
