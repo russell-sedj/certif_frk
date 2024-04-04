@@ -18,4 +18,8 @@ class Presence extends Model
     public function sessionpro(){
         return $this->belongsTo(Sessionpro::class);
     }
+
+    public function users(){
+        return $this->belongsToMany(User::class);
+    }
 }
