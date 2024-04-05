@@ -5,10 +5,13 @@
         <div class="col-md-12">
             <div class="card">
             <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span>Liste des sessions</span>
-                        <a href="{{route('sessionpros.create',$formation)}}" class="btn btn-success">Ajouter une session</a>
-                    </div>
+                <h1 class="mb-4 fs-2">Thème: {{ $theme }}</h1>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3>Liste des sessions du thème</h3>
+                    <a href="{{route('sessionpros.store',$formation)}}" class="btn btn-success">Ajouter une session</a>
+                </div>
+            </div>
+            <div class="card-body">
                 </div>
                     <table class="table table-responsive">
                         <thead>
@@ -24,7 +27,7 @@
                         <tbody>
                         @if($sessionpros)
                         @foreach($sessionpros as $sessionpro)
-                            <tr>
+                            <tr class="cursor-pointer" onclick="window.location='{{ route('sessionpros.show', $sessionpro) }}'">
                                 <td>{{$sessionpro->date_debut}}</td>
                                 <td>{{$sessionpro->date_fin}}</td>
                                 <td>{{$sessionpro->heure_debut}}</td>
@@ -33,7 +36,7 @@
                                         {{$sessionpro->lieu->ville}}@if($sessionpro->lieu->adresse), {{$sessionpro->lieu->adresse}}@endif                                    
                                 </td>
                                 <td>
-                                    <a href="{{ route('presences.index', $sessionpro) }}"class="btn btn-sm btn-primary mb-2 mt-2">Voir</a>
+                                    <a href="{{ route('presences.index', $sessionpro) }}" class="btn btn-sm btn-primary mb-2 mt-2">Voir</a>
                                     
                                     <form action="{{route('sessionpros.actionInscription', $sessionpro)}}" method="post">
                                         @csrf

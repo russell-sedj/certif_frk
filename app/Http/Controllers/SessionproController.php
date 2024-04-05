@@ -16,9 +16,10 @@ class SessionproController extends Controller
     public function index(Formation $formation, Request $request)
     {
         $sessionpros = $formation->sessionpros;
-        $lieus=Lieu::all();
+        $theme = $formation->theme;
+        // $lieus=Lieu::all();
         $user=$request->user();
-        return view('sessionpros.index', compact('sessionpros', 'formation', 'lieus','user'));
+        return view('sessionpros.index', compact('sessionpros', 'formation', 'user', 'theme'));
     }
 
     /**
@@ -53,7 +54,9 @@ class SessionproController extends Controller
      */
     public function show(Sessionpro $sessionpro)
     {
-        //
+        $theme = $sessionpro->formation->theme;
+
+        return view('sessionpros.show', compact('sessionpro', 'theme'));
     }
 
     /**
@@ -118,5 +121,20 @@ class SessionproController extends Controller
         $sessionpro-> save();
 
         return redirect()->route('sessionpros.index', $sessionpro->formation_id);
+    }
+
+    public function dashboard()
+    {
+        $sessionpros = Sessionpro::all();
+
+        return view('sessionpros.dashboard', compact('sessionpros'));
+    }
+
+    public function participants(Sessionpro $sessionpro)
+    {
+        $users = $sessionpro->users;
+        $theme = $sessionpro->formation->theme;
+
+        return view('sessionpros.participants', compact('sessionpro', 'users', 'theme'));
     }
 }

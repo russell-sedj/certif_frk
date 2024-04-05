@@ -13,17 +13,17 @@ return new class extends Migration
     {
         Schema::create('sessionpros', function (Blueprint $table) {
             $table->id();
-            $table->date('date_debut')->nullable();
-            $table->date('date_fin')->nullable();
-            $table->time('heure_debut')->nullable();
-            $table->time('heure_fin')->nullable();
+            $table->date('date_debut');
+            $table->date('date_fin');
+            $table->time('heure_debut');
+            $table->time('heure_fin');
             $table->boolean('peut_inscrire')->default(false);
             $table->boolean('peut_demander')->default(false);
 
             $table->unsignedBigInteger('formation_id');
             $table->foreign('formation_id')->references('id')->on('formations')->onDelete('cascade');
             
-            $table->unsignedBigInteger('lieu_id')->nullable();
+            $table->unsignedBigInteger('lieu_id');
             $table->foreign('lieu_id')->references('id')->on('lieus');
 
             $table->timestamps();

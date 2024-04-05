@@ -95,6 +95,15 @@
             </li>
             <li
                 class="sidebar-item">
+                <a href="{{route('sessionpros.dashboard')}}" class='sidebar-link'>
+                    <i class="bi bi-mortarboard-fill"></i>
+                    <span>Mes sessions</span>
+                </a>
+                
+
+            </li>
+            <li
+                class="sidebar-item">
                 <a href="{{route('mesformations')}}" class='sidebar-link'>
                     <i class="bi bi-mortarboard-fill"></i>
                     <span>Mes formations</span>
