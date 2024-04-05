@@ -23,17 +23,24 @@ class PresenceController extends Controller
      */
     public function create(Sessionpro $sessionpro)
     {
-        return view('presences.create', compact('sessionpro'));
+        // return view('presences.create', compact('sessionpro'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePresenceRequest $request)
+    public function store(Sessionpro $sessionpro)
     {
+        $lastPresence = $sessionpro->presences()->latest()->first();
+        if($lastPresence && $lastPresence->est_actif) {
+            return redirect()->back()->with('error', 'La derniere présence est encore active');
+        }
+
         $presence = new Presence;
-        $presence->date = $request->date;
-        $presence->sessionpro_id = $request->sessionpro_id;
+        $presence->date = date('Y-m-d');
+        $presence->est_actif = true;
+        // $presence->sessionpro_id = $request->sessionpro_id;
+        $presence->sessionpro_id = $sessionpro->id;
         $presence->save();
         
         return redirect()->route('presences.index', $presence->sessionpro_id);

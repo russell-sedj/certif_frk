@@ -5,10 +5,20 @@
         <div class="col-md-12">
             <div class="card">
             <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span>Présences</span>
-                        <a href="{{route('presences.create',$sessionpro)}}" class="btn btn-success">Ajouter une présence</a>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h1>Présences</h1>
+                    <form action="{{ route('presences.store', $sessionpro) }}" method="post">
+                        @csrf
+                        <button class="btn btn-success" type="submit">Ajouter une présence</button>
+                    </form>
+                </div>
+            </div>
+            <div class="card-body">
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
                     </div>
+                @endif
                 </div>
                     <table class="table table-responsive">
                         <thead>

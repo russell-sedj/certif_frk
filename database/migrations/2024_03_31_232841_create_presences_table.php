@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->date('date');
             $table->boolean('est_actif')->default(false);
+            $table->integer('nb_participants');
 
             $table->unsignedBigInteger('sessionpro_id');
             $table->foreign('sessionpro_id')->references('id')->onDelete('cascade')->on('sessionpros');

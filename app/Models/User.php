@@ -49,6 +49,10 @@ class User extends Authenticatable
         ];
     }
 
+    public function presences(){
+        return $this->belongsToMany(Presence::class);
+    }
+
     public function sessionpros(){
         return $this->belongsToMany(Sessionpro::class);
     }

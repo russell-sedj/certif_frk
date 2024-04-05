@@ -11,6 +11,7 @@ use App\Http\Controllers\SessionproController;
 use App\Http\Controllers\PresenceController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     if(Auth::check()){
@@ -20,6 +21,7 @@ Route::get('/', function () {
     return view('auth.login');
     }
 });
+
 Route::get('/dashboard', function () {
     $categories=Categorie::all();
     return view('mydashboard', compact('categories'));
@@ -65,16 +67,19 @@ Route::controller(SessionproController::class)->group(function(){
     Route::delete('/sessionpros/{sessionpro}/{formation}', 'destroy')->name('sessionpros.destroy');
     Route::get('/sessionpros/{formation}/create', 'create')->name('sessionpros.create');
     Route::get('/sessionpros/{sessionpro}/edit', 'edit')->name('sessionpros.edit');
+    Route::get('/sessionpros/{sessionpro}/show', 'show')->name('sessionpros.show');
+    Route::get('/sessionpros/dashboard', 'dashboard')->name('sessionpros.dashboard');
+    Route::get('/sessionpros/{sessionpro}/participants','participants')->name('sessionpros.participants');
 });
 
 Route::controller(PresenceController::class)->group(function(){
-    Route::post('/presences', 'store')->name('presences.store');
+    Route::post('/presences/{sessionpro}/store', 'store')->name('presences.store');
     Route::get('/presences/{sessionpro}', 'index')->name('presences.index');
-    Route::put('/presences/{presence}', 'update')->name('presences.update');
+    // Route::put('/presences/{presence}', 'update')->name('presences.update');
     Route::put('/presences/{presence}/activate', 'activate')->name('presences.activate');
     Route::delete('/presences/{presence}/{sessionpro}', 'destroy')->name('presences.destroy');
-    Route::get('/presences/{sessionpro}/create', 'create')->name('presences.create');
-    Route::get('/presences/{presence}/edit', 'edit')->name('presences.edit');
+    // Route::get('/presences/{sessionpro}/create', 'create')->name('presences.create');
+    // Route::get('/presences/{presence}/edit', 'edit')->name('presences.edit');
 });
 
 Route::put('/inscription/{sessionpro}', [RegisteredUserController::class, 'enrollment'])->name('inscription');
@@ -83,4 +88,5 @@ Route::get('/mesformations', function (Request $request) {
     $user=$request->user();
     return view('mesformations', compact('user'));
 })->name('mesformations');
+
 require __DIR__.'/auth.php';
