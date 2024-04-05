@@ -112,6 +112,15 @@
 
             </li>
             <li
+                class="sidebar-item">
+                <a href="" class='sidebar-link'>
+                    <i class="bi bi-bell-fill"></i>
+                    <span>Notifications</span>
+                </a>
+                
+
+            </li>
+            <li
                 class="sidebar-item  has-sub">
                 <a href="#" class='sidebar-link'>
                     <i class="bi bi-person-circle"></i>

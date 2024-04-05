@@ -50,6 +50,6 @@ class User extends Authenticatable
     }
 
     public function sessionpros(){
-        return $this->belongsToMany(Sessionpro::class);
+        return $this->belongsToMany(Sessionpro::class)->using(SessionproUser::class);
     }
 }
