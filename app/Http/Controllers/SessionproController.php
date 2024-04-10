@@ -112,7 +112,8 @@ class SessionproController extends Controller
         }
         $sessionpro->save();
 
-        return redirect()->route('sessionpros.index', $sessionpro->formation_id);
+        return redirect()->back();
+        // return redirect()->route('sessionpros.index', $sessionpro->formation_id);
     }
     
     public function openRequest(Sessionpro $sessionpro)
@@ -120,7 +121,8 @@ class SessionproController extends Controller
         $sessionpro->peut_demander = true;
         $sessionpro-> save();
 
-        return redirect()->route('sessionpros.index', $sessionpro->formation_id);
+        return redirect()->back();
+        // return redirect()->route('sessionpros.index', $sessionpro->formation_id);
     }
 
     public function dashboard()
@@ -136,5 +138,12 @@ class SessionproController extends Controller
         $theme = $sessionpro->formation->theme;
 
         return view('sessionpros.participants', compact('sessionpro', 'users', 'theme'));
+    }
+
+    public function noterParticipant(Sessionpro $sessionpro, $user)
+    {
+        $sessionpro->users()->updateExistingPivot($user, ['note' => request('note')]);
+
+        return redirect()->back();
     }
 }

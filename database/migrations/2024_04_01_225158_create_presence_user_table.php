@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('presence_user', function (Blueprint $table) {
             $table->id();
+            $table->integer('num_presence');
 
             $table->unsignedBiginteger('presence_id');
             $table->unsignedBiginteger('user_id');

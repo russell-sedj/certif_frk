@@ -16,7 +16,7 @@
                                 <th scope="col">Période</th>
                                 <th scope="col">Lieu</th>
                                 <th scope="col">Présence</th>
-                                <th scope="col">Note</th>
+                                <th scope="col">Note / 20</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -24,18 +24,20 @@
                           @foreach($user->sessionpros as $sessionpro)
                             <tr>
                                 <td>{{$sessionpro->formation->theme}}</td>
-                                <td>{{$sessionpro->date_debut}}-{{$sessionpro->date_fin}}</td>
+                                <td>{{$sessionpro->date_debut}} à {{$sessionpro->date_fin}}</td>
                                 <td>{{$sessionpro->lieu->ville}}@if($sessionpro->lieu->adresse), {{$sessionpro->lieu->adresse}}@endif</td>
-                                <td></td>
-                                <td></td>
+                                
+                                <td>{{$user->presences->where('sessionpro_id', $sessionpro->id)->count()}}/{{$sessionpro->presences->count()}}</td>
+                                <td>{{$sessionpro->users->firstWhere('id', $user->id)->pivot->note}} / 20</td>
+
                                 <td>
-                                    <a href=""class="btn btn-sm btn-primary">Marquer une présence</a>
+                                    <a href="{{route('users.marquerPresenceView', ['sessionpro' => $sessionpro, 'user' => $user])}}" class="btn btn-sm btn-primary">Marquer une présence</a>
                                     @if($sessionpro->peut_demander)
                                     <a href="" class="btn btn-sm btn-secondary">Demander l'attestation</a>
                                     @endif
-                                    <form action="" method="POST" style="display: inline;">
+                                    <form action="{{route('inscription', $sessionpro)}}" method="POST" style="display: inline;">
                                     @csrf
-                                    @method('DELETE')
+                                    @method('PUT')
                                         <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
                                     </form>
                                 </td>

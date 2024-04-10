@@ -59,8 +59,10 @@ Route::controller(FormationController::class)->group(function () {
 });
 
 Route::controller(SessionproController::class)->group(function(){
+    Route::get('/sessionpros/dashboard', 'dashboard')->name('sessionpros.dashboard');
     Route::post('/sessionpros', 'store')->name('sessionpros.store');
     Route::get('/sessionpros/{formation}', 'index')->name('sessionpros.index');
+    Route::put('/sessionpros/{sessionpro}/{user}/noterParticipant', 'noterParticipant')->name('sessionpros.noterParticipant');
     Route::put('/sessionpros/{sessionpro}', 'update')->name('sessionpros.update');
     Route::put('/sessionpros/{sessionpro}/actionInscription', 'actionInscription')->name('sessionpros.actionInscription');
     Route::put('/sessionpros/{sessionpro}/openRequest', 'openRequest')->name('sessionpros.openRequest');
@@ -68,7 +70,6 @@ Route::controller(SessionproController::class)->group(function(){
     Route::get('/sessionpros/{formation}/create', 'create')->name('sessionpros.create');
     Route::get('/sessionpros/{sessionpro}/edit', 'edit')->name('sessionpros.edit');
     Route::get('/sessionpros/{sessionpro}/show', 'show')->name('sessionpros.show');
-    Route::get('/sessionpros/dashboard', 'dashboard')->name('sessionpros.dashboard');
     Route::get('/sessionpros/{sessionpro}/participants','participants')->name('sessionpros.participants');
 });
 
@@ -88,5 +89,8 @@ Route::get('/mesformations', function (Request $request) {
     $user=$request->user();
     return view('mesformations', compact('user'));
 })->name('mesformations');
+
+Route::get('/users/marquerPresence/{sessionpro}/{user}', [RegisteredUserController::class, 'marquerPresenceView'])->name('users.marquerPresenceView');
+Route::post('/users/marquerPresence/{presence}/{user}', [RegisteredUserController::class, 'marquerPresence'])->name('users.marquerPresence');
 
 require __DIR__.'/auth.php';

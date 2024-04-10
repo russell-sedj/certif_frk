@@ -29,7 +29,7 @@ class PresenceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Sessionpro $sessionpro)
+    public function store(Sessionpro $sessionpro, StorePresenceRequest $request)
     {
         $lastPresence = $sessionpro->presences()->latest()->first();
         if($lastPresence && $lastPresence->est_actif) {
@@ -39,7 +39,7 @@ class PresenceController extends Controller
         $presence = new Presence;
         $presence->date = date('Y-m-d');
         $presence->est_actif = true;
-        // $presence->sessionpro_id = $request->sessionpro_id;
+        $presence->nb_participants = $request->nb_participants;
         $presence->sessionpro_id = $sessionpro->id;
         $presence->save();
         
@@ -69,6 +69,7 @@ class PresenceController extends Controller
     {
         $presence = Presence::find($presence->id);
         $presence->date = $request->date;
+        $presence->nb_participants = $request->nbparticipants;
         $presence->sessionpro_id = $request->sessionpro_id;
         $presence->save();
 
@@ -94,6 +95,6 @@ class PresenceController extends Controller
         }
         $presence->save();
 
-        return redirect()->route('presences.index', $presence->sessionpro_id);
+        return redirect()->back();
     }
 }
