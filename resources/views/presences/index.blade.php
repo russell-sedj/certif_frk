@@ -39,7 +39,7 @@
                             <tr>
                                 <td>{{$presence->date}}</td>
                                 <td class="d-flex justify-content-between">
-                                    <a href="#"class="btn btn-sm btn-primary">Liste de présences</a>
+                                    <a href="{{route('presences.participantsPresent', ['sessionpro'=>$sessionpro, 'presence'=>$presence])}}"class="btn btn-sm btn-primary">Liste de participants présents</a>
 
                                     <form action="{{route('presences.activate', $presence)}}" method="post">
                                         @csrf

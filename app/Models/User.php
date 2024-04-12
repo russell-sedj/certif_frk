@@ -50,10 +50,10 @@ class User extends Authenticatable
     }
 
     public function presences(){
-        return $this->belongsToMany(Presence::class);
+        return $this->belongsToMany(Presence::class)->withPivot('num_presence');
     }
 
     public function sessionpros(){
-        return $this->belongsToMany(Sessionpro::class)->using(SessionproUser::class);
+        return $this->belongsToMany(Sessionpro::class)->withPivot('nb_presence', 'note')->using(SessionproUser::class);
     }
 }

@@ -32,6 +32,7 @@
                                     </form>
                                     
                                     @if ($presence->users()->where('user_id', $user->id)->exists())
+                                        Numéro: {{$user->presences->firstWhere('id', $presence->id)->pivot->num_presence}}
                                         <i class="bi bi-check-circle-fill text-success ms-3"></i>
                                     @else
                                         <i class="bi bi-x-circle-fill text-danger ms-3"></i>

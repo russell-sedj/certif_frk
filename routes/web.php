@@ -75,12 +75,11 @@ Route::controller(SessionproController::class)->group(function(){
 
 Route::controller(PresenceController::class)->group(function(){
     Route::post('/presences/{sessionpro}/store', 'store')->name('presences.store');
+    Route::get('/presences/participantsPresent/{sessionpro}/{presence}', 'participantsPresent')->name('presences.participantsPresent');
     Route::get('/presences/{sessionpro}', 'index')->name('presences.index');
-    // Route::put('/presences/{presence}', 'update')->name('presences.update');
     Route::put('/presences/{presence}/activate', 'activate')->name('presences.activate');
+    Route::delete('/presences/deleteParticipantPresent/{presence}/{participant}', 'deleteParticipantPresent')->name('presences.deleteParticipantPresent');
     Route::delete('/presences/{presence}/{sessionpro}', 'destroy')->name('presences.destroy');
-    // Route::get('/presences/{sessionpro}/create', 'create')->name('presences.create');
-    // Route::get('/presences/{presence}/edit', 'edit')->name('presences.edit');
 });
 
 Route::put('/inscription/{sessionpro}', [RegisteredUserController::class, 'enrollment'])->name('inscription');

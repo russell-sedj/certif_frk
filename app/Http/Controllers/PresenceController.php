@@ -6,6 +6,7 @@ use App\Models\Presence;
 use App\Http\Requests\StorePresenceRequest;
 use App\Http\Requests\UpdatePresenceRequest;
 use App\Models\Sessionpro;
+use App\Models\User;
 
 class PresenceController extends Controller
 {
@@ -95,6 +96,18 @@ class PresenceController extends Controller
         }
         $presence->save();
 
+        return redirect()->back();
+    }
+
+    public function participantsPresent(Sessionpro $sessionpro, Presence $presence)
+    {
+        $participants = $presence->users;
+        return view('presences.participantsPresents', compact('participants','sessionpro','presence'));
+    }
+
+    public function deleteParticipantPresent(Presence $presence, User $participant)
+    {
+        $presence->users()->detach($participant);
         return redirect()->back();
     }
 }
