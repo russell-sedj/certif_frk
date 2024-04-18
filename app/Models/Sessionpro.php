@@ -33,6 +33,6 @@ class Sessionpro extends Model
     }
     
     public function users(){
-        return $this->belongsToMany(User::class)->using(SessionproUser::class);
+        return $this->belongsToMany(User::class)->withPivot('nb_presence', 'note')->using(SessionproUser::class);
     }
 }

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use App\Models\Presence;
 
 class RegisteredUserController extends Controller
 {
@@ -63,6 +64,28 @@ class RegisteredUserController extends Controller
         $user=$request->user();
         $sessionpro=Sessionpro::find($sessionpro->id);
         $user->sessionpros->contains($sessionpro->id)?$user->sessionpros()->detach($sessionpro->id):$user->sessionpros()->attach($sessionpro->id); 
-        return redirect()->route('sessionpros.index', $sessionpro->formation_id);
+        
+        return redirect()->back();
+        //return redirect()->route('sessionpros.index', $sessionpro->formation_id);
+    }
+    
+    public function marquerPresenceView(Sessionpro $sessionpro, User $user)
+    {
+        $presences = $sessionpro->presences;
+        return view('users.marquerPresenceView', compact('user', 'sessionpro', 'presences'));
+    }
+
+    public function marquerPresence(Presence $presence, User $user, Request $request)
+    {
+        $num_presence = $request->num_presence;
+        
+        if ($presence->users()->wherePivot('num_presence', $num_presence)->exists()) {
+            return redirect()->back()->with('error', 'Numéro de présence déjà utilisé');
+        }
+        else {
+            $presence->users()->attach($user->id, ['num_presence'=>$num_presence]);
+            return redirect()->back();
+        }
+        
     }
 }

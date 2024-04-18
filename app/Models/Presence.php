@@ -12,6 +12,7 @@ class Presence extends Model
     protected $fillable = [
         'date',
         'statut',
+        'nb_participants',
         'sessionpro_id',
     ];
 
@@ -20,6 +21,6 @@ class Presence extends Model
     }
 
     public function users(){
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withPivot('num_presence');
     }
 }

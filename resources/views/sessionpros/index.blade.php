@@ -16,10 +16,8 @@
                     <table class="table table-responsive">
                         <thead>
                             <tr>
-                                <th scope="col">Date de debut</th>
-                                <th scope="col">Date de fin</th>
-                                <th scope="col">Heure de debut</th>
-                                <th scope="col">Heure de fin</th>
+                                <th scope="col">Periode</th>
+                                <th scope="col">Horaire</th>
                                 <th scope="col">Lieu</th>
                                 <th scope="col">Actions</th>
                             </tr>
@@ -28,20 +26,18 @@
                         @if($sessionpros)
                         @foreach($sessionpros as $sessionpro)
                             <tr class="cursor-pointer" onclick="window.location='{{ route('sessionpros.show', $sessionpro) }}'">
-                                <td>{{$sessionpro->date_debut}}</td>
-                                <td>{{$sessionpro->date_fin}}</td>
-                                <td>{{$sessionpro->heure_debut}}</td>
-                                <td>{{$sessionpro->heure_fin}}</td>
+                                <td>{{$sessionpro->date_debut}} à {{$sessionpro->date_fin}}</td>
+                                <td>{{$sessionpro->heure_debut}} à {{$sessionpro->heure_fin}}</td>
                                 <td>
                                         {{$sessionpro->lieu->ville}}@if($sessionpro->lieu->adresse), {{$sessionpro->lieu->adresse}}@endif                                    
                                 </td>
                                 <td>
-                                    <a href="{{ route('presences.index', $sessionpro) }}" class="btn btn-sm btn-primary mb-2 mt-2">Voir</a>
+                                    <a href="{{ route('presences.index', $sessionpro) }}" class="btn btn-sm btn-primary mb-2 mt-2">Voir les presences</a>
                                     
                                     <form action="{{route('sessionpros.actionInscription', $sessionpro)}}" method="post">
                                         @csrf
                                         @method('PUT')
-                                        <button type="submit" class="btn btn-sm mb-2 {{$sessionpro->peut_inscrire ? 'btn-warning' : 'btn-info'}}">
+                                        <button type="submit" class="btn btn-sm mb-2 {{$sessionpro->peut_inscrire ? 'btn-warning' : 'btn-success'}}">
                                             {{ !$sessionpro->peut_inscrire ? 'Ouvrir inscription' : 'Cloturer inscription'}}
                                         </button>
                                     </form>

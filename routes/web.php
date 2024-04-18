@@ -61,9 +61,11 @@ Route::controller(FormationController::class)->group(function () {
 });
 
 Route::controller(SessionproController::class)->group(function(){
+    Route::get('/sessionpros/dashboard', 'dashboard')->name('sessionpros.dashboard');
     Route::post('/sessionpros', 'store')->name('sessionpros.store');
     Route::get('/sessionpros/dashboard', 'dashboard')->name('sessionpros.dashboard');
     Route::get('/sessionpros/{formation}', 'index')->name('sessionpros.index');
+    Route::put('/sessionpros/{sessionpro}/{user}/noterParticipant', 'noterParticipant')->name('sessionpros.noterParticipant');
     Route::put('/sessionpros/{sessionpro}', 'update')->name('sessionpros.update');
     Route::put('/sessionpros/{sessionpro}/actionInscription', 'actionInscription')->name('sessionpros.actionInscription');
     Route::put('/sessionpros/{sessionpro}/openRequest', 'openRequest')->name('sessionpros.openRequest');
@@ -76,12 +78,11 @@ Route::controller(SessionproController::class)->group(function(){
 
 Route::controller(PresenceController::class)->group(function(){
     Route::post('/presences/{sessionpro}/store', 'store')->name('presences.store');
+    Route::get('/presences/participantsPresent/{sessionpro}/{presence}', 'participantsPresent')->name('presences.participantsPresent');
     Route::get('/presences/{sessionpro}', 'index')->name('presences.index');
-    // Route::put('/presences/{presence}', 'update')->name('presences.update');
     Route::put('/presences/{presence}/activate', 'activate')->name('presences.activate');
+    Route::delete('/presences/deleteParticipantPresent/{presence}/{participant}', 'deleteParticipantPresent')->name('presences.deleteParticipantPresent');
     Route::delete('/presences/{presence}/{sessionpro}', 'destroy')->name('presences.destroy');
-    // Route::get('/presences/{sessionpro}/create', 'create')->name('presences.create');
-    // Route::get('/presences/{presence}/edit', 'edit')->name('presences.edit');
 });
 
 Route::put('/inscription/{sessionpro}', [RegisteredUserController::class, 'enrollment'])->name('inscription');
@@ -90,6 +91,9 @@ Route::get('/mesformations', function (Request $request) {
     $user=$request->user();
     return view('mesformations', compact('user'));
 })->name('mesformations');
+
+Route::get('/users/marquerPresence/{sessionpro}/{user}', [RegisteredUserController::class, 'marquerPresenceView'])->name('users.marquerPresenceView');
+Route::post('/users/marquerPresence/{presence}/{user}', [RegisteredUserController::class, 'marquerPresence'])->name('users.marquerPresence');
 
 Route::controller(DemandeController::class)->group(function(){
     Route::get('/mesdemandes', 'indexAgent')->name('demandesAgent.index');

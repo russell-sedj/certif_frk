@@ -5,10 +5,16 @@
         <div class="col-md-12">
             <div class="card">
             <div class="card-header">
+                <h1 class="mb-4 fs-2">Thème: {{ $sessionpro->formation->theme }}</h1>
+                <h4 class="mb-4">Lieu: {{$sessionpro->lieu->ville}}@if($sessionpro->lieu->adresse), {{$sessionpro->lieu->adresse}}@endif</h4>
                 <div class="d-flex justify-content-between align-items-center">
-                    <h1>Présences</h1>
+                    <h3>Présences</h3>
                     <form action="{{ route('presences.store', $sessionpro) }}" method="post">
                         @csrf
+                        <div class="form-group">
+                            <label for="nb_participants">Nombre de Participants: </label>
+                            <input type="number" name="nb_participants" min="0" class="form-control" required>
+                        </div>
                         <button class="btn btn-success" type="submit">Ajouter une présence</button>
                     </form>
                 </div>
@@ -33,7 +39,7 @@
                             <tr>
                                 <td>{{$presence->date}}</td>
                                 <td class="d-flex justify-content-between">
-                                    <a href="#"class="btn btn-sm btn-primary">Liste de présences</a>
+                                    <a href="{{route('presences.participantsPresent', ['sessionpro'=>$sessionpro, 'presence'=>$presence])}}"class="btn btn-sm btn-primary">Liste de participants présents</a>
 
                                     <form action="{{route('presences.activate', $presence)}}" method="post">
                                         @csrf

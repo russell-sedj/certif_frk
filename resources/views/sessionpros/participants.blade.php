@@ -4,20 +4,20 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-            <div class="card-header">
-                <h1 class="mb-4 fs-2">Thème: {{ $theme }}</h1>
-                <h3 class="mb-4">Lieu: {{$sessionpro->lieu->ville}}@if($sessionpro->lieu->adresse), {{$sessionpro->lieu->adresse}}@endif</h3>
-                <div class="d-flex justify-content-between align-items-center">
-                    <h3>Liste des participants à la session</h3>
-                    <<a href="/*route('sessionpros.store',$formation)*/}}" class="btn btn-success">Ajouter une session</a>
+                <div class="card-header">
+                    <h1 class="mb-4 fs-2">Thème: {{ $theme }}</h1>
+                    <h4 class="mb-4">Lieu: {{$sessionpro->lieu->ville}}@if($sessionpro->lieu->adresse), {{$sessionpro->lieu->adresse}}@endif</h4>
+                    <div class="d-flex justify-content-between align-items-center mt-5">
+                        <h3>Liste des participants à la session</h3>
+                    </div>
                 </div>
-            </div>
-            <div class="card-body">
-                </div>
+                <div class="card-body">
                     <table class="table table-responsive">
                         <thead>
                             <tr>
                                 <th scope="col">Nom et Prénoms</th>
+                                <th scope="col">Nombre de présences</th>
+                                <th scope="col">Note /20</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -26,15 +26,20 @@
                         @foreach($users as $user)
                             <tr>
                                 <td>{{$user->name}} {{$user->surname}}</td>
+                                <td>{{$user->presences->where('sessionpro_id', $sessionpro->id)->count()}}/{{$sessionpro->presences->count()}}</td>
                                 <td>
-                                    
-                                    <a href="#" class="btn btn-sm btn-primary mb-2 mt-2">Noter</a>
-                                    
-                                    {{-- <form action="{{route('sessionpros.destroy', [$sessionpro->id, $sessionpro->formation])}}" method="POST" style="display: inline;"> --}}
-                                    <form action="#" method="POST" style="display: inline;">
+                                    <form action="{{route('sessionpros.noterParticipant', [$sessionpro, $user])}}" method="post">
+                                        @csrf
+                                        @method('PUT')
+                                        <input required type="number" name="note" value="{{ $sessionpro->users->firstWhere('id', $user->id)->pivot->note }}" min="0" max="20" step="0.01"> / 20
+                                        <button type="submit" class="btn btn-secondary">Modifier note</button>
+                                    </form>
+                                </td>
+                                <td>                                    
+                                    <form action="{{route('inscription', $sessionpro)}}" method="POST" style="display: inline;">
                                     @csrf
-                                    @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger mb-2" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')">Supprimer</button>
+                                    @method('PUT')
+                                        <button type="submit" class="btn btn-sm btn-danger mb-2" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce participant ?')">Supprimer</button>
                                     </form>
                                 </td>
                             </tr>
