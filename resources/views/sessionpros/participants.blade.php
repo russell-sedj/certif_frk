@@ -9,7 +9,7 @@
                 <h3 class="mb-4">Lieu: {{$sessionpro->lieu->ville}}@if($sessionpro->lieu->adresse), {{$sessionpro->lieu->adresse}}@endif</h3>
                 <div class="d-flex justify-content-between align-items-center">
                     <h3>Liste des participants à la session</h3>
-                    <a href="{{route('sessionpros.store',$formation)}}" class="btn btn-success">Ajouter une session</a>
+                    <<a href="/*route('sessionpros.store',$formation)*/}}" class="btn btn-success">Ajouter une session</a>
                 </div>
             </div>
             <div class="card-body">

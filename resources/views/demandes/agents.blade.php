@@ -4,8 +4,7 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Email Application</h3>
-                <p class="text-subtitle text-muted">A full inbox-ui for you to implement messaging.</p>
+                <h3>Notifications</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -59,71 +58,7 @@
                                     </div>
                                     Sent
                                 </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="fonticon-wrap d-inline me-3">
-
-                                        <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                            <use
-                                                xlink:href="assets/static/images/bootstrap-icons.svg#pencil" />
-                                        </svg>
-                                    </div> Draft
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="fonticon-wrap d-inline me-3">
-
-                                        <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                            <use xlink:href="assets/static/images/bootstrap-icons.svg#star" />
-                                        </svg>
-                                    </div>
-                                    Starred
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="fonticon-wrap d-inline me-3">
-
-                                        <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                            <use
-                                                xlink:href="assets/static/images/bootstrap-icons.svg#info-circle" />
-                                        </svg>
-                                    </div>
-                                    Spam
-                                    <span
-                                        class="badge bg-light-danger badge-pill badge-round float-right mt-50">3</span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="fonticon-wrap d-inline me-3">
-                                        <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                            <use
-                                                xlink:href="assets/static/images/bootstrap-icons.svg#trash" />
-                                        </svg>
-                                    </div>
-                                    Trash
-                                </a>
-                            </div>
-                            <!-- sidebar menu  end-->
-
-                            <!-- sidebar label start -->
-                            <label class="sidebar-label">Labels</label>
-                            <div class="list-group list-group-labels">
-                                <a href="#" class="list-group-item d-flex justify-content-between align-items-center">
-                                    Product
-                                    <span class="bullet bullet-success bullet-sm"></span>
-                                </a>
-                                <a href="#" class="list-group-item d-flex justify-content-between align-items-center">
-                                    Work
-                                    <span class="bullet bullet-primary bullet-sm"></span>
-                                </a>
-                                <a href="#" class="list-group-item d-flex justify-content-between align-items-center">
-                                    Misc
-                                    <span class="bullet bullet-warning bullet-sm"></span>
-                                </a>
-                                <a href="#" class="list-group-item d-flex justify-content-between align-items-center">
-                                    Family
-                                    <span class="bullet bullet-danger bullet-sm"></span>
-                                </a>
-                                <a href="#" class="list-group-item d-flex justify-content-between align-items-center">
-                                    Design
-                                    <span class="bullet bullet-info bullet-sm"></span>
-                                </a>
+                                
                             </div>
                             <!-- sidebar label end -->
                             <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
@@ -418,6 +353,7 @@
                                 <!-- email user list start -->
                                 <div class="email-user-list list-group ps ps--active-y">
                                     <ul class="users-list-wrapper media-list">
+                                        @foreach($demandes as $demande)
                                         <li class="media mail-read">
                                             <div class="user-action">
                                                 <div class="checkbox-con me-3">
@@ -442,19 +378,18 @@
                                             <div class="media-body">
                                                 <div class="user-details">
                                                     <div class="mail-items">
-                                                        <span class="list-group-item-text text-truncate">Open source
-                                                            project public release 👍</span>
+                                                        <span class="list-group-item-text text-truncate">
+                                                        {{$demande->theme}}</span>
                                                     </div>
                                                     <div class="mail-meta-item">
                                                         <span class="float-right">
-                                                            <span class="mail-date">4:14 AM</span>
+                                                            <span class="mail-date">{{$demande->created_at}}</span>
                                                         </span>
                                                     </div>
                                                 </div>
                                                 <div class="mail-message">
                                                     <p class="list-group-item-text truncate mb-0">
-                                                        Hey John, bah kivu decrete epanorthotic unnotched
-                                                        Argyroneta nonius veratrine preimaginary
+                                                       Votre demande d'attestation a été envoyée avec succès!
                                                     </p>
                                                     <div class="mail-meta-item">
                                                         <span class="float-right">
@@ -464,53 +399,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="media mail-read">
-                                            <div class="user-action">
-                                                <div class="checkbox-con me-3">
-                                                    <div class="checkbox checkbox-shadow checkbox-sm">
-                                                        <input type="checkbox" id="checkboxsmall2"
-                                                            class='form-check-input'>
-                                                        <label for="checkboxsmall2"></label>
-                                                    </div>
-                                                </div>
-                                                <span class="favorite">
-                                                    <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                        <use
-                                                            xlink:href="assets/static/images/bootstrap-icons.svg#star" />
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                            <div class="pr-50">
-                                                <div class="avatar">
-                                                    <img class="rounded-circle" src="./assets/compiled/jpg/3.jpg"
-                                                        alt="Generic placeholder image">
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <div class="user-details">
-                                                    <div class="mail-items">
-                                                        <span class="list-group-item-text text-truncate">Ecommerce
-                                                            website Paypal integration 😃</span>
-                                                    </div>
-                                                    <div class="mail-meta-item">
-                                                        <span class="float-right">
-                                                            <span class="mail-date">2:15 AM</span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="mail-message">
-                                                    <p class="list-group-item-text mb-0 truncate">
-                                                        We will start the new application development soon once
-                                                        this will be completed.
-                                                    </p>
-                                                    <div class="mail-meta-item">
-                                                        <span class="float-right">
-                                                            <span class="bullet bullet-danger bullet-sm"></span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
+                                        @endforeach
                                         <li class="media">
                                             <div class="user-action">
                                                 <div class="checkbox-con me-3">
@@ -560,442 +449,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="media">
-                                            <div class="user-action">
-                                                <div class="checkbox-con me-3">
-                                                    <div class="checkbox checkbox-shadow checkbox-sm">
-                                                        <input type="checkbox" id="checkboxsmall4"
-                                                            class='form-check-input'>
-                                                        <label for="checkboxsmall4"></label>
-                                                    </div>
-                                                </div>
-                                                <span class="favorite">
-
-                                                    <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                        <use
-                                                            xlink:href="assets/static/images/bootstrap-icons.svg#star" />
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                            <div class="pr-50">
-                                                <div class="avatar">
-                                                    <img class="rounded-circle" src="./assets/compiled/jpg/5.jpg"
-                                                        alt="Generic placeholder image">
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <div class="user-details">
-                                                    <div class="mail-items">
-                                                        <span class="list-group-item-text text-truncate">Harness The
-                                                            Power Of Words In Your Life</span>
-                                                    </div>
-                                                    <div class="mail-meta-item">
-                                                        <span class="float-right">
-                                                            <span class="mail-date">Yesterday</span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="mail-message">
-                                                    <p class="list-group-item-text text-truncate mb-0">
-                                                        When the equation, first to ability the forwards, the a but
-                                                        travelling, outlines sentinels
-                                                        bad expand to goodness....
-                                                    </p>
-                                                    <div class="mail-meta-item">
-                                                        <span class="float-right d-flex align-items-center">
-                                                            <i class="bi bi-paperclip me-3"></i>
-                                                            <span class="bullet bullet-warning bullet-sm"></span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="media mail-read">
-                                            <div class="user-action">
-                                                <div class="checkbox-con me-3">
-                                                    <div class="checkbox checkbox-shadow checkbox-sm">
-                                                        <input type="checkbox" id="checkboxsmall5"
-                                                            class='form-check-input'>
-                                                        <label for="checkboxsmall5"></label>
-                                                    </div>
-                                                </div>
-                                                <span class="favorite">
-
-                                                    <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                        <use
-                                                            xlink:href="assets/static/images/bootstrap-icons.svg#star" />
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                            <div class="pr-50">
-                                                <div class="avatar">
-                                                    <img class="rounded-circle" src="./assets/compiled/jpg/3.jpg"
-                                                        alt="Generic placeholder image">
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <div class="user-details">
-                                                    <div class="mail-items">
-                                                        <span class="list-group-item-text text-truncate mb-0">Helen
-                                                            Keller A Teller And A Seller</span>
-                                                    </div>
-                                                    <div class="mail-meta-item">
-                                                        <span class="float-right">
-                                                            <span class="mail-date">15 July</span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="mail-message">
-                                                    <p class="list-group-item-text mb-0 truncate">
-                                                        Thanks for your feedback ! Here's a new layout for a new Modern
-                                                        Admin theme.
-                                                    </p>
-                                                    <div class="mail-meta-item">
-                                                        <span class="float-right d-flex align-items-center">
-                                                            <i class="bi bi-paperclip me-3"></i>
-                                                            <span class="bullet bullet-warning bullet-sm"></span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="media mail-read">
-                                            <div class="user-action">
-                                                <div class="checkbox-con me-3">
-                                                    <div class="checkbox checkbox-shadow checkbox-sm">
-                                                        <input type="checkbox" id="checkboxsmall6"
-                                                            class='form-check-input'>
-                                                        <label for="checkboxsmall6"></label>
-                                                    </div>
-                                                </div>
-                                                <span class="favorite text-warning">
-                                                    <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                        <use
-                                                            xlink:href="assets/static/images/bootstrap-icons.svg#star-fill" />
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                            <div class="pr-50">
-                                                <div class="avatar">
-                                                    <img class="rounded-circle" src="./assets/compiled/jpg/8.jpg"
-                                                        alt="Generic placeholder image">
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <div class="user-details">
-                                                    <div class="mail-items">
-                                                        <span class="list-group-item-text text-truncate mb-0">
-                                                            Use Your Reset Button To Change Your Vibration 🎉
-                                                        </span>
-                                                    </div>
-                                                    <div class="mail-meta-item">
-                                                        <span class="float-right">
-                                                            <span class="mail-date">12-07-2019</span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="mail-message">
-                                                    <p class="list-group-item-text mb-0 truncate">
-                                                        Hey John, bah kivu decrete epanorthotic unnotched
-                                                        Argyroneta nonius veratrine preimaginary.</p>
-                                                    <div class="mail-meta-item">
-                                                        <span class="float-right">
-                                                            <span class="bullet bullet-info bullet-sm"></span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="media">
-                                            <div class="user-action">
-                                                <div class="checkbox-con me-3">
-                                                    <div class="checkbox checkbox-shadow checkbox-sm">
-                                                        <input type="checkbox" id="checkboxsmall7"
-                                                            class='form-check-input'>
-                                                        <label for="checkboxsmall7"></label>
-                                                    </div>
-                                                </div>
-                                                <span class="favorite text-warning">
-                                                    <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                        <use
-                                                            xlink:href="assets/static/images/bootstrap-icons.svg#star-fill" />
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                            <div class="pr-50">
-                                                <div class="avatar">
-                                                    <img class="rounded-circle" src="./assets/compiled/jpg/5.jpg"
-                                                        alt="Generic placeholder image">
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <div class="user-details">
-                                                    <div class="mail-items">
-                                                        <span class="list-group-item-text text-truncate mb-0">Harness
-                                                            The Power Of Words In Your Life</span>
-                                                    </div>
-                                                    <div class="mail-meta-item">
-                                                        <span class="float-right">
-                                                            <span class="mail-date">03-29-2019</span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="mail-message">
-                                                    <p class="list-group-item-text mb-0 truncate">
-                                                        Hope your like it, or feel free to comment, feedback or rebound
-                                                        !
-                                                    </p>
-                                                    <div class="mail-meta-item">
-                                                        <span class="float-right">
-                                                            <span class="bullet bullet-success bullet-sm"></span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="media mail-read">
-                                            <div class="user-action">
-                                                <div class="checkbox-con me-3">
-                                                    <div class="checkbox checkbox-shadow checkbox-sm">
-                                                        <input type="checkbox" id="checkboxsmall8"
-                                                            class='form-check-input'>
-                                                        <label for="checkboxsmall8"></label>
-                                                    </div>
-                                                </div>
-                                                <span class="favorite">
-
-                                                    <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                        <use
-                                                            xlink:href="assets/static/images/bootstrap-icons.svg#star" />
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                            <div class="pr-50">
-                                                <div class="avatar">
-                                                    <img class="rounded-circle" src="./assets/compiled/jpg/8.jpg"
-                                                        alt="Generic placeholder image">
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <div class="user-details">
-                                                    <div class="mail-items">
-                                                        <span class="list-group-item-text text-truncate mb-0">Hypnosis
-                                                            12 Steps To Acquire Mind Power</span>
-                                                    </div>
-                                                    <div class="mail-meta-item">
-                                                        <span class="float-right">
-                                                            <span class="mail-date">19 Jun</span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="mail-message">
-                                                    <p class="list-group-item-text mb-0 truncate">
-                                                        Monstrous with geared from far and these, morals, phase rome;
-                                                        Class. Called get amidst of geared from
-                                                        next...
-                                                    </p>
-                                                    <div class="mail-meta-item">
-                                                        <span class="float-right">
-                                                            <span class="bullet bullet-danger bullet-sm"></span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="media mail-read">
-                                            <div class="user-action">
-                                                <div class="checkbox-con me-3">
-                                                    <div class="checkbox checkbox-shadow checkbox-sm">
-                                                        <input type="checkbox" id="checkboxsmall9"
-                                                            class='form-check-input'>
-                                                        <label for="checkboxsmall9"></label>
-                                                    </div>
-                                                </div>
-                                                <span class="favorite">
-
-                                                    <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                        <use
-                                                            xlink:href="assets/static/images/bootstrap-icons.svg#star" />
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                            <div class="pr-50">
-                                                <div class="avatar">
-                                                    <img class="rounded-circle" src="./assets/compiled/jpg/6.jpg"
-                                                        alt="Generic placeholder image">
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <div class="user-details">
-                                                    <div class="mail-items">
-                                                        <span class="list-group-item-text text-truncate mb-0">How To
-                                                            Stop Living Your Life On Autopilot</span>
-                                                    </div>
-                                                    <div class="mail-meta-item">
-                                                        <span class="float-right">
-                                                            <span class="mail-date">2 Jun</span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="mail-message">
-                                                    <p class="list-group-item-text mb-0 truncate">
-                                                        Thanks for your feedback ! Here's a new layout for a new
-                                                        Modern Admin theme.
-                                                    </p>
-                                                    <div class="mail-meta-item">
-                                                        <span class="float-right">
-                                                            <span class="bullet bullet-info bullet-sm"></span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="media">
-                                            <div class="user-action">
-                                                <div class="checkbox-con me-3">
-                                                    <div class="checkbox checkbox-shadow checkbox-sm">
-                                                        <input type="checkbox" id="checkboxsmall10"
-                                                            class='form-check-input'>
-                                                        <label for="checkboxsmall10"></label>
-                                                    </div>
-                                                </div>
-                                                <span class="favorite">
-
-                                                    <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                        <use
-                                                            xlink:href="assets/static/images/bootstrap-icons.svg#star" />
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                            <div class="pr-50">
-                                                <div class="avatar">
-                                                    <img class="rounded-circle" src="./assets/compiled/jpg/5.jpg"
-                                                        alt="Generic placeholder image">
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <div class="user-details">
-                                                    <div class="mail-items">
-                                                        <span class="list-group-item-text text-truncate mb-0">
-                                                            Invest a few hours contributing to the software
-                                                            you use and love. 🍕
-                                                        </span>
-                                                    </div>
-                                                    <div class="mail-meta-item">
-                                                        <span class="float-right">
-                                                            <span class="mail-date">29 May</span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="mail-message">
-                                                    <p class="list-group-item-text mb-0 truncate">
-                                                        Hope your like it, or feel free to comment, feedback or rebound
-                                                        !
-                                                    </p>
-                                                    <div class="mail-meta-item">
-                                                        <span class="float-right">
-                                                            <span class="bullet bullet-info bullet-sm"></span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="media">
-                                            <div class="user-action">
-                                                <div class="checkbox-con me-3">
-                                                    <div class="checkbox checkbox-shadow checkbox-sm">
-                                                        <input type="checkbox" id="checkboxsmall11"
-                                                            class='form-check-input'>
-                                                        <label for="checkboxsmall11"></label>
-                                                    </div>
-                                                </div>
-                                                <span class="favorite">
-
-                                                    <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                        <use
-                                                            xlink:href="assets/static/images/bootstrap-icons.svg#star" />
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                            <div class="pr-50">
-                                                <div class="avatar">
-                                                    <img class="rounded-circle" src="./assets/compiled/jpg/1.jpg"
-                                                        alt="Generic placeholder image">
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <div class="user-details">
-                                                    <div class="mail-items">
-                                                        <span class="list-group-item-text text-truncate mb-0">Harness
-                                                            The Power Of Words In Your Life</span>
-                                                    </div>
-                                                    <div class="mail-meta-item">
-                                                        <span class="float-right">
-                                                            <span class="mail-date">17 May</span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="mail-message">
-                                                    <p class="list-group-item-text mb-0 truncate">
-                                                        Hope your like it, or feel free to comment, feedback or rebound
-                                                        !.
-                                                    </p>
-                                                    <div class="mail-meta-item">
-                                                        <span class="float-right">
-                                                            <span class="bullet bullet-warning bullet-sm"></span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="media mail-read">
-                                            <div class="user-action">
-                                                <div class="checkbox-con me-3">
-                                                    <div class="checkbox checkbox-shadow checkbox-sm">
-                                                        <input type="checkbox" id="checkboxsmall12"
-                                                            class='form-check-input'>
-                                                        <label for="checkboxsmall12"></label>
-                                                    </div>
-                                                </div>
-                                                <span class="favorite">
-
-                                                    <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                        <use
-                                                            xlink:href="assets/static/images/bootstrap-icons.svg#star" />
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                            <div class="pr-50">
-                                                <div class="avatar">
-                                                    <img class="rounded-circle" src="./assets/compiled/jpg/3.jpg"
-                                                        alt="Generic placeholder image">
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <div class="user-details">
-                                                    <div class="mail-items">
-                                                        <span class="list-group-item-text text-truncate mb-0"> Know
-                                                            Yourself Your Inner Power </span>
-                                                    </div>
-                                                    <div class="mail-meta-item">
-                                                        <span class="float-right">
-                                                            <span class="mail-date">21 Mar</span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="mail-message">
-                                                    <p class="list-group-item-text mb-0 truncate">
-                                                        Hope your like it, or feel free to comment, feedback or rebound
-                                                        !
-                                                    </p>
-                                                    <div class="mail-meta-item">
-                                                        <span class="float-right">
-                                                            <span class="bullet bullet-warning bullet-sm"></span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
+                                        
                                     </ul>
                                     <!-- email user list end -->
 
@@ -1016,109 +470,7 @@
                         <!--/ Email list Area -->
 
                         <!-- Detailed Email View -->
-                        <div class="email-app-details">
-                            <!-- email detail view header -->
-                            <div class="email-detail-header">
-                                <div class="email-header-left d-flex align-items-center mb-1">
-                                    <span class="go-back me-3">
-                                        <span class="fonticon-wrap d-inline">
-                                            <i class="fas fa-chevron-left"></i>
-                                        </span>
-                                    </span>
-                                    <h5 class="email-detail-title font-weight-normal mb-0">
-                                        Advertising Internet Online
-                                        <span class="badge bg-light-danger badge-pill ms-1">PRODUCT</span>
-                                    </h5>
-                                </div>
-                                <div class="email-header-right mb-1 ms-2 pl-1">
-                                    <ul class="list-inline m-0">
-                                        <li class="list-inline-item">
-                                            <button class="btn btn-icon action-icon">
-                                                <span class="fonticon-wrap">
-                                                    <i class="fas fa-trash"></i>
-                                                </span>
-                                            </button>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <button class="btn btn-icon action-icon">
-                                                <span class="fonticon-wrap">
-                                                    <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                        <use
-                                                            xlink:href="assets/static/images/bootstrap-icons.svg#envelope" />
-                                                    </svg>
-                                                </span>
-                                            </button>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <div class="dropdown">
-                                                <button class="btn btn-icon dropdown-toggle action-icon"
-                                                    id="open-mail-menu" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                    <span class="fonticon-wrap">
-                                                        <i class="fas fa-folder"></i>
-                                                    </span>
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-right"
-                                                    aria-labelledby="open-mail-menu">
-                                                    <a class="dropdown-item" href="#"><i class="bi bi-edit"></i>
-                                                        Draft</a>
-                                                    <a class="dropdown-item" href="#"><i class="bi bi-info-circle"></i>
-                                                        Spam</a>
-                                                    <a class="dropdown-item" href="#"><i class="bi bi-trash"></i>
-                                                        Trash</a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <div class="dropdown">
-                                                <button class="btn btn-icon dropdown-toggle action-icon"
-                                                    id="open-mail-tag" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                    <span class="fonticon-wrap">
-                                                        <i class="fas fa-tag"></i>
-                                                    </span>
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-right"
-                                                    aria-labelledby="open-mail-tag">
-                                                    <a href="#" class="dropdown-item align-items-center">
-                                                        <span class="bullet bullet-success bullet-sm"></span>
-                                                        Product
-                                                    </a>
-                                                    <a href="#" class="dropdown-item align-items-center">
-                                                        <span class="bullet bullet-primary bullet-sm"></span>
-                                                        Work
-                                                    </a>
-                                                    <a href="#" class="dropdown-item align-items-center">
-                                                        <span class="bullet bullet-warning bullet-sm"></span>
-                                                        Misc
-                                                    </a>
-                                                    <a href="#" class="dropdown-item align-items-center">
-                                                        <span class="bullet bullet-danger bullet-sm"></span>
-                                                        Family
-                                                    </a>
-                                                    <a href="#" class="dropdown-item align-items-center">
-                                                        <span class="bullet bullet-info bullet-sm"></span>
-                                                        Design
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <span class="no-of-list d-none d-sm-block ms-1">1-10 of 653</span>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <button class="btn btn-icon email-pagination-prev action-icon">
-                                                <i class="bi bi-chevron-left"></i>
-                                            </button>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <button class="btn btn-icon email-pagination-next action-icon">
-                                                <i class="bi bi-chevron-right"></i>
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                        
                             <!-- email detail view header end-->
                             <div class="email-scroll-area ps ps--active-y">
                                 <!-- email details  -->
@@ -1508,4 +860,18 @@
         </div>
     </section>
 </div>
+<script>
+    document.querySelector('.sidebar-toggle').addEventListener('click', () => {
+        document.querySelector('.email-app-sidebar').classList.toggle('show')
+    })
+    document.querySelector('.sidebar-close-icon').addEventListener('click', () => {
+        document.querySelector('.email-app-sidebar').classList.remove('show')
+    })
+    document.querySelector('.compose-btn').addEventListener('click', () => {
+        document.querySelector('.compose-new-mail-sidebar').classList.add('show')
+    })
+    document.querySelector('.email-compose-new-close-btn').addEventListener('click', () => {
+        document.querySelector('.compose-new-mail-sidebar').classList.remove('show')
+    })
+</script>
 @endsection

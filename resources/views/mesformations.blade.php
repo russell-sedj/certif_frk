@@ -31,7 +31,7 @@
                                 <td>
                                     <a href=""class="btn btn-sm btn-primary">Marquer une présence</a>
                                     @if($sessionpro->peut_demander)
-                                    <a href="" class="btn btn-sm btn-secondary">Demander l'attestation</a>
+                                    <a href="{{route('demandes.store', [$sessionpro, $user])}}" class="btn btn-sm btn-secondary">Demander l'attestation</a>
                                     @endif
                                     <form action="" method="POST" style="display: inline;">
                                     @csrf

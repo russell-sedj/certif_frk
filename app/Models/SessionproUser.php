@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class SessionproUser extends Pivot
 {
     //
+    protected $table = 'sessionpro_user';
+
     protected $fillable=[
        'nb_presence',
        'note',
