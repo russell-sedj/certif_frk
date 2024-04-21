@@ -79,13 +79,23 @@ class RegisteredUserController extends Controller
     {
         $num_presence = $request->num_presence;
         
-        if ($presence->users()->wherePivot('num_presence', $num_presence)->exists()) {
-            return redirect()->back()->with('error', 'Numéro de présence déjà utilisé');
-        }
-        else {
-            $presence->users()->attach($user->id, ['num_presence'=>$num_presence]);
+        if($request->has('modifiy')) {
+            $presence->users()->updateExistingPivot($user->id, ['num_presence' => $request->num_presence]);
             return redirect()->back();
         }
-        
+        else {
+            if ($presence->users()->wherePivot('num_presence', $num_presence)->exists()) {
+                return redirect()->back()->with('error', 'Numéro de présence déjà utilisé');
+            }
+            else {
+                $presence->users()->attach($user->id, ['num_presence'=>$num_presence]);
+    
+                $sessionpro = $presence->sessionpro;
+                $nb_presence = $user->presences->where('sessionpro_id', $sessionpro->id)->count();
+                $sessionpro->users()->updateExistingPivot($user->id, ['nb_presence' => $nb_presence]);
+    
+                return redirect()->back();
+            }
+        }
     }
 }

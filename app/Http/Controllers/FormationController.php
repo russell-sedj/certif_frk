@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateFormationRequest;
 use App\Models\Categorie;
 use App\Models\Lieu;
 use App\Models\Sessionpro;
+use Illuminate\Http\Request;
 
 class FormationController extends Controller
 {

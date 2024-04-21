@@ -8,6 +8,18 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <h1>Liste des sessions</h1>
                 </div>
+                <div class="d-flex justify-content-between mt-4">
+                    <form action="{{route('sessionpros.dashboard')}}" method="get">
+                        @csrf
+                        <input type="text" name="category" placeholder="Entrer la catégorie"><br>
+                        <button type="submit" class="btn btn-primary mt-2">Rechercher par categorie</button>
+                    </form>
+                    <form action="{{route('sessionpros.dashboard')}}" method="get">
+                        @csrf
+                        <input type="text" name="formation" placeholder="Entrer la formation"><br>
+                        <button type="submit" class="btn btn-primary mt-2">Rechercher par formation</button>
+                    </form>
+                </div>
             </div>
             <div class="card-body">
                 </div>
@@ -23,7 +35,7 @@
                         <tbody>
                         @if($sessionpros)
                         @foreach($sessionpros as $sessionpro)
-                            <tr class="cursor-pointer" onclick="window.location='{{ route('sessionpros.show', $sessionpro) }}'">
+                            <tr>
                                 <td>{{ $sessionpro->date_debut}} à {{$sessionpro->date_fin }}</td>
 
                                 <td class="text-center">{{ $sessionpro->presences->count() }}</td>
@@ -35,7 +47,7 @@
                                 <td>
                                     <a href="{{ route('presences.index', $sessionpro) }}" class="btn btn-sm btn-primary mb-2 mt-2">Voir les présences</a>
                                     
-                                    <a href="{{ route('sessionpros.participants', $sessionpro) }}" class="btn btn-sm btn-info mb-2 mt-2">Liste des participants</a>
+                                    <a href="{{ route('sessionpros.participants', $sessionpro) }}" class="btn btn-sm btn-info mb-2 mt-2">Liste des inscrits</a>
                                     
                                     <form action="{{route('sessionpros.actionInscription', $sessionpro)}}" method="post">
                                         @csrf

@@ -25,14 +25,40 @@
                             <tr>
                                 <td>{{$presence->date}}</td>
                                 <td class="d-flex justify-content-start">
-                                    <form action="{{route('users.marquerPresence', ['user' => $user, 'presence' => $presence] )}}" method="post">
+                                    <form method="post" action="{{route('users.marquerPresence', ['user' => $user, 'presence' => $presence] )}}">
                                         @csrf
-                                        <input type="number" name="num_presence" min="0" max="{{$presence->nb_participants}}" {{$presence->est_actif ? '' : 'disabled'}} {{($presence->users()->where('user_id', $user->id)->exists()) ? 'hidden' : ''}} required>
-                                        <button type="submit" {{(!$presence->est_actif || $presence->users()->where('user_id', $user->id)->exists()) ? 'hidden' : ''}} class="btn btn-primary">Valider</button>
+                                        
+                                        <input required type="number" name="num_presence" min="1" max="{{$presence->nb_participants}}"
+                                            {{$presence->est_actif ? '' : 'disabled'}}
+                                            value="{{$user->presences->firstWhere('id', $presence->id)->pivot->num_presence ?? ''}}"
+                                        >
+                                        
+                                        @if ($user->presences->firstWhere('id', $presence->id))
+                                            <input type="hidden" name="modifiy">
+                                        @endif
+
+                                        <button type="submit" class="btn ms-4 {{$user->presences->firstWhere('id', $presence->id) ? 'btn-warning' : 'btn-primary'}}"
+                                            {{(!$presence->est_actif ) ? 'hidden' : ''}}
+                                        >
+                                            {{$user->presences->firstWhere('id', $presence->id) ? 'Modifier' : 'Valider'}}
+                                        </button>
                                     </form>
+                                    {{-- <form method="post" action="{{route('users.marquerPresence', ['user' => $user, 'presence' => $presence] )}}"
+                                        {{$user->presences->firstWhere('id', $presence->id) ? 'hidden' : ''}}
+                                    >
+                                        @csrf
+                                        <input required type="number" name="num_presence" min="1" max="{{$presence->nb_participants}}"
+                                            {{$presence->est_actif ? '' : 'disabled'}}
+                                            {{($presence->users()->where('user_id', $user->id)->exists()) ? 'hidden' : ''}}
+                                        >
+                                        <button type="submit" class="btn btn-primary"
+                                            {{(!$presence->est_actif || $presence->users()->where('user_id', $user->id)->exists()) ? 'hidden' : ''}}
+                                        >
+                                            Valider
+                                        </button>
+                                    </form> --}}
                                     
                                     @if ($presence->users()->where('user_id', $user->id)->exists())
-                                        Numéro: {{$user->presences->firstWhere('id', $presence->id)->pivot->num_presence}}
                                         <i class="bi bi-check-circle-fill text-success ms-3"></i>
                                     @else
                                         <i class="bi bi-x-circle-fill text-danger ms-3"></i>

@@ -72,7 +72,6 @@ Route::controller(SessionproController::class)->group(function(){
     Route::delete('/sessionpros/{sessionpro}/{formation}', 'destroy')->name('sessionpros.destroy');
     Route::get('/sessionpros/{formation}/create', 'create')->name('sessionpros.create');
     Route::get('/sessionpros/{sessionpro}/edit', 'edit')->name('sessionpros.edit');
-    Route::get('/sessionpros/{sessionpro}/show', 'show')->name('sessionpros.show');
     Route::get('/sessionpros/{sessionpro}/participants','participants')->name('sessionpros.participants');
 });
 
