@@ -89,13 +89,13 @@ class PresenceController extends Controller
     public function activate(Presence $presence)
     {
         $presences = Presence::all();
-        foreach($presences as $p) {
-            if($p->est_actif) {
-                return redirect()->back()->with('alredyActivePresence', 'Une présence est déjà active');
-            }
-        }
 
         if($presence->est_actif == false){
+            foreach($presences as $p) {
+                if($p->est_actif) {
+                    return redirect()->back()->with('alredyActivePresence', 'Une présence est déjà active');
+                }
+            }
             $presence->est_actif = true;
         }
         else {
