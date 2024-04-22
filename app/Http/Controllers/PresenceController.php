@@ -34,7 +34,7 @@ class PresenceController extends Controller
     {
         $lastPresence = $sessionpro->presences()->latest()->first();
         if($lastPresence && $lastPresence->est_actif) {
-            return redirect()->back()->with('error', 'La derniere présence est encore active');
+            return redirect()->back()->with('AddPresenceError', 'La derniere présence est encore active');
         }
 
         $presence = new Presence;
@@ -88,6 +88,13 @@ class PresenceController extends Controller
 
     public function activate(Presence $presence)
     {
+        $presences = Presence::all();
+        foreach($presences as $p) {
+            if($p->est_actif) {
+                return redirect()->back()->with('alredyActivePresence', 'Une présence est déjà active');
+            }
+        }
+
         if($presence->est_actif == false){
             $presence->est_actif = true;
         }
@@ -101,7 +108,8 @@ class PresenceController extends Controller
 
     public function participantsPresent(Sessionpro $sessionpro, Presence $presence)
     {
-        $participants = $presence->users;
+        $participants = $presence->users()->withPivot('num_presence')->orderBy('pivot_num_presence')->get();
+        
         return view('presences.participantsPresents', compact('participants','sessionpro','presence'));
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Sessionpro;
 use App\Http\Requests\StoreSessionproRequest;
 use App\Http\Requests\UpdateSessionproRequest;
+use App\Models\Categorie;
 use App\Models\Formation;
 use App\Models\Lieu;
 use Illuminate\Http\Request;
@@ -54,9 +55,7 @@ class SessionproController extends Controller
      */
     public function show(Sessionpro $sessionpro)
     {
-        $theme = $sessionpro->formation->theme;
-
-        return view('sessionpros.show', compact('sessionpro', 'theme'));
+        // 
     }
 
     /**
@@ -125,9 +124,30 @@ class SessionproController extends Controller
         // return redirect()->route('sessionpros.index', $sessionpro->formation_id);
     }
 
-    public function dashboard()
+    public function dashboard(Request $request)
     {
-        $sessionpros = Sessionpro::all();
+        $sessionpros = collect();
+        
+        if ($request->has('category') && $request->category != '') {
+            $categories = Categorie::where('nom', $request->category)->get();
+
+            foreach ($categories as $categorie) {
+                $formations = $categorie->formations;
+                foreach ($formations as $formation) {
+                    $sessionpros = $sessionpros->concat($formation->sessionpros);
+                }
+            }
+        }
+        else if ($request->has('formation') && $request->formation != '') {
+            $formations = Formation::where('theme', $request->formation)->get();
+
+            foreach ($formations as $formation) {
+                $sessionpros = $sessionpros->concat($formation->sessionpros);
+            }
+        }
+        else {
+            $sessionpros = Sessionpro::all();
+        }
 
         return view('sessionpros.dashboard', compact('sessionpros'));
     }

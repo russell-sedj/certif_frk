@@ -15,18 +15,18 @@
                     <table class="table table-responsive">
                         <thead>
                             <tr>
-                                <th scope="col">Nom et Prénoms</th>
-                                <th scope="col">Nombre de présences</th>
-                                <th scope="col">Note /20</th>
-                                <th scope="col">Actions</th>
+                                <th scope="col" class="text-center">Nom et Prénoms</th>
+                                <th scope="col" class="text-center">Nombre de présences</th>
+                                <th scope="col" class="text-center">Note /20</th>
+                                <th scope="col" class="text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                         @if($users)
                         @foreach($users as $user)
                             <tr>
-                                <td>{{$user->name}} {{$user->surname}}</td>
-                                <td>{{$user->presences->where('sessionpro_id', $sessionpro->id)->count()}}/{{$sessionpro->presences->count()}}</td>
+                                <td class="text-center">{{$user->name}} {{$user->surname}}</td>
+                                <td class="text-center">{{$user->sessionpros->firstWhere('id', $sessionpro->id)->pivot->nb_presence}}/{{$sessionpro->presences->count()}}</td>
                                 <td>
                                     <form action="{{route('sessionpros.noterParticipant', [$sessionpro, $user])}}" method="post">
                                         @csrf
@@ -35,7 +35,7 @@
                                         <button type="submit" class="btn btn-secondary">Modifier note</button>
                                     </form>
                                 </td>
-                                <td>                                    
+                                <td class="text-center">                                    
                                     <form action="{{route('inscription', $sessionpro)}}" method="POST" style="display: inline;">
                                     @csrf
                                     @method('PUT')

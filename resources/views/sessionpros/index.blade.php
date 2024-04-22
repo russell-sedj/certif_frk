@@ -25,7 +25,7 @@
                         <tbody>
                         @if($sessionpros)
                         @foreach($sessionpros as $sessionpro)
-                            <tr class="cursor-pointer" onclick="window.location='{{ route('sessionpros.show', $sessionpro) }}'">
+                            <tr>
                                 <td>{{$sessionpro->date_debut}} à {{$sessionpro->date_fin}}</td>
                                 <td>{{$sessionpro->heure_debut}} à {{$sessionpro->heure_fin}}</td>
                                 <td>

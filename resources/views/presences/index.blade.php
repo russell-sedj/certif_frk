@@ -20,9 +20,14 @@
                 </div>
             </div>
             <div class="card-body">
-                @if (session('error'))
+                @if (session('AddPresenceError'))
                     <div class="alert alert-danger">
-                        {{ session('error') }}
+                        {{ session('AddPresenceError') }}
+                    </div>
+                @endif
+                @if (session('alredyActivePresence'))
+                    <div class="alert alert-danger">
+                        {{ session('alredyActivePresence') }}
                     </div>
                 @endif
                 </div>
