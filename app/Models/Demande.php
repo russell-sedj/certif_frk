@@ -11,11 +11,10 @@ class Demande extends Model
     
     protected $fillable=[
         'libelle_demande',
-        'theme',
-        'notif_reponse',
+        'prete',
     ];
 
-    public function sessionUser(){
+    public function sessionproUser(){
         return $this->belongsTo(SessionproUser::class);
     }
 }

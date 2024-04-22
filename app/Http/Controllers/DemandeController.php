@@ -18,15 +18,26 @@ class DemandeController extends Controller
             ->from('sessionpro_user')
             ->where('user_id', $id);
     })->get();
-    return view('demandes.agents', compact('demandes'));
+    $cpt=$demandes->where('prete',false)->count();
+    foreach($demandes as $demande){
+        $sessionpro=Sessionpro::find($demande->sessionproUser->sessionpro_id);
+        $demande['sessionpro']=$sessionpro;
+    }
+    return view('demandes.agents', compact('demandes','cpt'));
     }
     
     public function indexSuperviseur()
     {   
         $demandes=Demande::all();
-        return view('demandes.superviseurs', compact('demandes'));
+        $cpt=$demandes->where('prete',false)->count();
+        foreach($demandes as $demande){
+            $sessionpro=Sessionpro::find($demande->sessionproUser->sessionpro_id);
+            $user=User::find($demande->sessionproUser->user_id);         
+            $demande['sessionpro']=$sessionpro;
+            $demande['user']=$user;
+        }
+        return view('demandes.superviseurs', compact('demandes','cpt'));
     }
-
     public function store(Sessionpro $sessionpro, User $user)
     {   
         $demande=new Demande;
@@ -34,13 +45,18 @@ class DemandeController extends Controller
                  ['sessionpro_id', $sessionpro->id],
                  ['user_id', $user->id ]])->first();
         $demande->sessionpro_user_id=$sessionproUser->id;
-        $demande->libelle_demande= "Nouvelle demande d'attestation de"." ".$user->name." ".$user->surname.".";
-        $demande->theme=$sessionpro->formation->theme;
+        $demande->libelle_demande = "«" . $sessionpro->formation->theme ."»";
         $demande->save();
+        session()->flash('toast_message', "Votre demande d'attestation pour le thème <strong>".$demande->libelle_demande."</strong> a été envoyée avec succès!");
+        session()->flash('toast_type', 'success');
         return redirect()->route('mesformations');
     }
-    public function update ()
+    public function update (Demande $demandes)
     {   
-        
+        foreach($demandes as $demande){
+            $demande=Demande::find($demande->id);
+            $demande->prete=true;
+            $demande->save();
+        }
     }
 }

@@ -123,8 +123,8 @@
             <li
                 class="sidebar-item">
                 <a href="{{route('demandesAgent.index')}}" class='sidebar-link'>
-                    <i class="bi bi-bell-fill"></i>
-                    <span>Notifications</span>
+                    <i class="bi bi-file-text-fill"></i>
+                    <span>Mes demandes</span>
                 </a>
                 
 
@@ -132,8 +132,8 @@
             <li
                 class="sidebar-item">
                 <a href="{{route('demandesSup.index')}}" class='sidebar-link'>
-                    <i class="bi bi-bell-fill"></i>
-                    <span>Notifications</span>
+                <i class="bi bi-clipboard-check-fill"></i>
+                    <span>Demandes</span>
                 </a>
                 
 

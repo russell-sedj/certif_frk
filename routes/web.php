@@ -98,7 +98,7 @@ Route::controller(DemandeController::class)->group(function(){
     Route::get('/mesdemandes', 'indexAgent')->name('demandesAgent.index');
     Route::get('/demandes', 'indexSuperviseur')->name('demandesSup.index');
     Route::get('/demandes/{sessionpro}/{user}/store', 'store')->name('demandes.store');
-    // Route::put('/presences/{presence}', 'update')->name('presences.update');
+    Route::put('/demandes/{demande}', 'update')->name('demandes.update');
     //Route::put('/presences/{presence}/activate', 'activate')->name('presences.activate');
    // Route::delete('/presences/{presence}/{sessionpro}', 'destroy')->name('presences.destroy');
     // Route::get('/presences/{sessionpro}/create', 'create')->name('presences.create');

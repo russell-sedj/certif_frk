@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('demandes', function (Blueprint $table) {
             $table->id();
             $table->string('libelle_demande');
-            $table->string('theme');
-            $table->string('notif_reponse')->nullable();
+            $table->boolean('prete')->default(false);
             $table->unsignedBigInteger('sessionpro_user_id');
             $table->foreign('sessionpro_user_id')->references('id')->on('sessionpro_user')->OnDelete('cascade');
             $table->timestamps();

@@ -50,6 +50,34 @@
         </div>
     </div>
 </div>
+@if (session('toast_message'))
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false" id="myToast">
+        <div class="toast-header">
+            <svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#007aff"></rect></svg>
+            <strong class="me-auto">Notification</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            <a href="{{ route('demandesAgent.index')}}" class="toast-link">{!!session('toast_message') !!}</a>
+        </div>
+    </div>
+</div>
+<script>
+    // Afficher le toast lorsque la page est chargée
+    document.addEventListener('DOMContentLoaded', function() {
+        var myToast = new bootstrap.Toast(document.getElementById('myToast'));
+        myToast.show();
+
+        // Rediriger vers la route demandesAgent.index lors du clic sur le toast
+        var toastLink = document.querySelector('.toast-link');
+        toastLink.addEventListener('click', function(event) {
+            event.preventDefault(); // Empêcher le comportement par défaut du lien
+            window.location.href = this.href; // Rediriger vers l'URL du lien
+        });
+    });
+</script>
+@endif
 @endsection
 
 
