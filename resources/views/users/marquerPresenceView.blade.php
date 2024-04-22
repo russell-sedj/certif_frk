@@ -27,7 +27,7 @@
                                 <td class="d-flex justify-content-start">
                                     <form action="{{route('users.marquerPresence', ['user' => $user, 'presence' => $presence] )}}" method="post">
                                         @csrf
-                                        <input type="number" name="num_presence" min="0" max="{{$presence->nb_participants}}" {{$presence->est_actif ? '' : 'disabled'}} {{($presence->users()->where('user_id', $user->id)->exists()) ? 'hidden' : ''}} required>
+                                        <input type="number" name="num_presence" min="1" max="{{$presence->nb_participants}}" {{$presence->est_actif ? '' : 'disabled'}} {{($presence->users()->where('user_id', $user->id)->exists()) ? 'hidden' : ''}} required>
                                         <button type="submit" {{(!$presence->est_actif || $presence->users()->where('user_id', $user->id)->exists()) ? 'hidden' : ''}} class="btn btn-primary">Valider</button>
                                     </form>
                                     
