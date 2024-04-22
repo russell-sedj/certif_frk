@@ -47,7 +47,7 @@
                                 <td>
                                     <a href="{{ route('presences.index', $sessionpro) }}" class="btn btn-sm btn-primary mb-2 mt-2">Voir les présences</a>
                                     
-                                    <a href="{{ route('sessionpros.participants', $sessionpro) }}" class="btn btn-sm btn-info mb-2 mt-2">Liste des inscrits</a>
+                                    <a href="{{ route('sessionpros.participants', $sessionpro) }}" class="btn btn-sm btn-info mb-2 mt-2">Liste des participants</a>
                                     
                                     <form action="{{route('sessionpros.actionInscription', $sessionpro)}}" method="post">
                                         @csrf

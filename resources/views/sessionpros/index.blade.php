@@ -8,7 +8,7 @@
                 <h1 class="mb-4 fs-2">Thème: {{ $theme }}</h1>
                 <div class="d-flex justify-content-between align-items-center">
                     <h3>Liste des sessions du thème</h3>
-                    <a href="{{route('sessionpros.store',$formation)}}" class="btn btn-success">Ajouter une session</a>
+                    <a href="{{route('sessionpros.create',$formation)}}" class="btn btn-success">Ajouter une session</a>
                 </div>
             </div>
             <div class="card-body">

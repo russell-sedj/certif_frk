@@ -88,7 +88,8 @@ class PresenceController extends Controller
 
     public function activate(Presence $presence)
     {
-        $presences = Presence::all();
+        $sessionpro = $presence->sessionpro;
+        $presences = $sessionpro->presences;
 
         if($presence->est_actif == false){
             foreach($presences as $p) {

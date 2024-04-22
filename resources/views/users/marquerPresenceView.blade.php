@@ -43,25 +43,15 @@
                                             {{$user->presences->firstWhere('id', $presence->id) ? 'Modifier' : 'Valider'}}
                                         </button>
                                     </form>
-                                    {{-- <form method="post" action="{{route('users.marquerPresence', ['user' => $user, 'presence' => $presence] )}}"
-                                        {{$user->presences->firstWhere('id', $presence->id) ? 'hidden' : ''}}
-                                    >
-                                        @csrf
-                                        <input required type="number" name="num_presence" min="1" max="{{$presence->nb_participants}}"
-                                            {{$presence->est_actif ? '' : 'disabled'}}
-                                            {{($presence->users()->where('user_id', $user->id)->exists()) ? 'hidden' : ''}}
-                                        >
-                                        <button type="submit" class="btn btn-primary"
-                                            {{(!$presence->est_actif || $presence->users()->where('user_id', $user->id)->exists()) ? 'hidden' : ''}}
-                                        >
-                                            Valider
-                                        </button>
-                                    </form> --}}
                                     
                                     @if ($presence->users()->where('user_id', $user->id)->exists())
                                         <i class="bi bi-check-circle-fill text-success ms-3"></i>
                                     @else
                                         <i class="bi bi-x-circle-fill text-danger ms-3"></i>
+                                    @endif
+
+                                    @if (!$presence->est_actif)
+                                        <div class="badge text-bg-secondary ms-3 d-flex align-items-center justify-content-center">Fermé</div>
                                     @endif
 
                                     @if (session('error'))
