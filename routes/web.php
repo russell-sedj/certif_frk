@@ -29,10 +29,6 @@ Route::get('/dashboard', function () {
     return view('mydashboard', compact('categories'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/attestation', function(){
-    return view('attestation');
-})->middleware(['auth', 'verified'])->name('attestation');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile/myAccount', [ProfileController::class, 'myAccount'])->name('profile.myAccount');
     Route::get('/profile/{user}', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -104,5 +100,37 @@ Route::controller(DemandeController::class)->group(function(){
     // Route::get('/presences/{sessionpro}/create', 'create')->name('presences.create');
     // Route::get('/presences/{presence}/edit', 'edit')->name('presences.edit');
 });
+
+Route::get('/attestation', function(){
+    $datas = [
+        [
+            'id' => 1,
+            'nom' => 'Dax',
+            'theme' => 'School shooting',
+            'date_debut' => date('l, j F Y'),
+            'date_fin' => date('l, j F Y'),
+            'lieu' => 'Dakar',
+        ],
+        [
+            'id' => 2,
+            'nom' => 'Nasser',
+            'theme' => 'Randonee en montagne',
+            'date_debut' => date('l, j F Y'),
+            'date_fin' => date('l, j F Y'),
+            'lieu' => 'Quatar',
+        ],
+        [
+            'id' => 3,
+            'nom' => 'Moussa',
+            'theme' => 'Cuisine',
+            'date_debut' => date('l, j F Y'),
+            'date_fin' => date('l, j F Y'),
+            'lieu' => 'Emirates',
+        ],
+    ];
+
+    return view('attestation', compact('datas'));
+
+})->middleware(['auth', 'verified'])->name('attestation');
 
 require __DIR__.'/auth.php';
