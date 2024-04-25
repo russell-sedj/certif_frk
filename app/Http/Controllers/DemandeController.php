@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\SessionproUser;
 use App\Models\Sessionpro;
+use ZipArchive;
+
 class DemandeController extends Controller
 {
     //
@@ -58,5 +60,19 @@ class DemandeController extends Controller
             $demande->prete=true;
             $demande->save();
         }
+    }
+    public function download(Request $request){
+        $debut = $request->debut;
+        $fin = $request->fin;
+        $dgtcp=User::where('titre', "DGTCP")->get();
+        $dfpt=User::where('titre', "DFPT")->get();
+        $demandes = Demande::whereBetween('created_at', [$debut, $fin])->get();
+        foreach($demandes as $demande){
+            $sessionpro=Sessionpro::find($demande->sessionproUser->sessionpro_id);
+            $user=User::find($demande->sessionproUser->user_id);         
+            $demande['sessionpro']=$sessionpro;
+            $demande['user']=$user;
+        }
+         return view('attestation',compact('demandes','dgtcp','dfpt'));
     }
 }

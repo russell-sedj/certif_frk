@@ -93,6 +93,7 @@ Route::post('/users/marquerPresence/{presence}/{user}', [RegisteredUserControlle
 Route::controller(DemandeController::class)->group(function(){
     Route::get('/mesdemandes', 'indexAgent')->name('demandesAgent.index');
     Route::get('/demandes', 'indexSuperviseur')->name('demandesSup.index');
+    Route::post('/attestations', 'download')->name('demandes.download');
     Route::get('/demandes/{sessionpro}/{user}/store', 'store')->name('demandes.store');
     Route::put('/demandes/{demande}', 'update')->name('demandes.update');
     //Route::put('/presences/{presence}/activate', 'activate')->name('presences.activate');
@@ -100,37 +101,4 @@ Route::controller(DemandeController::class)->group(function(){
     // Route::get('/presences/{sessionpro}/create', 'create')->name('presences.create');
     // Route::get('/presences/{presence}/edit', 'edit')->name('presences.edit');
 });
-
-Route::get('/attestation', function(){
-    $datas = [
-        [
-            'id' => 1,
-            'nom' => 'Dax',
-            'theme' => 'School shooting',
-            'date_debut' => date('l, j F Y'),
-            'date_fin' => date('l, j F Y'),
-            'lieu' => 'Dakar',
-        ],
-        [
-            'id' => 2,
-            'nom' => 'Nasser',
-            'theme' => 'Randonee en montagne',
-            'date_debut' => date('l, j F Y'),
-            'date_fin' => date('l, j F Y'),
-            'lieu' => 'Quatar',
-        ],
-        [
-            'id' => 3,
-            'nom' => 'Moussa',
-            'theme' => 'Cuisine',
-            'date_debut' => date('l, j F Y'),
-            'date_fin' => date('l, j F Y'),
-            'lieu' => 'Emirates',
-        ],
-    ];
-
-    return view('attestation', compact('datas'));
-
-})->middleware(['auth', 'verified'])->name('attestation');
-
 require __DIR__.'/auth.php';

@@ -1,11 +1,14 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <title>Document</title>
 </head>
 
@@ -23,8 +26,8 @@
 
 <button id="downloadButton">Télécharger</button><span></span>
 
-@foreach ($datas as $data)
-<div class="background ms-5 me-8 mt-8" id="attestation{{$data['id']}}">
+@foreach ($demandes as $demande)
+<div class="background ms-5 me-8 mt-8" id="attestation{{$demande->id}}">
     <div class="p-20">
         <body >
             <header>
@@ -51,8 +54,8 @@
             </header>
     
             <?php
-                $date_debut = DateTime::createFromFormat('l, j F Y', $data['date_debut']);
-                $date_debut_modif = $date_debut->format('l, j');
+               // $date_debut = DateTime::createFromFormat('l, j F Y', $demande->sessionpro->date_debut);
+                //$date_debut_modif = $date_debut->format('l, j');
             ?>
     
             <main>
@@ -61,15 +64,15 @@
                 <h1 class="font-extrabold  text-4xl text-center">ATTESTATION DE PARTICIPATION</h1>
                 <br>
                     <div class="text-xl">
-                        <p class="text-center">Le Directeur général du Trésor et de la Comptabilité publique soussigné, atteste que Monsieur
-                            <span class="font-bold">{{ $data['nom'] }}</span>, agent du Trésor public, a participé au séminaire de 
-                                formation sur "<span class="font-bold">{{ $data['theme'] }}</span>" organisé par la Direction de la Formation Professionnelle 
-                                du Trésor du {{ $date_debut_modif }} au {{ $data['date_fin'] }} à {{ $data['lieu'] }}.
+                        <p class="text-center">Le Directeur général du Trésor et de la Comptabilité publique soussigné, atteste que 
+                            <span class="font-bold">@if($demande->user->sexe=="M") Monsieur @else Madame @endif {{ $demande->user->name}} {{ $demande->user->surname}}</span>, agent du Trésor public, a participé au séminaire de 
+                                formation sur "<span class="font-bold">{{ $demande->sessionpro->formation->theme}}</span>" organisé par la Direction de la Formation Professionnelle 
+                                du Trésor du {{ $demande->sessionpro->date_debut }} au {{ $demande->sessionpro->date_fin }} à {{ $demande->sessionpro->lieu->ville }}.
                         </p>
                         <br>
                         <p class="text-center">En foi de quoi la présente attestation lui est délivrée pour servir et valoir ce que de droit.</p>
                         <br>
-                        <p class="font-bold text-center">Fait à Cotonou, le {{ date('l, j F Y') }}</p>
+                        <p class="font-bold text-center">Fait à Cotonou, le </p>
                         <br>
                         <div class="flex justify-between">
                             <div class="text-center">
@@ -91,23 +94,36 @@
 
 <script>
     document.getElementById('downloadButton').addEventListener('click', function() {
-        const datas = @json($datas);
-        
-        datas.forEach(data => {
-            const element = document.querySelector(`#attestation${data.id}`);
+        const demandes = @json($demandes);
+        const zip = new JSZip();
+        const zipFilename = 'attestations.zip';
+        const promises = [];
+
+        demandes.forEach(demande => {
+            const element = document.querySelector(`#attestation${demande.id}`);
 
             // Options pour la conversion en PDF.
             const options = {
-                // margin: 5,
-                filename: `attestation${data.id}.pdf`,
+                filename: `${demande.sessionpro.formation.theme}_${demande.user.name}_${demande.user.surname}.pdf`,
                 image: { type: 'jpeg', quality: 1 },
                 html2canvas: { scale: 2 },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape'},
-                // pagebreak: { after: '.page-break'},
             };
 
-            html2pdf().set(options).from(element).save();
+            const promise = html2pdf().set(options).from(element).toPdf().get('pdf').then(function(pdf) {
+                zip.file(options.filename, pdf.output('blob'));
+            });
+
+            promises.push(promise);
+        });
+
+        Promise.all(promises).then(function() {
+            zip.generateAsync({ type: 'blob' }).then(function(content) {
+                // Télécharger le fichier ZIP
+                saveAs(content, zipFilename);
+            });
         });
     });
 </script>
+
 </html>
