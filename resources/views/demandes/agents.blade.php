@@ -21,7 +21,7 @@
                             <div class="notification-list_content">
                                 <div class="notification-list_detail">
                                     <p class="text-muted">Votre demande d'attestation pour le thème <strong>{{ $demande->libelle_demande}}</strong> a été envoyée avec succès!</p>
-                                    <p class="text-muted"><small>{{ $demande->created_at->diffForHumans() }}</small></p>
+                                    <p class="text-muted"><small>{{ $demande->created_at }}</small></p>
                                 </div>
                             </div>
                         </div>
@@ -31,13 +31,13 @@
                 <div id="reponses" class="tab-pane fade">
                     <div class="notification-ui_dd-content">
                         @foreach($demandes as $demande)
-                        @if($demande->prete)
+                        @if($demande->statut=="traitée")
                         <div class="notification-list">
                             <div class="notification-list_content">
                                 <div class="notification-list_detail">
                                     <p><b>{{ $demande->theme }}</b></p>
                                     <p class="text-muted">Votre attestation pour le thème {{$demande->libelle_demande}} est prête.</p>
-                                    <p class="text-muted"><small>{{ $demande->updated_at->diffForHumans() }}</small></p>
+                                    <p class="text-muted"><small>{{ $demande->updated_at}}</small></p>
                                 </div>
                             </div>
                         </div>

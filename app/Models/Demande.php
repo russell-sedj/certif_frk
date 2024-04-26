@@ -11,7 +11,7 @@ class Demande extends Model
     
     protected $fillable=[
         'libelle_demande',
-        'prete',
+        'statut',
     ];
 
     public function sessionproUser(){

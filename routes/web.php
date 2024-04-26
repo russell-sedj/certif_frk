@@ -92,10 +92,11 @@ Route::post('/users/marquerPresence/{presence}/{user}', [RegisteredUserControlle
 
 Route::controller(DemandeController::class)->group(function(){
     Route::get('/mesdemandes', 'indexAgent')->name('demandesAgent.index');
-    Route::get('/demandes', 'indexSuperviseur')->name('demandesSup.index');
+    Route::match(['get', 'put'], '/demandes', 'indexSuperviseur')->name('demandesSup.index');
     Route::post('/attestations', 'download')->name('demandes.download');
+    Route::put('/demandes/update', 'update')->name('demandes.update');
+    Route::put('/demandes/lastupdate', 'lastupdate')->name('demandes.lastupdate');
     Route::get('/demandes/{sessionpro}/{user}/store', 'store')->name('demandes.store');
-    Route::put('/demandes/{demande}', 'update')->name('demandes.update');
     //Route::put('/presences/{presence}/activate', 'activate')->name('presences.activate');
    // Route::delete('/presences/{presence}/{sessionpro}', 'destroy')->name('presences.destroy');
     // Route::get('/presences/{sessionpro}/create', 'create')->name('presences.create');

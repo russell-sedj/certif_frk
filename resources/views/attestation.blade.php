@@ -7,7 +7,6 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <title>Document</title>
 </head>
@@ -29,7 +28,7 @@
 @foreach ($demandes as $demande)
 <div class="background ms-5 me-8 mt-8" id="attestation{{$demande->id}}">
     <div class="p-20">
-        <body >
+        <body>
             <header>
                 <div class="flex justify-between">
                     <div>
@@ -77,26 +76,28 @@
                         <div class="flex justify-between">
                             <div class="text-center">
                                 <p>Le Directeur de la Formation <br>Professionnelle du Trésor,</p>
-                                <p class="font-bold mt-5">Rachidi OSSENI</p>
+                                <p class="font-bold mt-5">@if($dfpt){{$dfpt->surname}} {{$dfpt->name}}@endif</p>
                             </div>
                             <div class="text-center">
                                 <p>Le Directeur général du Trésor et <br>de la Comptabilité publique,</p>
-                                <p class="font-bold mt-5">Oumara KARIMOU ASSOUMA</p>
+                                <p class="font-bold mt-5">@if($dgtcp){{$dgtcp->surname}} {{$dgtcp->name}}@endif</p>
                             </div>
                         </div>
                     </div>
             </main>
         </body>
-        {{-- <br class="page-break"> --}}
     </div>
 </div>
 @endforeach
+</html>
 
 <script>
     document.getElementById('downloadButton').addEventListener('click', function() {
         const demandes = @json($demandes);
+        const debut = @json($debut);
+        const fin = @json($fin);
         const zip = new JSZip();
-        const zipFilename = 'attestations.zip';
+        const zipFilename = `attestations_du_${debut}_au_${fin}.zip`; // Utilisation de backticks pour l'interpolation
         const promises = [];
 
         demandes.forEach(demande => {
@@ -121,9 +122,35 @@
             zip.generateAsync({ type: 'blob' }).then(function(content) {
                 // Télécharger le fichier ZIP
                 saveAs(content, zipFilename);
+                
+                // Après le téléchargement réussi du fichier ZIP
+                fetch('{{ route("demandes.update") }}', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ debut: debut, fin: fin })
+                })
+                .then(handleResponse)
+                .then(() => {
+                    window.location.href = '{{ route("demandesSup.index") }}';
+                })
+                .catch(handleError);
             });
         });
     });
+
+    // Fonction pour gérer la réponse de la requête fetch
+    function handleResponse(response) {
+        if (!response.ok) {
+            throw new Error('Erreur lors de la requête AJAX');
+        }
+    }
+
+    // Fonction pour gérer les erreurs
+    function handleError(error) {
+        console.error('Erreur lors de la requête AJAX :', error);
+    }
 </script>
 
-</html>
