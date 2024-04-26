@@ -66,7 +66,7 @@
                         <p class="text-center">Le Directeur général du Trésor et de la Comptabilité publique soussigné, atteste que 
                             <span class="font-bold">@if($demande->user->sexe=="M") Monsieur @else Madame @endif {{ $demande->user->name}} {{ $demande->user->surname}}</span>, agent du Trésor public, a participé au séminaire de 
                                 formation sur "<span class="font-bold">{{ $demande->sessionpro->formation->theme}}</span>" organisé par la Direction de la Formation Professionnelle 
-                                du Trésor du {{ $demande->sessionpro->date_debut }} au {{ $demande->sessionpro->date_fin }} à {{ $demande->sessionpro->lieu->ville }}.
+                                du Trésor du {{ \Carbon\Carbon::parse($demande->sessionpro->date_debut)->format('l d') }} au {{ \Carbon\Carbon::parse($demande->sessionpro->date_fin)->format('l d F Y') }} à {{ $demande->sessionpro->lieu->ville }}.
                         </p>
                         <br>
                         <p class="text-center">En foi de quoi la présente attestation lui est délivrée pour servir et valoir ce que de droit.</p>
