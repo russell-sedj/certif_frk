@@ -1,6 +1,7 @@
 @extends('layouts.myapp')
 @section('content')
-<div class="col-md-6 col-12">
+<div class="row justify-content-center">
+<div class="col-md-10 col-12">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Session</h4>
@@ -47,13 +48,11 @@
                                             </select>
                                         </div>
 
-                                        {{-- had to put $foramtion instead for $foramtion->id cause it's already an id --}}
                                         <input type="hidden" id="formation_id" class="form-control" name="formation_id" value="{{$formation}}">
                                         
                                         <div class="col-sm-12 d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
-                                            <button type="reset"
-                                                class="btn btn-light-secondary me-1 mb-1">Reset</button>
+                                            <a href="{{route('sessionpros.index', $formation)}}" class="btn btn-light-secondary me-1 mb-1">Annuler</a>
                                         </div>
                                     </div>
                                 </div>
@@ -62,4 +61,5 @@
                     </div>
                 </div>
             </div>
+</div>
 @endsection

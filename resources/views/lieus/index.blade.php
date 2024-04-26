@@ -24,7 +24,6 @@
                                 <td>{{$lieu->ville}}</td>
                                 <td>{{$lieu->adresse}}</td>
                                 <td>
-                                    <a href=""class="btn btn-sm btn-primary">Voir</a>
                                     <a href="{{route('lieus.edit', $lieu)}}" class="btn btn-sm btn-secondary">Modifier</a>
                                     <form action="{{ url('/lieus/'.$lieu->id)}}" method="POST" style="display: inline;">
                                     @csrf

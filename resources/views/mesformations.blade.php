@@ -31,14 +31,14 @@
                                 <td>{{$sessionpro->users->firstWhere('id', $user->id)->pivot->note}} / 20</td>
 
                                 <td>
-                                    <a href="{{route('users.marquerPresenceView', ['sessionpro' => $sessionpro, 'user' => $user])}}" class="btn btn-sm btn-primary">Marquer une présence</a>
+                                    <a href="{{route('users.marquerPresenceView', ['sessionpro' => $sessionpro, 'user' => $user])}}" class="btn btn-sm btn-primary m-1">Marquer une présence</a>
                                     @if($sessionpro->peut_demander)
-                                    <a href="{{route('demandes.store', [$sessionpro, $user])}}" class="btn btn-sm btn-secondary">Demander l'attestation</a>
+                                    <a href="{{route('demandes.store', [$sessionpro, $user])}}" class="btn btn-sm btn-secondary m-1">Demander l'attestation</a>
                                     @endif
                                     <form action="{{route('inscription', $sessionpro)}}" method="POST" style="display: inline;">
                                     @csrf
                                     @method('PUT')
-                                        <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
+                                        <button type="submit" class="btn btn-sm btn-danger m-1">Supprimer</button>
                                     </form>
                                 </td>
                             </tr>

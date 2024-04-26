@@ -5,10 +5,11 @@
         <div class="col-md-12">
             <div class="card">
             <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span>Liste des formations</span>
-                        <a href="{{route('formations.create',$categorie)}}" class="btn btn-success">Ajouter une formation</a>
-                    </div>
+                <h1 class="mb-4 fs-2">Catégorie: {{ $categorie->nom }}</h1>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4>Liste des formations</h4>
+                    <a href="{{route('formations.create',$categorie)}}" class="btn btn-success">Ajouter une formation</a>
+                </div>
                 </div>
                     <table class="table">
                         <thead>
@@ -24,8 +25,7 @@
                                 <td>{{$formation->theme}}</td>
                                 <td>{{$formation->description}}</td>
                                 <td>
-                                    <a href=""class="btn btn-sm btn-primary">Voir</a>
-                                    <a href="{{route('sessionpros.index', $formation)}} "class="btn btn-sm btn-primary">Sessions</a>
+                                    <a href="{{route('sessionpros.index', $formation)}}" class="btn btn-sm btn-primary">Sessions</a>
                                     <a href="{{route('formations.edit', $formation)}}" class="btn btn-sm btn-secondary">Modifier</a>
                                     <form action="{{route('formations.destroy', [$formation->id, $formation->categorie])}}" method="POST" style="display: inline;">
                                     @csrf

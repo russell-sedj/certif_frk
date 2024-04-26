@@ -24,7 +24,6 @@
                                 <td>{{$category->nom}}</td>
                                 <td>{{$category->description}}</td>
                                 <td>
-                                    <a href=""class="btn btn-sm btn-primary">Voir</a>
                                     <a href="{{route('categories.edit', $category)}}" class="btn btn-sm btn-secondary">Modifier</a>
                                     <form action="{{ url('/categories/'.$category->id)}}" method="POST" style="display: inline;">
                                     @csrf

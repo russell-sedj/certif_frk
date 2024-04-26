@@ -43,8 +43,6 @@ Route::get('/agents', function () {
     return view('agents.index', compact('users'));
 })->name('agents');
 
-require __DIR__.'/auth.php';
-
 Route::resource('lieus', LieuController::class);
 
 Route::controller(FormationController::class)->group(function () {
@@ -97,9 +95,6 @@ Route::controller(DemandeController::class)->group(function(){
     Route::put('/demandes/update', 'update')->name('demandes.update');
     Route::put('/demandes/lastupdate', 'lastupdate')->name('demandes.lastupdate');
     Route::get('/demandes/{sessionpro}/{user}/store', 'store')->name('demandes.store');
-    //Route::put('/presences/{presence}/activate', 'activate')->name('presences.activate');
-   // Route::delete('/presences/{presence}/{sessionpro}', 'destroy')->name('presences.destroy');
-    // Route::get('/presences/{sessionpro}/create', 'create')->name('presences.create');
-    // Route::get('/presences/{presence}/edit', 'edit')->name('presences.edit');
 });
+
 require __DIR__.'/auth.php';

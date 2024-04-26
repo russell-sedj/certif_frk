@@ -149,6 +149,8 @@ class SessionproController extends Controller
             $sessionpros = Sessionpro::all();
         }
 
+        $sessionpros = $sessionpros->sortByDesc('created_at');
+
         return view('sessionpros.dashboard', compact('sessionpros'));
     }
 

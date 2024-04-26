@@ -73,9 +73,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    <div class="col-12 d-flex justify-content-end">
+                        <div class="">
+                            <button type="submit" class="btn btn-primary me-1 mb-1">Enregistrer</button>
+                            <a href="{{route('agents')}}" class="btn btn-light-secondary me-1 mb-1">Annuler</a>
                         </div>
                     </div>
                 </form>
