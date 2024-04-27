@@ -123,7 +123,7 @@
                     @csrf
                     <div class="mb-3">
                     <label for="periode" class="form-label">Durée :</label>
-                   <select class="form-select" id="periode" name="periode">
+                   <select class="form-select" id="periode" name="periode" required>
                    <option disabled selected value="">Choisir une période</option>
                    <option value="journee">Une journée</option>
                    <option value="plage">Plus d'une journée</option>
@@ -132,7 +132,7 @@
                     <div id="plageJournee" style="display: none;">
                     <div class="mb-3">
                         <label for="debut" class="form-label">Date de début :</label>
-                        <select class="form-select" id="debut" name="debut">
+                        <select class="form-select" id="debut" name="debut" required>
                             <option disabled selected value="">Choisir une date</option>
                             @foreach($dates_sent as $date_sent)
                                 <option value="{{ $date_sent['min'] }}">{{ $date_sent['min']->format('l d F Y') }}</option>

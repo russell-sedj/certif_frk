@@ -23,7 +23,10 @@
     }
 </style>
 
-<button id="downloadButton">Télécharger</button><span></span>
+<button id="downloadButton" type="button" 
+    class="m-10 focus:outline-none text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+    Télécharger
+</button>
 
 @foreach ($demandes as $demande)
 <div class="background ms-5 me-8 mt-8" id="attestation{{$demande->id}}">
@@ -52,28 +55,23 @@
                 </div>
             </header>
     
-            <?php
-               // $date_debut = DateTime::createFromFormat('l, j F Y', $demande->sessionpro->date_debut);
-                //$date_debut_modif = $date_debut->format('l, j');
-            ?>
-    
             <main>
                 <p class="mt-10 font-bold text-xs">N&deg;________________/MEP/DGTCP/DFPT/SP/SDC</p>
                 <br>
                 <h1 class="font-extrabold  text-4xl text-center">ATTESTATION DE PARTICIPATION</h1>
                 <br>
                     <div class="text-xl">
-                        <p class="text-center">Le Directeur général du Trésor et de la Comptabilité publique soussigné, atteste que 
+                        <p class="text-center mb-5">Le Directeur général du Trésor et de la Comptabilité publique soussigné, atteste que 
                             <span class="font-bold">@if($demande->user->sexe=="M") Monsieur @else Madame @endif {{ $demande->user->name}} {{ $demande->user->surname}}</span>, agent du Trésor public, a participé au séminaire de 
                                 formation sur "<span class="font-bold">{{ $demande->sessionpro->formation->theme}}</span>" organisé par la Direction de la Formation Professionnelle 
                                 du Trésor du {{ \Carbon\Carbon::parse($demande->sessionpro->date_debut)->format('l d') }} au {{ \Carbon\Carbon::parse($demande->sessionpro->date_fin)->format('l d F Y') }} à {{ $demande->sessionpro->lieu->ville }}.
                         </p>
-                        <br>
-                        <p class="text-center">En foi de quoi la présente attestation lui est délivrée pour servir et valoir ce que de droit.</p>
-                        <br>
-                        <p class="font-bold text-center">Fait à Cotonou, le </p>
-                        <br>
-                        <div class="flex justify-between">
+                        
+                        <p class="text-center mb-5">En foi de quoi la présente attestation lui est délivrée pour servir et valoir ce que de droit.</p>
+                        
+                        <p class="text-center font-bold mb-5">Fait à Cotonou, le </p>
+                        
+                        <div class="flex justify-between mb-10">
                             <div class="text-center">
                                 <p>Le Directeur de la Formation <br>Professionnelle du Trésor,</p>
                                 <p class="font-bold mt-5">@if($dfpt){{$dfpt->surname}} {{$dfpt->name}}@endif</p>

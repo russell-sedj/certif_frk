@@ -33,7 +33,7 @@
                     </div>
                 @endif
             </div>
-                    <table class="table table-responsive">
+            <table class="table table-responsive text-sm">
                         <thead>
                             <tr>
                                 <th scope="col">Periode</th>

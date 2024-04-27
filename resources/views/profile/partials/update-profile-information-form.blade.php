@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-md-6 col-12">
+    <div class="col-md-10 col-12">
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">Profile Information</h4>
@@ -97,8 +97,8 @@
 
                             <div class="row">
                                 <div class="col-sm-12 d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-primary me-1 mb-1">Save</button>
-                                    <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
+                                    <button type="submit" class="btn btn-primary me-1 mb-1">Modifier</button>
+                                    <a href="{{route('agents')}}" class="btn btn-light-secondary me-1 mb-1">Annuler</a>
                                 </div>
                             </div>
                         </div>

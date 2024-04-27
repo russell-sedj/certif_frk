@@ -1,6 +1,7 @@
 @extends('layouts.myapp')
 @section('content')
-<div class="col-md-6 col-12">
+<div class="row justify-content-center">
+    <div class="col-md-10 col-12">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Catégorie</h4>
@@ -30,14 +31,16 @@
                                         </div>
                                         <div class="col-sm-12 d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary me-1 mb-1">Modifier</button>
-                                            <button type="reset"
-                                                class="btn btn-light-secondary me-1 mb-1">Reset</button>
+                                            <a href="{{route('categories.index')}}" class="btn btn-light-secondary me-1 mb-1">Annuler</a>
+                                            </div>
+
+
                                         </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+</div>
 @endsection

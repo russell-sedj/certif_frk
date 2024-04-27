@@ -34,8 +34,7 @@
                             <td>{{$user->titre}}</td>
                             <td>{{$user->role}}</td>
                             <td>
-                            <a href=""class="btn btn-sm btn-primary">Voir</a>
-                                    <a href="{{route('profile.edit', $user)}}" class="btn btn-sm btn-secondary">Modifier</a>
+                                <a href="{{route('profile.edit', $user)}}" class="btn btn-sm btn-secondary">Modifier</a>
                             </td>
                             @endforeach
                         </tr>
