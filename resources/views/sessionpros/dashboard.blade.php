@@ -22,7 +22,17 @@
                 </div>
             </div>
             <div class="card-body">
-                </div>
+                @if (session('PeutInscrireError'))
+                    <div class="alert alert-danger">
+                        {{ session('PeutInscrireError') }}
+                    </div>
+                @endif
+                @if (session('openRequestError'))
+                    <div class="alert alert-danger">
+                        {{ session('openRequestError') }}
+                    </div>
+                @endif
+            </div>
                     <table class="table table-responsive">
                         <thead>
                             <tr>

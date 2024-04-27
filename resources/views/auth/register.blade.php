@@ -29,10 +29,11 @@
                         <div class="form-group">
                             <x-input-label for="sexe" :value="__('Sexe')" />
                             <select class="form-select" id="sexe" name="sexe">
-                                <option disable selected>Choisissez...</option>
-                                <option value="M">Masculin</option>
-                                <option value="F">Féminin</option>
+                                <option disabled selected>Choisissez...</option>
+                                <option value="M" @if(old('sexe')=="M") selected @endif>Masculin</option>
+                                <option value="F" @if(old('sexe')=="F") selected @endif>Féminin</option>
                             </select>
+                            <x-input-error :messages="$errors->get('sexe')" class="mt-2" />
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -63,14 +64,16 @@
                                 <input type="radio" id="titre2" class="form-check-input" name="titre" value="DFPT">
                                 <label class="form-check-label" for="titre2">DFPT</label>
                             </div>
+                            <x-input-error :messages="$errors->get('titre')" class="mt-2" />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <div class="form-check">
-                                <input type="checkbox" id="role" class="form-check-input" name="role">
+                                <input type="checkbox" id="role" class="form-check-input" name="role" value="old('role')">
                                 <label for="role">Agent Superviseur</label>
                             </div>
+                            <x-input-error :messages="$errors->get('role')" class="mt-2" />
                         </div>
                     </div>
                     <div class="col-12">
@@ -94,7 +97,7 @@
         
         form.addEventListener('submit', function(event) {
             if (roleCheckbox.checked) {
-                valueInput.value = "2";
+                valueInput.value = "superviseur";
             } else {
                 valueInput.value = "";
             }

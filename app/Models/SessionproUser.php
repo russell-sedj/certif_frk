@@ -16,6 +16,6 @@ class SessionproUser extends Pivot
     ];
 
     public function demandes(){
-        return $this->hasMany(Demande::class);
+        return $this->hasMany(Demande::class, 'sessionpro_user_id', 'id');
     }  
 }

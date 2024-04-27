@@ -1,6 +1,13 @@
 @extends('layouts.myapp')
 @section('content')
 <div class="col-md-6 col-12">
+<div class="card-body">
+                @if (session('AddSessionError'))
+                    <div class="alert alert-danger">
+                        {{ session('AddSessionError') }}
+                    </div>
+                @endif
+            </div>
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Formation</h4>
@@ -16,14 +23,16 @@
                                         </div>
                                         <div class="col-md-10 form-group">
                                             <input type="text" id="theme" class="form-control" name="theme"
-                                                placeholder="Thème">
+                                                placeholder="Thème" value="{{old('theme')}}">
+                                                <x-input-error :messages="$errors->get('theme')" class="mt-2" />
                                         </div>
                                         <div class="col-md-4">
                                             <label for="description">Description</label>
                                         </div>
                                         <div class="col-md-10 form-group">
                                             <input type="text" id="description" class="form-control" name="description"
-                                                placeholder="Description">
+                                                placeholder="Description" value="{{old('description')}}">
+                                                <x-input-error :messages="$errors->get('description')" class="mt-2" />
                                         </div>
                                         <div class="col-md-4">
                                              <label for="nombre_sessions">Nombre de sessions</label>
@@ -66,28 +75,28 @@
                                 <label for="date_debut_${i}">Date de début</label>
                             </div>
                             <div class="col-md-10 form-group">
-                                <input type="date" id="date_debut_${i}" class="form-control" name="date_debut_${i}">
+                                <input type="date" id="date_debut_${i}" class="form-control" name="date_debut_${i}" value="{{old('date_debut_${i}')}}">
                             </div>
 
                             <div class="col-md-4">
                                 <label for="date_fin_${i}">Date de fin</label>
                             </div>
                             <div class="col-md-10 form-group">
-                                <input type="date" id="date_fin_${i}" class="form-control" name="date_fin_${i}">
+                                <input type="date" id="date_fin_${i}" class="form-control" name="date_fin_${i}" value="{{old('date_fin_${i}')}}">
                             </div>
 
                             <div class="col-md-4">
                                 <label for="heure_debut_${i}">Heure de début</label>
                             </div>
                             <div class="col-md-10 form-group">
-                                <input type="time" id="heure_debut_${i}" class="form-control" name="heure_debut_${i}">
+                                <input type="time" id="heure_debut_${i}" class="form-control" name="heure_debut_${i}" value="{{old('heure_debut_${i}')}}">
                             </div>
 
                             <div class="col-md-4">
                                 <label for="heure_fin_${i}">Heure de fin</label>
                             </div>
                             <div class="col-md-10 form-group">
-                                <input type="time" id="heure_fin_${i}" class="form-control" name="heure_fin_${i}">
+                                <input type="time" id="heure_fin_${i}" class="form-control" name="heure_fin_${i}" value="{{old('heure_fin_${i}')}}">
                             </div>
 
                             <div class="col-md-4">
@@ -95,9 +104,9 @@
                             </div>
                             <div class="col-md-10 form-group">
                                 <select id="lieu_${i}" class="form-control" name="lieu_${i}">
-                                    <option value="">Choisissez un lieu</option>
+                                    <option value="" disabled selected>Choisissez un lieu</option>
                                     @foreach($lieus as $lieu)
-                                         <option value="{{$lieu->id}}">{{$lieu->ville}}@if($lieu->adresse), {{$lieu->adresse}} @endif</option>
+                                         <option value="{{$lieu->id}}" @if(old('lieu_${i}')==$lieu->id) selected @endif>{{$lieu->ville}}@if($lieu->adresse), {{$lieu->adresse}} @endif</option>
                                     @endforeach
                                 </select>
                             </div>

@@ -61,10 +61,14 @@ private function getMinMaxDates($demandes)
 
     public function store(Sessionpro $sessionpro, User $user)
     {   
-        $demande=new Demande;
         $sessionproUser=SessionproUser::where([
                  ['sessionpro_id', $sessionpro->id],
                  ['user_id', $user->id ]])->first();
+                 $lastDemande = $sessionproUser->demandes()->latest()->first();
+                 if($lastDemande && $lastDemande->statut!="traitée") {
+         return redirect()->back()->with('NewDemandeError', "Votre dernière demande d'attestation concernant cette formation est toujours en cours. Veuillez patienter jusqu'à la fin du traitement.");
+          }
+        $demande=new Demande;
         $demande->sessionpro_user_id=$sessionproUser->id;
         $demande->libelle_demande = "«" . $sessionpro->formation->theme ."»";
         $demande->save();

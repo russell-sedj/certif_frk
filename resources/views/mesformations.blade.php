@@ -9,6 +9,13 @@
                         <span> <h4>Formations suivies</h4></span>
                     </div>
                 </div>
+                <div class="card-body">
+                @if (session('NewDemandeError'))
+                    <div class="alert alert-danger">
+                        {{ session('NewDemandeError') }}
+                    </div>
+                @endif
+                </div>
                     <table class="table table-responsive">
                         <thead>
                             <tr>
@@ -32,14 +39,12 @@
 
                                 <td>
                                     <a href="{{route('users.marquerPresenceView', ['sessionpro' => $sessionpro, 'user' => $user])}}" class="btn btn-sm btn-primary">Marquer une présence</a>
-                                    @if($sessionpro->peut_demander)
+                                    @if($sessionpro->peut_demander &&
+                                    $user->presences->where('sessionpro_id', $sessionpro->id)->count()==$sessionpro->presences->count() &&
+                                    $sessionpro->users->firstWhere('id', $user->id)->pivot->note>=10
+                                    )
                                     <a href="{{route('demandes.store', [$sessionpro, $user])}}" class="btn btn-sm btn-secondary">Demander l'attestation</a>
                                     @endif
-                                    <form action="{{route('inscription', $sessionpro)}}" method="POST" style="display: inline;">
-                                    @csrf
-                                    @method('PUT')
-                                        <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
-                                    </form>
                                 </td>
                             </tr>
                         @endforeach

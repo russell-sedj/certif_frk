@@ -23,6 +23,7 @@ class UpdatePresenceRequest extends FormRequest
     {
         return [
             //
+            'nb_participants'=>['required','integer']
         ];
     }
 }

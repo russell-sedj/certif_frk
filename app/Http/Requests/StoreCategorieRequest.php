@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Validation\Rule;
 class StoreCategorieRequest extends FormRequest
 {
     /**
@@ -22,6 +22,9 @@ class StoreCategorieRequest extends FormRequest
     public function rules(): array
     {
         return [
+         'nom'=>['required','string',
+            Rule::unique('categories','nom')->where('description',$this->input('description')),
+        ],
             //
         ];
     }

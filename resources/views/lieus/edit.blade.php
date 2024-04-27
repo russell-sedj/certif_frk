@@ -17,14 +17,16 @@
                                         </div>
                                         <div class="col-md-10 form-group">
                                             <input type="text" id="ville" class="form-control" name="ville"
-                                                placeholder="ville" value="{{$lieu->ville}}">
+                                                placeholder="ville" value="{{old('ville', $lieu->ville)}}">
+                                                <x-input-error :messages="$errors->get('ville')" class="mt-2" />
                                         </div>
                                         <div class="col-md-4">
                                             <label for="description">Adresse</label>
                                         </div>
                                         <div class="col-md-10 form-group">
                                             <input type="text" id="description" class="form-control" name="adresse"
-                                                placeholder="Adresse" value="{{$lieu->adresse}}">
+                                                placeholder="Adresse" value="{{old('adresse', $lieu->adresse)}}">
+                                                <x-input-error :messages="$errors->get('adresse')" class="mt-2" />
                                         </div>
                                         <div class="col-sm-12 d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary me-1 mb-1">Modifier</button>

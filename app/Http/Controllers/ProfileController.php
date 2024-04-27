@@ -34,7 +34,7 @@ class ProfileController extends Controller
     $user->fill($request->validated());
 
     if ($request->role==="on") {
-        $user->role = '2';
+        $user->role = 'superviseur';
     } 
 
     if ($user->isDirty('email')) {

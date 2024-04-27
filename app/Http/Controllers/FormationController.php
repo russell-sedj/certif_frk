@@ -44,8 +44,11 @@ class FormationController extends Controller
         $formation->save();
         
         $nombre_sessions = $request->nombre_sessions;
-        
+        if($nombre_sessions > 0){
         for ($i = 0; $i < $nombre_sessions; $i++) {
+               if (Lieu::count() === 0) {
+                return back()->with('AddSessionError', 'Aucun lieu enregistré. Veuillez d\'abord ajouter un lieu.');
+            }
             $sessionpro = new Sessionpro;
             $sessionpro->date_debut = $request->input("date_debut_$i");
             $sessionpro->date_fin = $request->input("date_fin_$i");
@@ -55,7 +58,7 @@ class FormationController extends Controller
             $sessionpro->formation_id = $formation->id;
             $sessionpro->save();
         }
-        
+    }
         
         return redirect()->route('formations.index', $formation->categorie_id);
     }

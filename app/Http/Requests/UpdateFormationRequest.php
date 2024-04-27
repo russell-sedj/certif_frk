@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateFormationRequest extends FormRequest
 {
@@ -23,6 +24,9 @@ class UpdateFormationRequest extends FormRequest
     {
         return [
             //
+            'theme'=>['required',
+            Rule::unique('formations','theme')->where('description',$this->input('description'))->ignore($this->formation->id),
+            ]
         ];
     }
 }

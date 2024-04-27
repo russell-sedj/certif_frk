@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreFormationRequest extends FormRequest
 {
@@ -23,6 +24,9 @@ class StoreFormationRequest extends FormRequest
     {
         return [
             //
+            'theme'=>['required','string',
+            Rule::unique('formations','theme')->where('description',$this->input('description')),
+        ],
         ];
     }
 }

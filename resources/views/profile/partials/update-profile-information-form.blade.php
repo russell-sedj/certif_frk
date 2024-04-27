@@ -19,6 +19,7 @@
                                 </div>
                                 <div class="col-md-10 form-group">
                                     <input type="text" id="matricule" class="form-control" name="matricule" placeholder="Matricule" value="{{ old('matricule', $user->matricule) }}" required autofocus autocomplete="matricule">
+                                    <x-input-error :messages="$errors->get('matricule')" class="mt-2" />
                                 </div>
                             </div>
 
@@ -28,6 +29,7 @@
                                 </div>
                                 <div class="col-md-10 form-group">
                                     <input type="text" id="name" class="form-control" name="name" placeholder="Name" value="{{ old('name', $user->name) }}" required autocomplete="name">
+                                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                 </div>
                             </div>
 
@@ -37,6 +39,7 @@
                                 </div>
                                 <div class="col-md-10 form-group">
                                     <input type="text" id="surname" class="form-control" name="surname" placeholder="Prénoms" value="{{ old('surname', $user->surname) }}" required autocomplete="surname">
+                                    <x-input-error :messages="$errors->get('surname')" class="mt-2" />
                                 </div>
                             </div>
 
@@ -49,6 +52,7 @@
                                         <option value="M" @if(old('sexe', $user->sexe) == 'M') selected @endif>Masculin</option>
                                         <option value="F" @if(old('sexe', $user->sexe) == 'F') selected @endif>Féminin</option>
                                     </select>
+                                    <x-input-error :messages="$errors->get('sexe')" class="mt-2" />
                                 </div>
                             </div>
 
@@ -58,6 +62,7 @@
                                 </div>
                                 <div class="col-md-10 form-group">
                                     <input type="email" id="email" class="form-control" name="email" placeholder="Email" value="{{ old('email', $user->email) }}" required autocomplete="email">
+                                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                 </div>
                             </div>
 
@@ -74,6 +79,7 @@
                                         <input type="radio" id="titre2" class="form-check-input" name="titre" value="DFPT" @if(old('titre', $user->titre) == 'DFPT') checked @endif>
                                         <label class="form-check-label" for="titre2">DFPT</label>
                                     </div>
+                                    <x-input-error :messages="$errors->get('titre')" class="mt-2" />
                                 </div>
                             </div>
 
@@ -82,10 +88,11 @@
                                     <label for="role">Role</label>
                                 </div>
                                 <div class="col-md-10 form-check">
-                                    <input type="hidden" id="role" class="form-check-input" name="role" value="0">
-                                    <input type="checkbox" id="role" class="form-check-input" name="role" @if(old('role', $user->role) == "2") checked @endif>
+                                    <input type="hidden" id="role" class="form-check-input" name="role" value="aucun">
+                                    <input type="checkbox" id="role" class="form-check-input" name="role" @if(old('role', $user->role) == "superviseur") checked @endif>
                                     <label for="role">Agent Superviseur</label>
                                 </div>
+                                <x-input-error :messages="$errors->get('role')" class="mt-2" />
                             </div>
 
                             <div class="row">

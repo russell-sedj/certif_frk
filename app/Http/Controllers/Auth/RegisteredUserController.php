@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
@@ -33,11 +33,19 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'matricule'=>['required', 'string','unique:'.User::class],
+            'matricule'=>['required', 'string',
+            Rule::unique('users', 'matricule')->where(function ($query) use ($request) {
+                if ($request->filled('role')) {
+                    return $query->where('role', $request->input('role'));
+                } else {
+                    return $query->whereIn('role', ['aucun']);
+                }
+            }),
+               ],
             'surname'=>['required', 'string', 'max:255'],
             'sexe'=>'required',
-            'role',
-            'titre',
+            'role'=>'string',
+            'titre' => ['nullable', 'string', 'unique:users,titre'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
@@ -47,8 +55,8 @@ class RegisteredUserController extends Controller
             'matricule'=> $request->matricule,
             'surname'=>$request->surname,
             'sexe'=>$request->sexe,
-            'role'=>$request->role,
-            'titre'=>$request->titre,
+            'role'=>$request->role ?? 'aucun',
+            'titre' => $request->has('titre') ? $request->titre :null,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
@@ -63,6 +71,9 @@ class RegisteredUserController extends Controller
     {
         $user=$request->user();
         $sessionpro=Sessionpro::find($sessionpro->id);
+        if (today()->isAfter($sessionpro->date_fin )) {
+            return back()->with('PeutInscrireError', 'Vous ne pouvez effectuer cette action car la session de formation est terminée.');
+        }
         $user->sessionpros->contains($sessionpro->id)?$user->sessionpros()->detach($sessionpro->id):$user->sessionpros()->attach($sessionpro->id); 
         
         return redirect()->back();

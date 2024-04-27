@@ -29,7 +29,7 @@
                                     <form action="{{ url('/categories/'.$category->id)}}" method="POST" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?')">Supprimer</button>
+                                <button type="submit" class="btn btn-sm btn-danger"onclick="return confirm('La suppression de cette catégorie entraînera également celle de toutes ses formations et de toutes autres données qui y sont liées. Êtes-vous sûr de vouloir continuer?')">Supprimer</button>
                                     </form>
                                 </td>
                             </tr>

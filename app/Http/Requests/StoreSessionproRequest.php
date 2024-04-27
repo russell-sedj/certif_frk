@@ -23,6 +23,11 @@ class StoreSessionproRequest extends FormRequest
     {
         return [
             //
+            'date_debut'=>['required','date',],
+            'date_fin'=>['required','date','after_or_equal:date_debut'],
+            'heure_debut'=>['required','date_format:H:i'],
+            'heure_fin'=>['required','date_format:H:i','after:heure_debut'],
+            'lieu_id'=>'required'
         ];
     }
 }

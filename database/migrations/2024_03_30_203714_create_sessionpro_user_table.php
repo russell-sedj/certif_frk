@@ -16,9 +16,9 @@ return new class extends Migration
             $table->integer('nb_presence')->nullable();
             $table->string('note')->nullable();
             $table->unsignedBigInteger('sessionpro_id');
-            $table->foreign('sessionpro_id')->references('id')->on('sessionpros');
+            $table->foreign('sessionpro_id')->references('id')->on('sessionpros')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

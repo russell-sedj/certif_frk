@@ -12,7 +12,17 @@
                 </div>
             </div>
             <div class="card-body">
-                </div>
+             </div>
+                @if (session('AddSessionError'))
+                    <div class="alert alert-danger">
+                        {{ session('AddSessionError') }}
+                    </div>
+                @endif
+                @if (session('PeutInscrireError'))
+                    <div class="alert alert-danger">
+                        {{ session('PeutInscrireError') }}
+                    </div>
+                @endif
                     <table class="table table-responsive">
                         <thead>
                             <tr>
@@ -66,7 +76,7 @@
                                     <form action="{{route('sessionpros.destroy', [$sessionpro->id, $sessionpro->formation])}}" method="POST" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger mb-2" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette session ?')">Supprimer</button>
+                                        <button type="submit" class="btn btn-sm btn-danger mb-2" onclick="return confirm('La suppression de cette session entraînera également celle de toutes autres données qui y sont liées. Êtes-vous sûr de vouloir continuer?')">Supprimer</button>
                                     </form>
                                 </td>
                             </tr>

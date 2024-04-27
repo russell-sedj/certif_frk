@@ -29,7 +29,7 @@
                                     <form action="{{ url('/lieus/'.$lieu->id)}}" method="POST" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce lieu ?')">Supprimer</button>
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('La suppression de ce lieu entraînera également celle de toutes les formations tenues et de toutes autres données qui y sont liées. Êtes-vous sûr de vouloir continuer?')">Supprimer</button>
                                     </form>
                                 </td>
                             </tr>

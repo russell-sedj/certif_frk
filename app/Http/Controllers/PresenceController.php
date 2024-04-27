@@ -36,6 +36,9 @@ class PresenceController extends Controller
         if($lastPresence && $lastPresence->est_actif) {
             return redirect()->back()->with('AddPresenceError', 'La derniere présence est encore active');
         }
+        if(today()->isBefore($sessionpro->date_debut) || today()->isAfter($sessionpro->date_fin) ) {
+            return redirect()->back()->with('addPresenceError', 'Vous ne pouvez ajouter de présence en dehors de la période de formation.');
+        }
 
         $presence = new Presence;
         $presence->date = date('Y-m-d');

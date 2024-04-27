@@ -17,28 +17,32 @@
                                         </div>
                                         <div class="col-md-10 form-group">
                                             <input type="date" id="date_debut" class="form-control" name="date_debut"
-                                            value="{{$sessionpro->date_debut}}">
+                                            value="{{old('date_debut', $sessionpro->date_debut)}}">
+                                            <x-input-error :messages="$errors->get('date_debut')" class="mt-2" />
                                         </div>
                                         <div class="col-md-4">
                                             <label for="date_fin">Date de fin</label>
                                         </div>
                                         <div class="col-md-10 form-group">
                                             <input type="date" id="date_fin" class="form-control" name="date_fin"
-                                            value="{{$sessionpro->date_fin}}">
+                                            value="{{old('date_fin', $sessionpro->date_fin)}}">
+                                            <x-input-error :messages="$errors->get('date_fin')" class="mt-2" />
                                         </div>
                                         <div class="col-md-4">
                                             <label for="heure_debut">Heure de debut</label>
                                         </div>
                                         <div class="col-md-10 form-group">
                                             <input type="time" id="heure_debut" class="form-control" name="heure_debut"
-                                            value="{{$sessionpro->heure_debut}}">
+                                            value="{{old('heure_debut', $sessionpro->heure_debut)}}">
+                                            <x-input-error :messages="$errors->get('heure_debut')" class="mt-2" />
                                         </div>
                                         <div class="col-md-4">
                                             <label for="heure_fin">Heure de fin</label>
                                         </div>
                                         <div class="col-md-10 form-group">
-                                            <input type="time" id="description" class="form-control" name="heure_fin"
-                                            value="{{$sessionpro->heure_fin}}">
+                                            <input type="time" id="heure_fin" class="form-control" name="heure_fin"
+                                            value="{{old('heure_fin', $sessionpro->heure_fin)}}">
+                                            <x-input-error :messages="$errors->get('heure_fin')" class="mt-2" />
                                         </div>
                                         <div class="col-md-4">
                                             <label for="lieu_id">Lieu</label>
@@ -46,11 +50,12 @@
                                         <div class="col-md-10 form-group">
                                             <select name="lieu_id" id="lieu_id">
                                             @foreach ($lieus as $lieu)
-                                                <option value="{{$lieu->id}}" {{ $sessionpro->lieu_id == $lieu->id ? 'selected' : '' }}>
+                                                <option value="{{old('lieu_id', $lieu->id)}}" {{ $sessionpro->lieu_id == $lieu->id ? 'selected' : '' }}>
                                                    {{$lieu->ville}}@if($lieu->adresse), {{$lieu->adresse}}@endif
                                                 </option>
                                             @endforeach
                                             </select>
+                                            <x-input-error :messages="$errors->get('lieu_id')" class="mt-2" />
                                         </div>
                                         <input type="hidden" id="formation_id" class="form-control" name="formation_id" value="{{$sessionpro->formation_id}}">
                                         <div class="col-sm-12 d-flex justify-content-end">

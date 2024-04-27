@@ -17,14 +17,16 @@
                                         </div>
                                         <div class="col-md-10 form-group">
                                             <input type="text" id="theme" class="form-control" name="theme"
-                                                placeholder="Thème" value="{{$formation->theme}}">
+                                                placeholder="Thème" value="{{old('theme', $formation->theme)}}">
+                                                <x-input-error :messages="$errors->get('theme')" class="mt-2" />
                                         </div>
                                         <div class="col-md-4">
                                             <label for="description">Description</label>
                                         </div>
                                         <div class="col-md-10 form-group">
                                             <input type="text" id="description" class="form-control" name="description"
-                                                placeholder="Description" value="{{$formation->description}}">
+                                                placeholder="Description" value="{{old('description',  $formation->description) }}">
+                                                <x-input-error :messages="$errors->get('description')" class="mt-2" />
                                         </div>
                                         <input type="hidden" id="categorie_id" class="form-control" name="categorie_id" value="{{$formation->categorie_id}}">
                                         <div class="col-sm-12 d-flex justify-content-end">

@@ -25,6 +25,11 @@
                         {{ session('AddPresenceError') }}
                     </div>
                 @endif
+                @if (session('addPresenceError'))
+                    <div class="alert alert-danger">
+                        {{ session('addPresenceError') }}
+                    </div>
+                @endif
                 @if (session('alredyActivePresence'))
                     <div class="alert alert-danger">
                         {{ session('alredyActivePresence') }}

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreLieuRequest extends FormRequest
 {
@@ -23,6 +24,8 @@ class StoreLieuRequest extends FormRequest
     {
         return [
             //
+            'ville'=>['required','string',
+             Rule::unique('lieus','ville')->where('adresse',$this->input('adresse'))],
         ];
     }
 }

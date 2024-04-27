@@ -27,7 +27,10 @@ class SessionproController extends Controller
      * Show the form for creating a new resource.
      */
     public function create($formation)
-    {
+    {   
+        if (Lieu::count() === 0) {
+        return back()->with('AddSessionError', 'Aucun lieu enregistré. Enregistrez un lieu pour ajouter une session à cete formation.');
+    }
         $lieus = Lieu::all();
 
         return view('sessionpros.create', compact('formation', 'lieus'));
@@ -37,7 +40,7 @@ class SessionproController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StoreSessionproRequest $request)
-    {
+    {   
         $sessionpro = new Sessionpro;
         $sessionpro->date_debut = $request->date_debut;
         $sessionpro->date_fin = $request->date_fin;
@@ -104,6 +107,9 @@ class SessionproController extends Controller
     {
         //$sessionpro = Sessionpro::find($sessionpro->id);
         if($sessionpro->peut_inscrire == false){
+            if (today()->isAfter($sessionpro->date_fin )) {
+                return back()->with('PeutInscrireError', 'Vous ne pouvez effectuer cette action car la session de formation est terminée.');
+            }
             $sessionpro->peut_inscrire = true;
         }
         else {
@@ -117,6 +123,10 @@ class SessionproController extends Controller
     
     public function openRequest(Sessionpro $sessionpro)
     {
+        if(today()->isBefore($sessionpro->date_fin)) {
+            return redirect()->back()->with('openRequestError', 'Vous ne pouvez effectuer cette action car la session de formation n\'est pas terminée.');
+        }
+
         $sessionpro->peut_demander = true;
         $sessionpro-> save();
 

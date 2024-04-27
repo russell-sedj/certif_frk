@@ -23,6 +23,11 @@ class UpdateSessionproRequest extends FormRequest
     {
         return [
             //
+            'date_debut'=>['required','date'],
+            'date_fin'=>['required','date','after_or_equal:date_debut'],
+            'heure_debut' => ['regex:/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/'],
+            'heure_fin' => ['regex:/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/','after:heure_debut'],
+            'lieu_id'=>'required'
         ];
     }
 }

@@ -30,7 +30,7 @@
                                     <form action="{{route('formations.destroy', [$formation->id, $formation->categorie])}}" method="POST" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette formation ?')">Supprimer</button>
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('La suppression de cette formation entraînera également celle de toutes ses sessions et de toutes autres données qui y sont liées. Êtes-vous sûr de vouloir continuer?')">Supprimer</button>
                                     </form>
                                 </td>
                             </tr>

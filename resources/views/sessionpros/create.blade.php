@@ -15,36 +15,41 @@
                                             <label for="date_debut">Date de debut</label>
                                         </div>
                                         <div class="col-md-10 form-group">
-                                            <input type="date" id="date_debut" class="form-control" name="date_debut">
+                                            <input type="date" id="date_debut" class="form-control" name="date_debut" value="{{old('date_debut')}}">
+                                            <x-input-error :messages="$errors->get('date_debut')" class="mt-2" />
                                         </div>
                                         <div class="col-md-4">
                                             <label for="date_fin">Date de fin</label>
                                         </div>
                                         <div class="col-md-10 form-group">
-                                            <input type="date" id="date_fin" class="form-control" name="date_fin">
+                                            <input type="date" id="date_fin" class="form-control" name="date_fin" value="{{old('date_fin')}}">
+                                            <x-input-error :messages="$errors->get('date_fin')" class="mt-2" />
                                         </div>
                                         <div class="col-md-4">
                                             <label for="heure_debut">Heure de debut</label>
                                         </div>
                                         <div class="col-md-10 form-group">
-                                            <input type="time" id="heure_debut" class="form-control" name="heure_debut">
+                                            <input type="time" id="heure_debut" class="form-control" name="heure_debut" value="{{old('heure_debut')}}">
+                                            <x-input-error :messages="$errors->get('heure_debut')" class="mt-2" />
                                         </div>
                                         <div class="col-md-4">
                                             <label for="heure_fin">Heure de fin</label>
                                         </div>
                                         <div class="col-md-10 form-group">
-                                            <input type="time" id="heure_fin" class="form-control" name="heure_fin">
+                                            <input type="time" id="heure_fin" class="form-control" name="heure_fin" value="{{old('heure_fin')}}">
+                                            <x-input-error :messages="$errors->get('heure_fin')" class="mt-2" />
                                         </div>
                                         <div class="col-md-4">
                                             <label for="lieu_id">Lieu</label>
                                         </div>
                                         <div class="col-md-10 form-froup">
                                             <select id="lieu_id" name="lieu_id">
-                                            <option disable selected>Choisissez...</option>
+                                            <option disabled selected>Choisissez...</option>
                                                 @foreach($lieus as $lieu)
-                                                    <option value="{{$lieu->id}}">{{$lieu->ville}}@if($lieu->adresse), {{$lieu->adresse}} @endif</option>
+                                                    <option value="{{$lieu->id}}" @if(old('lieu_id')==$lieu->id) selected @endif>{{$lieu->ville}}@if($lieu->adresse), {{$lieu->adresse}} @endif</option>
                                                 @endforeach
                                             </select>
+                                            <x-input-error :messages="$errors->get('lieu_id')" class="mt-2" />
                                         </div>
 
                                         {{-- had to put $foramtion instead for $foramtion->id cause it's already an id --}}

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateLieuRequest extends FormRequest
 {
@@ -12,6 +13,7 @@ class UpdateLieuRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
+        
     }
 
     /**
@@ -23,6 +25,8 @@ class UpdateLieuRequest extends FormRequest
     {
         return [
             //
+            'ville'=>['required','string',
+             Rule::unique('lieus','ville')->where('adresse',$this->input('adresse'))->ignore($this->lieu->id)],
         ];
     }
 }

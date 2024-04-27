@@ -22,6 +22,7 @@ class StorePresenceRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'nb_participants'=>['required','integer']
             //
         ];
     }
