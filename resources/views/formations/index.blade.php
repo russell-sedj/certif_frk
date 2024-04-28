@@ -11,7 +11,7 @@
                     <a href="{{route('formations.create',$categorie)}}" class="btn btn-success">Ajouter une formation</a>
                 </div>
                 </div>
-                    <table class="table">
+                    <table class="table table-responsive">
                         <thead>
                             <tr>
                                 <th scope="col">Thème</th>
