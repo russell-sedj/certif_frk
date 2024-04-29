@@ -10,7 +10,7 @@
                         <a href="{{route('categories.create')}}" class="btn btn-success">Ajouter une catégorie</a>
                     </div>
                 </div>
-                    <table class="table">
+                    <table class="table table-responsive">
                         <thead>
                             <tr>
                                 <th scope="col">Nom</th>

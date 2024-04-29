@@ -1,5 +1,8 @@
 @extends('layouts.myapp')
 @section('content')
+
+<link rel="stylesheet" href="//cdn.datatables.net/2.0.5/css/dataTables.dataTables.min.css">
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -7,18 +10,6 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
                     <h1>Liste des sessions</h1>
-                </div>
-                <div class="d-flex justify-content-between mt-4">
-                    <form action="{{route('sessionpros.dashboard')}}" method="get">
-                        @csrf
-                        <input type="text" name="category" placeholder="Entrer la catégorie"><br>
-                        <button type="submit" class="btn btn-primary mt-2">Rechercher par categorie</button>
-                    </form>
-                    <form action="{{route('sessionpros.dashboard')}}" method="get">
-                        @csrf
-                        <input type="text" name="formation" placeholder="Entrer la formation"><br>
-                        <button type="submit" class="btn btn-primary mt-2">Rechercher par formation</button>
-                    </form>
                 </div>
             </div>
             <div class="card-body">
@@ -33,7 +24,7 @@
                     </div>
                 @endif
             </div>
-            <table class="table table-responsive text-sm">
+            <table class="table table-responsive text-sm" id="myTable">
                         <thead>
                             <tr>
                                 <th scope="col">Periode</th>
@@ -79,6 +70,9 @@
                                     @endif
                                     
                                     <a href="{{route('sessionpros.edit', $sessionpro)}}" class="btn btn-sm btn-secondary mb-2">Modifier</a>
+                                    
+                                    <span hidden>{{$sessionpro->formation->theme}}</span>
+                                    <span hidden>{{$sessionpro->formation->categorie->nom}}</span>
                                 </td>
                             </tr>
                         @endforeach
@@ -94,6 +88,14 @@
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="//cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
+</script>
 @endsection
 
 

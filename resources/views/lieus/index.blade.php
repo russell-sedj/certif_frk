@@ -10,7 +10,7 @@
                         <a href="{{route('lieus.create')}}" class="btn btn-success">Ajouter un lieu</a>
                     </div>
                 </div>
-                    <table class="table">
+                    <table class="table table-responsive">
                         <thead>
                             <tr>
                                 <th scope="col">Villes</th>
