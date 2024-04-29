@@ -79,20 +79,32 @@
                                         <input type="radio" id="titre2" class="form-check-input" name="titre" value="DFPT" @if(old('titre', $user->titre) == 'DFPT') checked @endif>
                                         <label class="form-check-label" for="titre2">DFPT</label>
                                     </div>
+                                    <div class="form-check">
+                                    <input type="radio" id="titre3" class="form-check-input" name="titre" value="" @if(old('titre', $user->titre) == null) checked @endif>
+                                        <label class="form-check-label" for="titre3">Autre</label>
+                                    </div>
                                     <x-input-error :messages="$errors->get('titre')" class="mt-2" />
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-4">
-                                    <label for="role">Role</label>
+                                    <label for="role">Rôle</label>
                                 </div>
-                                <div class="col-md-10 form-check">
-                                    <input type="hidden" id="role" class="form-check-input" name="role" value="aucun">
-                                    <input type="checkbox" id="role" class="form-check-input" name="role" @if(old('role', $user->role) == "superviseur") checked @endif>
-                                    <label for="role">Agent Superviseur</label>
-                                </div>
-                                <x-input-error :messages="$errors->get('role')" class="mt-2" />
+                                <div class="col-md-10">
+                                <div class="form-check">
+                                        <input type="radio" id="role1" class="form-check-input" name="role" value="admin" @if(old('role', $user->role) == 'admin') checked @endif>
+                                        <label class="form-check-label" for="role1">Admin</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="radio" id="role2" class="form-check-input" name="role" value="superviseur" @if(old('role', $user->role) == 'superviseur') checked @endif>
+                                        <label class="form-check-label" for="role2">Superviseur</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="radio" id="role3" class="form-check-input" name="role" value="aucun" @if(old('role', $user->role) == 'aucun') checked @endif>
+                                        <label class="form-check-label" for="role3">Aucun</label>
+                                    </div>
+                                    <x-input-error :messages="$errors->get('role')" class="mt-2" />
                             </div>
 
                             <div class="row">

@@ -132,7 +132,7 @@
                     <div id="plageJournee" style="display: none;">
                     <div class="mb-3">
                         <label for="debut" class="form-label">Date de début :</label>
-                        <select class="form-select" id="debut" name="debut" required>
+                        <select class="form-select" id="debut" name="debut">
                             <option disabled selected value="">Choisir une date</option>
                             @foreach($dates_sent as $date_sent)
                                 <option value="{{ $date_sent['min'] }}">{{ $date_sent['min']->format('l d F Y') }}</option>

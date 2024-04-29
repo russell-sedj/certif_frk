@@ -69,9 +69,14 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
+                            <x-input-label for="role" :value="__('Rôle')" />
                             <div class="form-check">
-                                <input type="checkbox" id="role" class="form-check-input" name="role" value="old('role')">
-                                <label for="role">Agent Superviseur</label>
+                                <input type="radio" id="role1" class="form-check-input" name="role" value="admin">
+                                <label class="form-check-label" for="role1">Admin</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" id="role2" class="form-check-input" name="role" value="superviseur">
+                                <label class="form-check-label" for="role2">Superviseur</label>
                             </div>
                             <x-input-error :messages="$errors->get('role')" class="mt-2" />
                         </div>
@@ -90,20 +95,5 @@
 
 
         </section>
-        <script>
-     document.addEventListener('DOMContentLoaded', function() {
-        var roleCheckbox = document.getElementById('role');
-        var valueInput = document.querySelector('input[name="role"]');
-        var form = document.getElementById('myForm');
-        
-        form.addEventListener('submit', function(event) {
-            if (roleCheckbox.checked) {
-                valueInput.value = "superviseur";
-            } else {
-                valueInput.value = "";
-            }
-        });
-    });
-</script>
 
 @endsection

@@ -109,8 +109,15 @@ private function getMinMaxDates($demandes)
             $demande->statut='traitée';
             $demande->save();
         }
-        session()->flash('toast_message', "Les réponses aux demandes du <strong>".date('d F Y H:i:s',strtotime($debut))."</strong> au <strong>".date('d F Y H:i:s',strtotime($fin))."</strong> ont été envoyées avec succès!");
-        session()->flash('toast_type', 'success');
+        if ($duree === 'journee') {
+            $toastMessage = "Les réponses aux demandes de la journée du <strong>" . date('d F Y ', strtotime($debut)) . "</strong>";
+            if ($duree !== 'journee') {
+                $toastMessage .= " au <strong>" . date('d F Y ', strtotime($fin)) . "</strong>";
+            }          
+            $toastMessage .= " ont été envoyées avec succès!";       
+            session()->flash('toast_message', $toastMessage);
+            session()->flash('toast_type', 'success');
+        }
         return redirect()->route('demandesSup.index');
     }
     public function download(Request $request){
