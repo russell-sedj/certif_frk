@@ -63,7 +63,7 @@
                                             @csrf
                                             @method('PUT')
                                             <button type="submit" class="btn btn-sm btn-success mb-2"  
-                                            onclick="return confirm('Vous ne pourrez plus modifer cette valeur, etes vous sur ?')" >
+                                            onclick="return confirm('Cette action marque la fin de la session et est irréversible. Voulez-vous continuer?')" >
                                                 Autoriser demande
                                             </button>
                                         </form>

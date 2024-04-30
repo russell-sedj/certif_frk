@@ -23,6 +23,11 @@
                         {{ session('PeutInscrireError') }}
                     </div>
                 @endif
+                @if (session('updateError'))
+                    <div class="alert alert-danger">
+                        {{ session('updateError') }}
+                    </div>
+                @endif
                     <table class="table table-responsive">
                         <thead>
                             <tr>
@@ -65,7 +70,7 @@
                                             @csrf
                                             @method('PUT')
                                             <button type="submit" class="btn btn-sm btn-success mb-2"  
-                                            onclick="return confirm('Vous ne pourrez plus modifer cette valeur, etes vous sur ?')" >
+                                            onclick="return confirm('Cette action marque la fin de la session et est irréversible. Voulez-vous continuer?')" >
                                                 Autoriser demande
                                             </button>
                                         </form>

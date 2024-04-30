@@ -65,7 +65,10 @@ class SessionproController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Sessionpro $sessionpro)
-    {
+    {   
+        if($sessionpro->peut_demander == true){
+            return back()->with('updateError', "Vous ne pouvez effectuer cette action car la session est terminée et les attestations sont disponibles.");
+               }
         $lieus = Lieu::all();
         
         return view('sessionpros.edit', compact('sessionpro', 'lieus'));

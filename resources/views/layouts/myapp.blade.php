@@ -138,7 +138,14 @@
                 class="sidebar-item {{ Route::currentRouteNamed('demandesSup.index') ? 'active' : '' }}">
                 <a href="{{route('demandesSup.index')}}" class='sidebar-link'>
                 <i class="bi bi-clipboard-check-fill"></i>
-                    <span>Demandes</span>
+                    <span>Demandes
+                      @php
+                     $newDemandesCount = \App\Models\Demande::where('statut','envoyée')->count();
+                     @endphp
+                     @if($newDemandesCount)
+                <span class="badge bg-warning badge-pill badge-round float-right mt-50"> {{$newDemandesCount}} </span>
+                @endif
+                    </span>
                 </a>
             </li>
             

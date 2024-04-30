@@ -27,6 +27,11 @@
     class="m-10 focus:outline-none text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
     Télécharger
 </button>
+<a href="{{route('demandesSup.index')}}"><button id="reset" type="button"
+class="m-10 focus:outline-none text-white bg-gray-500 hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+Annuler
+</button>
+</a>
 
 @foreach ($demandes as $demande)
 <div class="background ms-5 me-8 mt-8" id="attestation{{$demande->id}}">
@@ -64,7 +69,9 @@
                         <p class="text-center mb-5">Le Directeur général du Trésor et de la Comptabilité publique soussigné, atteste que 
                             <span class="font-bold">@if($demande->user->sexe=="M") Monsieur @else Madame @endif {{ $demande->user->name}} {{ $demande->user->surname}}</span>, agent du Trésor public, a participé au séminaire de 
                                 formation sur "<span class="font-bold">{{ $demande->sessionpro->formation->theme}}</span>" organisé par la Direction de la Formation Professionnelle 
-                                du Trésor du {{ \Carbon\Carbon::parse($demande->sessionpro->date_debut)->format('l d') }} au {{ \Carbon\Carbon::parse($demande->sessionpro->date_fin)->format('l d F Y') }} à {{ $demande->sessionpro->lieu->ville }}.
+                                du Trésor du @if($demande->sessionpro->date_debut==$demande->sessionpro->date_fin)
+                                {{ \Carbon\Carbon::parse($demande->sessionpro->date_debut)->format('l d F Y') }}
+                                 @else{{ \Carbon\Carbon::parse($demande->sessionpro->date_debut)->format('l d F') }} au {{ \Carbon\Carbon::parse($demande->sessionpro->date_fin)->format('l d F Y') }} @endif à {{ $demande->sessionpro->lieu->ville }}.
                         </p>
                         
                         <p class="text-center mb-5">En foi de quoi la présente attestation lui est délivrée pour servir et valoir ce que de droit.</p>
