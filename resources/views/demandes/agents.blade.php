@@ -16,12 +16,25 @@
             <div class="tab-content">
                 <div id="demandes" class="tab-pane fade show active">
                     <div class="notification-ui_dd-content">
+                    @if($demandes->count()==0)
+                        <div class="notification-list mt-2">
+                            <div class="notification-list_content">
+                                <div class="notification-list_detail d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <p class="text-muted">
+                                            Aucune demande en cours.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                         @foreach($demandes as $demande)
-                        <div class="notification-list mt-2 @if(!$demande->prete) notification-list--unread @endif ">
+                        <div class="notification-list mt-2">
                             <div class="notification-list_content">
                                 <div class="notification-list_detail">
                                     <p class="text-muted">Votre demande d'attestation pour le thème <strong>{{ $demande->libelle_demande}}</strong> a été envoyée avec succès!</p>
-                                    <p class="text-muted"><small>{{ $demande->created_at }}</small></p>
+                                    <p class="text-muted"><small>{{ date('d/m/Y H:i',strtotime($demande->created_at)) }}</small></p>
                                 </div>
                             </div>
                         </div>
@@ -30,6 +43,19 @@
                 </div>
                 <div id="reponses" class="tab-pane fade">
                     <div class="notification-ui_dd-content">
+                    @if($demandes->where('statut','traitée')->count()==0)
+                        <div class="notification-list mt-2">
+                            <div class="notification-list_content">
+                                <div class="notification-list_detail d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <p class="text-muted">
+                                            Vous n'avez reçu aucune réponse.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                         @foreach($demandes as $demande)
                         @if($demande->statut=="traitée")
                         <div class="notification-list">
@@ -37,7 +63,7 @@
                                 <div class="notification-list_detail">
                                     <p><b>{{ $demande->theme }}</b></p>
                                     <p class="text-muted">Votre attestation pour le thème {{$demande->libelle_demande}} est prête.</p>
-                                    <p class="text-muted"><small>{{ $demande->updated_at}}</small></p>
+                                    <p class="text-muted"><small>{{date('d/m/Y H:i',strtotime( $demande->updated_at))}}</small></p>
                                 </div>
                             </div>
                         </div>

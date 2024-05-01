@@ -8,7 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-    <title>Document</title>
+    <title>Attestations</title>
 </head>
 
 <style>
@@ -24,11 +24,11 @@
 </style>
 
 <button id="downloadButton" type="button" 
-    class="m-10 focus:outline-none text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+    class="m-10 focus:outline-none text-white bg-green-600 hover:bg-green-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
     Télécharger
 </button>
 <a href="{{route('demandesSup.index')}}"><button id="reset" type="button"
-class="m-10 focus:outline-none text-white bg-gray-500 hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+class="m-10 focus:outline-none text-white bg-gray-500 hover:bg-gray-600 focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
 Annuler
 </button>
 </a>
@@ -69,9 +69,9 @@ Annuler
                         <p class="text-center mb-5">Le Directeur général du Trésor et de la Comptabilité publique soussigné, atteste que 
                             <span class="font-bold">@if($demande->user->sexe=="M") Monsieur @else Madame @endif {{ $demande->user->name}} {{ $demande->user->surname}}</span>, agent du Trésor public, a participé au séminaire de 
                                 formation sur "<span class="font-bold">{{ $demande->sessionpro->formation->theme}}</span>" organisé par la Direction de la Formation Professionnelle 
-                                du Trésor du @if($demande->sessionpro->date_debut==$demande->sessionpro->date_fin)
-                                {{ \Carbon\Carbon::parse($demande->sessionpro->date_debut)->format('l d F Y') }}
-                                 @else{{ \Carbon\Carbon::parse($demande->sessionpro->date_debut)->format('l d F') }} au {{ \Carbon\Carbon::parse($demande->sessionpro->date_fin)->format('l d F Y') }} @endif à {{ $demande->sessionpro->lieu->ville }}.
+                                du Trésor  @if($demande->sessionpro->date_debut==$demande->sessionpro->date_fin) le
+                                {{ \Carbon\Carbon::parse($demande->sessionpro->date_debut)->locale('fr')->isoFormat('D MMMM YYYY')}}
+                                 @else du {{\Carbon\Carbon::parse($demande->sessionpro->date_debut)->locale('fr')->isoFormat('D MMMM YYYY')}} au {{ \Carbon\Carbon::parse($demande->sessionpro->date_fin)->locale('fr')->isoFormat('D MMMM YYYY')}} @endif à {{ $demande->sessionpro->lieu->ville }}.
                         </p>
                         
                         <p class="text-center mb-5">En foi de quoi la présente attestation lui est délivrée pour servir et valoir ce que de droit.</p>
@@ -99,10 +99,12 @@ Annuler
 <script>
     document.getElementById('downloadButton').addEventListener('click', function() {
         const demandes = @json($demandes);
-        const debut = @json($debut);
-        const fin = @json($fin);
+        const debut=@json($debut);
+        const fin=@json($fin);
+        const new_debut = @json(date('d/m/Y H:i',strtotime($debut)));
+        const new_fin = @json(date('d/m/Y H:i',strtotime($fin)));
         const zip = new JSZip();
-        const zipFilename = `attestations_du_${debut}_au_${fin}.zip`; // Utilisation de backticks pour l'interpolation
+        const zipFilename = `attestations_du_${new_debut}_au_${new_fin}.zip`; // Utilisation de backticks pour l'interpolation
         const promises = [];
 
         demandes.forEach(demande => {

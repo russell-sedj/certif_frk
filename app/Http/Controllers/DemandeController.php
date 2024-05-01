@@ -110,9 +110,13 @@ private function getMinMaxDates($demandes)
             $demande->save();
         }
         if ($duree === 'journee') {
-            $toastMessage = "Les réponses aux demandes de la journée du <strong>" . date('d F Y ', strtotime($debut)) . "</strong>";
+            $toastMessage = "Les réponses aux demandes de la journée du <strong>" .
+            \Carbon\Carbon::parse($debut)->locale('fr')->isoFormat('D MMMM YYYY')
+            . "</strong>";
             if ($duree !== 'journee') {
-                $toastMessage .= " au <strong>" . date('d F Y ', strtotime($fin)) . "</strong>";
+                $toastMessage .= " au <strong>" . 
+                \Carbon\Carbon::parse($fin)->locale('fr')->isoFormat('D MMMM YYYY')
+                . "</strong>";
             }          
             $toastMessage .= " ont été envoyées avec succès!";       
             session()->flash('toast_message', $toastMessage);

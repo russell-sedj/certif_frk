@@ -5,9 +5,9 @@
         <div class="col-md-12">
             <div class="card">
             <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span> <h4>Formations suivies</h4></span>
-                    </div>
+            <div class="d-flex justify-content-between align-items-center">
+                    <h1>Tableau de bord</h1>
+                </div>
                 </div>
                 <div class="card-body">
                 @if (session('NewDemandeError'))
@@ -16,40 +16,50 @@
                     </div>
                 @endif
                 </div>
-                    <table class="table table-responsive">
-                        <thead>
+                <div class="table-responsive">
+                    <table class="table table-striped">                       
+                         <thead>
                             <tr>
-                                <th scope="col">Thème</th>
-                                <th scope="col">Période</th>
-                                <th scope="col">Lieu</th>
-                                <th scope="col">Présence</th>
-                                <th scope="col">Note / 20</th>
-                                <th scope="col">Actions</th>
+                                <th scope="col" style="text-align:center;">Thème</th>
+                                <th scope="col" style="text-align:center;">Période</th>
+                                <th scope="col" style="text-align:center;">Lieu</th>
+                                <th scope="col" style="text-align:center;">Présence</th>
+                                <th scope="col" style="text-align:center;">Note / 20</th>
+                                <th scope="col" style="text-align:center;">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                          @foreach($user->sessionpros as $sessionpro)
+                          @foreach($user->sessionpros->sortByDesc('created_at') as $sessionpro)
                             <tr>
-                                <td>{{$sessionpro->formation->theme}}</td>
-                                <td>{{$sessionpro->date_debut}} à {{$sessionpro->date_fin}}</td>
-                                <td>{{$sessionpro->lieu->ville}}@if($sessionpro->lieu->adresse), {{$sessionpro->lieu->adresse}}@endif</td>
-                                
-                                <td>{{$user->presences->where('sessionpro_id', $sessionpro->id)->count()}}/{{$sessionpro->presences->count()}}</td>
-                                <td>{{$sessionpro->users->firstWhere('id', $user->id)->pivot->note}} / 20</td>
+                                <td style="text-align:center;">{{$sessionpro->formation->theme}}</td>
+                                <td style="text-align:center;">@if($sessionpro->date_debut==$sessionpro->date_fin)
+                                {{ \Carbon\Carbon::parse($sessionpro->date_debut)->locale('fr')->isoFormat('D MMMM YYYY')}} @else
+                                {{ \Carbon\Carbon::parse($sessionpro->date_debut)->locale('fr')->isoFormat('D MMMM')}}
+                                 au {{\Carbon\Carbon::parse($sessionpro->date_fin)->locale('fr')->isoFormat('D MMMM YYYY')}} @endif</td>
+                                 <td style="text-align:center;">
+                                @if($sessionpro->lieu->adresse){{$sessionpro->lieu->adresse}}, @endif {{$sessionpro->lieu->ville}}                                   
+                                </td>                                
+                                <td style="text-align:center;">{{$user->presences->where('sessionpro_id', $sessionpro->id)->count()}}/{{$sessionpro->presences->count()}}</td>
+                                <td style="text-align:center;">{{$sessionpro->users->firstWhere('id', $user->id)->pivot->note}}</td>
 
-                                <td>
-                                    <a href="{{route('users.marquerPresenceView', ['sessionpro' => $sessionpro, 'user' => $user])}}" class="btn btn-sm btn-primary">Marquer une présence</a>
+                                <td style="text-align:center;">
+                                    <a href="{{route('users.marquerPresenceView', ['sessionpro' => $sessionpro, 'user' => $user])}}" class="btn btn-sm btn-primary"
+                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                    title="Marquer une présence"><i class="bi bi-person-check-fill"></i></a>
                                     @if($sessionpro->peut_demander &&
                                     $user->presences->where('sessionpro_id', $sessionpro->id)->count()==$sessionpro->presences->count() &&
                                     $sessionpro->users->firstWhere('id', $user->id)->pivot->note>=10
                                     )
-                                    <a href="{{route('demandes.store', [$sessionpro, $user])}}" class="btn btn-sm btn-secondary">Demander l'attestation</a>
+                                    <a href="{{route('demandes.store', [$sessionpro, $user])}}" class="btn btn-sm btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top"
+                                        title="Demander l'attestation">
+                                        <i class="bi bi-mortarboard-fill"></i></a>
                                     @endif
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>

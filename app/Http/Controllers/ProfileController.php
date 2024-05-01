@@ -21,7 +21,7 @@ class ProfileController extends Controller
     public function myAccount (Request $request)
     { 
         $user=$request->user();
-        return redirect()->route('profile.edit', $user);
+        return view ('profile.monprofil', compact('user'));
 
     }
     

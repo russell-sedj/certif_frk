@@ -16,7 +16,7 @@ class SessionproController extends Controller
      */
     public function index(Formation $formation, Request $request)
     {
-        $sessionpros = $formation->sessionpros;
+        $sessionpros = $formation->sessionpros->sortByDesc('created_at');;
         $theme = $formation->theme;
         // $lieus=Lieu::all();
         $user=$request->user();
@@ -139,9 +139,9 @@ class SessionproController extends Controller
 
     public function dashboard(Request $request)
     {
-        $sessionpros = collect();
+        $sessionpros =Sessionpro::all()->sortByDesc('created_at');
         
-        if ($request->has('category') && $request->category != '') {
+        /*if ($request->has('category') && $request->category != '') {
             $categories = Categorie::where('nom', $request->category)->get();
 
             foreach ($categories as $categorie) {
@@ -160,16 +160,14 @@ class SessionproController extends Controller
         }
         else {
             $sessionpros = Sessionpro::all();
-        }
-
-        $sessionpros = $sessionpros->sortByDesc('created_at');
+        }*/
 
         return view('sessionpros.dashboard', compact('sessionpros'));
     }
 
     public function participants(Sessionpro $sessionpro)
     {
-        $users = $sessionpro->users;
+        $users = $sessionpro->users->sortBy('name');
         $theme = $sessionpro->formation->theme;
 
         return view('sessionpros.participants', compact('sessionpro', 'users', 'theme'));

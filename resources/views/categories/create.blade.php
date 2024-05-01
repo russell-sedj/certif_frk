@@ -17,19 +17,19 @@
                                         </div>
                                         <div class="col-md-10 form-group">
                                             <input type="text" id="nom" class="form-control" name="nom"
-                                                placeholder="Nom" value="{{old('nom')}}">
+                                                placeholder="Nom" value="{{old('nom')}}" required>
                                                 <x-input-error :messages="$errors->get('nom')" class="mt-2" />
                                         </div>
                                         <div class="col-md-4">
                                             <label for="description">Description</label>
                                         </div>
                                         <div class="col-md-10 form-group">
-                                            <input type="text" id="description" class="form-control" name="description"
-                                                placeholder="Description" value="{{old('description')}}">
+                                            <textarea id="description" class="form-control" name="description"
+                                             placeholder="Description" value="{{old('description')}}" rows="4"></textarea>
                                                 <x-input-error :messages="$errors->get('description')" class="mt-2" />
                                         </div>
                                         <div class="col-sm-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
+                                            <button type="submit" class="btn btn-primary me-1 mb-1">Ajouter        </button>
                                             <a href="{{route('categories.index')}}" class="btn btn-light-secondary me-1 mb-1">Annuler</a>
                                         </div>
 

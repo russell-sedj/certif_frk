@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
     @foreach($categories as $category)
-        <div class="col-lg-4 col-md-6 mb-4">
+        <div class="col-lg-5 col-md-5 mb-4 mr-9">
             <div class="card h-100">
                 <div class="card-body">
                     <h4 class="card-title">{{$category->nom}}</h4>

@@ -97,4 +97,8 @@ Route::controller(DemandeController::class)->group(function(){
     Route::get('/demandes/{sessionpro}/{user}/store', 'store')->name('demandes.store');
 });
 
+Route::get('/lang/french.json', function () {
+    return response()->file(public_path('lang/french.json'));
+});
+
 require __DIR__.'/auth.php';

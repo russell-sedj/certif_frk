@@ -7,7 +7,7 @@
 <div class="col-md-10 col-12">
     <div class="card">
         <div class="card-header">
-            <h1 class="mb-4 fs-2">Catégorie: {{ $categorie->nom }}</h1>
+            <h6 class="mb-4 fs-2">{{ $categorie->nom }}</h6>
             <h4 class="card-title">Modifier une fomation</h4>
         </div>
                     <div class="card-content">
@@ -21,16 +21,16 @@
                                             <label for="theme">Thème</label>
                                         </div>
                                         <div class="col-md-10 form-group">
-                                            <input type="text" id="theme" class="form-control" name="theme"
-                                                placeholder="Thème" value="{{old('theme', $formation->theme)}}">
+                                            <textarea id="theme" class="form-control" name="theme"
+                                                placeholder="Thème" value="{{old('theme', $formation->theme)}}"rows="2" required>{{old('theme', $formation->theme)}}</textarea>
                                                 <x-input-error :messages="$errors->get('theme')" class="mt-2" />
                                         </div>
                                         <div class="col-md-4">
                                             <label for="description">Description</label>
                                         </div>
                                         <div class="col-md-10 form-group">
-                                            <input type="text" id="description" class="form-control" name="description"
-                                                placeholder="Description" value="{{old('description',  $formation->description) }}">
+                                            <textarea id="description" class="form-control" name="description"
+                                                placeholder="Description" value="{{old('description',  $formation->description) }}"rows="4">{{old('description',  $formation->description) }}</textarea>
                                                 <x-input-error :messages="$errors->get('description')" class="mt-2" />
                                         </div>
                                         <input type="hidden" id="categorie_id" class="form-control" name="categorie_id" value="{{$formation->categorie_id}}">

@@ -5,25 +5,48 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h1>Thème: {{ $sessionpro->formation->theme }}</h1>
-                    <h4 class="mb-4">Lieu: {{$sessionpro->lieu->ville}}@if($sessionpro->lieu->adresse), {{$sessionpro->lieu->adresse}}@endif</h4>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{route('mesformations')}}">Tableau de bord</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Présences</li>
+                    </ol>
+                </nav>
+                <h3 class="card-title">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h3>Marquer présence</h3>
+                     Présences
                     </div>
+                    </h3>
+                    <h4>
+                    Thème: {{ $sessionpro->formation->theme  }} <br>
+                    Lieu: @if($sessionpro->lieu->adresse){{$sessionpro->lieu->adresse}}, @endif {{$sessionpro->lieu->ville}}<br>
+                    </h4>        
                 </div>
-                <div class="card-body">
-                    <table class="table table-responsive">
-                        <thead>
+                <div class="card-body">         
+                @if (session('error'))
+                <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>             
+               @endif
+                 </div>
+                 <div class="table-responsive">
+                    <table class="table">
+                     <thead>
                             <tr>
-                                <th scope="col">Date</th>
-                                <th scope="col">Présence</th>
+                                <th scope="col" style="text-align:center;">Date</th>
+                                <th scope="col" style="text-align:center;">Créée à</th>                                
+                                <th scope="col">Numéro</th>
                             </tr>
                         </thead>
                         <tbody>
                         @if($presences)
                         @foreach($presences as $presence)
                             <tr>
-                                <td>{{$presence->date}}</td>
+                            <td style="text-align:center;">
+                                {{\Carbon\Carbon::parse($presence->date)->locale('fr')->isoFormat('D MMMM YYYY')}}
+                               </td>
+                               <td style="text-align:center;">
+                               {{date('H:i', strtotime($presence->created_at))}}
+                               </td>
                                 <td class="d-flex justify-content-start">
                                     <form method="post" action="{{route('users.marquerPresence', ['user' => $user, 'presence' => $presence] )}}">
                                         @csrf
@@ -53,10 +76,6 @@
                                     @if (!$presence->est_actif)
                                         <div class="badge text-bg-secondary ms-3 d-flex align-items-center justify-content-center">Fermé</div>
                                     @endif
-
-                                    @if (session('error'))
-                                    <span class="ms-3 alert alert-danger">{{ session('error') }}</span>
-                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -67,6 +86,7 @@
                         @endif
                         </tbody>
                     </table>
+                </div>
                 </div>
             </div>
         </div>

@@ -42,7 +42,7 @@
                                         <p class="text-muted">
                                         Nouvelle demande d'attestation pour le thème : <strong>{{$demande_sent->libelle_demande}}</strong>.
                                         </p>
-                                        <p class="text-muted"><small>{{ $demande_sent->created_at }}</small></p>
+                                        <p class="text-muted"><small>{{ date('d/m/Y H:i',strtotime($demande_sent->created_at)) }}</small></p>
                                     </div>
                                 </div>
                             </div>
@@ -51,8 +51,12 @@
                                     data-toggle="modal" data-target="#detailsModal"
                                     data-presence="@if(!$demande_sent->sessionproUser->nb_presence){{0}}@else{{$demande_sent->sessionproUser->nb_presence}}@endif/{{$demande_sent->sessionpro->presences->count()}}"
                                     data-note="{{ $demande_sent->sessionproUser->note}}"
-                                    data-lieu="@if($demande_sent->sessionpro->lieu->adresse) {{$demande_sent->sessionpro->lieu->adresse}}, @endif {{$demande_sent->sessionpro->lieu->ville}} "
-                                    data-periode="{{$demande_sent->sessionpro->date_debut}} - {{$demande_sent->sessionpro->date_fin}}">Détails</button>
+                                    data-lieu="@if($demande_sent->sessionpro->lieu->adresse){{$demande_sent->sessionpro->lieu->adresse}}, @endif {{$demande_sent->sessionpro->lieu->ville}}"
+                                    data-periode="@if($demande_sent->sessionpro->date_debut==$demande_sent->sessionpro->date_fin)
+                                {{ \Carbon\Carbon::parse($demande_sent->sessionpro->date_debut)->locale('fr')->isoFormat('D MMMM YYYY')}} @else
+                                {{ \Carbon\Carbon::parse($demande_sent->sessionpro->date_debut)->locale('fr')->isoFormat('D MMMM')}}
+                                 au {{\Carbon\Carbon::parse($demande_sent->sessionpro->date_fin)->locale('fr')->isoFormat('D MMMM YYYY')}} @endif"
+                                 data-bs-toggle="tooltip" data-bs-placement="top" title="Détails"><i class="bi bi-info-circle"></i></button>
                             </div>
                         </div>
                         @endforeach
@@ -81,8 +85,8 @@
                                         <p><b>{{ $demande_downloaded->user->name}} {{ $demande_downloaded->user->surname}}</b></p>
                                         <p class="text-muted">
                                          Demande d'attestation pour le thème : <strong>{{$demande_downloaded->libelle_demande}}</strong>.<br>
-                                         Reçue le: <strong>{{$demande_downloaded->created_at->format('d F Y à H:i:s')}}</strong><br>
-                                         Attestation téléchargée le: <strong>{{$demande_downloaded->updated_at->format('d F Y à H:i:s')}}</strong>
+                                         Reçue le: {{$demande_downloaded->created_at->format('d/m/Y à H:i')}}<br>
+                                         Attestation téléchargée le: {{$demande_downloaded->updated_at->format('d/m/Y à H:i')}}
                                         </p>
                                     </div>
                                 </div>
@@ -135,7 +139,8 @@
                         <select class="form-select" id="debut" name="debut">
                             <option disabled selected value="">Choisir une date</option>
                             @foreach($dates_sent as $date_sent)
-                                <option value="{{ $date_sent['min'] }}">{{ $date_sent['min']->format('l d F Y') }}</option>
+                                <option value="{{ $date_sent['min'] }}">
+                                {{\Carbon\Carbon::parse($date_sent['min'])->locale('fr')->isoFormat('D MMMM YYYY')}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -145,7 +150,8 @@
                             <option disabled selected value="">Choisir une date</option>
                             @foreach($dates_sent as $date_sent)
                             @if($date_sent['min']!=$date_sent['max'])
-                                <option value="{{ $date_sent['max'] }}">{{ $date_sent['max']->format('l d F Y')}}</option>
+                                <option value="{{ $date_sent['max'] }}">
+                                {{\Carbon\Carbon::parse($date_sent['max'])->locale('fr')->isoFormat('D MMMM YYYY')}}</option>
                             @endif
                             @endforeach
                         </select>
@@ -157,7 +163,8 @@
                         <select class="form-select" id="jour" name="jour">
                             <option disabled selected value="">Choisir une date</option>
                             @foreach($dates_sent as $date_sent)
-                                <option value="{{ $date_sent['min'] }}">{{ $date_sent['min']->format('l d F Y') }}</option>
+                                <option value="{{ $date_sent['min'] }}">
+                                    {{\Carbon\Carbon::parse($date_sent['min'])->locale('fr')->isoFormat('D MMMM YYYY')}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -196,7 +203,8 @@
                         <select class="form-select" id="debut" name="debut">
                         <option disabled selected value="">Choisir une date</option>
                           @foreach($dates_downloaded as $date_downloaded)
-                            <option value="{{ $date_downloaded['min']}}">{{ $date_downloaded['min']->format('l d F Y') }}</option>
+                            <option value="{{ $date_downloaded['min']}}">
+                            {{\Carbon\Carbon::parse($date_downloaded['min'])->locale('fr')->isoFormat('D MMMM YYYY')}}</option>
                            @endforeach
                               </select>
                             </div>
@@ -206,7 +214,8 @@
                        <option disabled selected value="">Choisir une date</option>
                         @foreach($dates_downloaded as $date_downloaded)
                         @if($date_downloaded['min']!=$date_downloaded['max'])
-                         <option value="{{ $date_downloaded['max'] }}">{{ $date_downloaded['max']->format('l d F Y')}}</option>
+                         <option value="{{ $date_downloaded['max'] }}">
+                         {{\Carbon\Carbon::parse($date_downloaded['max'])->locale('fr')->isoFormat('D MMMM YYYY')}}</option>
                          @endif 
                          @endforeach
                        </select>
@@ -218,7 +227,8 @@
                         <select class="form-select" id="jour" name="jour">
                             <option disabled selected value="">Choisir une date</option>
                             @foreach($dates_downloaded as $date_downloaded)
-                                <option value="{{ $date_downloaded['min'] }}">{{ $date_downloaded['min']->format('l d F Y') }}</option>
+                                <option value="{{ $date_downloaded['min'] }}">
+                                {{\Carbon\Carbon::parse($date_downloaded['min'])->locale('fr')->isoFormat('D MMMM YYYY')}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -337,7 +347,7 @@
                 modalBody.innerHTML = `
                     <p><strong>Session:</strong> ${periode} à ${lieu}</p>
                     <p><strong>Présence:</strong> ${presence}</p>
-                    <p><strong>Note:</strong> ${note}</p>
+                    <p><strong>Note obtenue:</strong> ${note}</p>
                     <!-- Ajoutez d'autres informations si nécessaire -->
                 `;
                 modalInstance.show();

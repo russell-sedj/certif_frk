@@ -72,6 +72,9 @@ class LieuController extends Controller
      */
     public function destroy(Lieu $lieu)
     {
+        if($lieu->sessionpros->count()>0){
+        return redirect()->back()->with('lockdeleteError', 'Vous ne pouvez effectuer cette action car ce lieu est déjà lié à des formations.');
+            }
         $lieu->delete();
 
         return redirect()->route('lieus.index');

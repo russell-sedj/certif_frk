@@ -32,9 +32,11 @@ class PresenceController extends Controller
      */
     public function store(Sessionpro $sessionpro, StorePresenceRequest $request)
     {
-        $lastPresence = $sessionpro->presences()->latest()->first();
-        if($lastPresence && $lastPresence->est_actif) {
-            return redirect()->back()->with('AddPresenceError', 'La derniere présence est encore active');
+        $presences= $sessionpro->presences;
+        foreach($presences as $p) {
+            if($p->est_actif) {
+                return redirect()->back()->with('alredyActivePresence', 'Une présence est déjà active');
+            }
         }
         if(today()->isBefore($sessionpro->date_debut) || today()->isAfter($sessionpro->date_fin) ) {
             return redirect()->back()->with('addPresenceError', 'Vous ne pouvez ajouter de présence en dehors de la période de formation.');
@@ -69,16 +71,7 @@ class PresenceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePresenceRequest $request, Presence $presence)
-    {
-        $presence = Presence::find($presence->id);
-        $presence->date = $request->date;
-        $presence->nb_participants = $request->nbparticipants;
-        $presence->sessionpro_id = $request->sessionpro_id;
-        $presence->save();
 
-        return redirect()->route('presences.index', $presence->sessionpro_id);
-    }
 
     /**
      * Remove the specified resource from storage.

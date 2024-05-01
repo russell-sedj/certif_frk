@@ -11,7 +11,7 @@
             </div>
                 <div class="card">
                     <div class="card-header">
-                    <h1 class="mb-4 fs-2">Catégorie: {{ $categorie->nom }}</h1>
+                    <h6 class="mb-4 fs-2">{{ $categorie->nom }}</h6>
                 <h4 class="card-title">Ajouter une formation</h4>
                     </div>
                     <div class="card-content">
@@ -24,16 +24,16 @@
                                             <label for="theme">Thème</label>
                                         </div>
                                         <div class="col-md-10 form-group">
-                                            <input type="text" id="theme" class="form-control" name="theme"
-                                                placeholder="Thème" value="{{old('theme')}}">
+                                            <textarea id="theme" class="form-control" name="theme"
+                                                placeholder="Thème" value="{{old('theme')}}"rows="2" required></textarea>
                                                 <x-input-error :messages="$errors->get('theme')" class="mt-2" />
                                         </div>
                                         <div class="col-md-4">
                                             <label for="description">Description</label>
                                         </div>
                                         <div class="col-md-10 form-group">
-                                            <input type="text" id="description" class="form-control" name="description"
-                                                placeholder="Description" value="{{old('description')}}">
+                                            <textarea id="description" class="form-control" name="description"
+                                                placeholder="Description" value="{{old('description')}}" rows="4"></textarea>
                                                 <x-input-error :messages="$errors->get('description')" class="mt-2" />
                                         </div>
                                         <div class="col-md-4">
@@ -47,7 +47,7 @@
                                         </div>
                                         <input type="hidden" id="categorie_id" class="form-control" name="categorie_id" value="{{$categorie->id}}">
                                         <div class="col-sm-12 d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
+                                    <button type="submit" class="btn btn-primary me-1 mb-1">Ajouter              </button>
                                     <a href="{{route('formations.index', $categorie)}}" class="btn btn-light-secondary me-1 mb-1">Annuler</a>
                                 </div>
                             </div>
@@ -108,7 +108,7 @@
                                 <select id="lieu_${i}" class="form-control" name="lieu_${i}">
                                     <option value="" disabled selected>Choisissez un lieu</option>
                                     @foreach($lieus as $lieu)
-                                         <option value="{{$lieu->id}}" @if(old('lieu_${i}')==$lieu->id) selected @endif>{{$lieu->ville}}@if($lieu->adresse), {{$lieu->adresse}} @endif</option>
+                                         <option value="{{$lieu->id}}" @if(old('lieu_${i}')==$lieu->id) selected @endif>@if($lieu->adresse){{$lieu->adresse}}, @endif{{$lieu->ville}}</option>
                                     @endforeach
                                 </select>
                             </div>

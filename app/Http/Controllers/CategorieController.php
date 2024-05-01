@@ -72,7 +72,10 @@ class CategorieController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Categorie $category)
-    {
+    {          
+        if($category->formations->count()>0){
+        return redirect()->back()->with('LockdeleteError', 'Vous ne pouvez effectuer cette action car cette catégorie est déjà liée à des formations.');
+            }
         $category->delete();
         return redirect()->route('categories.index');
 

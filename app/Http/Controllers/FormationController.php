@@ -17,7 +17,7 @@ class FormationController extends Controller
      */
     public function index(Categorie $categorie)
     {   
-        $formations=$categorie->formations;
+        $formations=$categorie->formations->sortByDesc('created_at');
         return view('formations.index', compact('formations','categorie'));
     }
 

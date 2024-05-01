@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('theme');
             $table->string('description')->nullable();
-            $table->unsignedBigInteger('categorie_id');
-            $table->foreign('categorie_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->unsignedBigInteger('categorie_id')->nullOnDelete();
+            $table->foreign('categorie_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }

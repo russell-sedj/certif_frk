@@ -2,7 +2,7 @@
 @section('content')
     <section id="multiple-column-form">
     <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-10 col-12">
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">Agent</h4>
@@ -83,7 +83,7 @@
                     </div>
                     <div class="col-12 d-flex justify-content-end">
                         <div class="">
-                            <button type="submit" class="btn btn-primary me-1 mb-1">Enregistrer</button>
+                            <button type="submit" class="btn btn-primary me-1 mb-1">Ajouter       </button>
                             <a href="{{route('agents')}}" class="btn btn-light-secondary me-1 mb-1">Annuler</a>
                         </div>
                     </div>

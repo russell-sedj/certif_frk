@@ -26,7 +26,7 @@
                                         </div>
                                         <div class="col-md-10 form-group">
                                             <input type="date" id="date_fin" class="form-control" name="date_fin"
-                                            value="{{old('date_fin', $sessionpro->date_fin)}}">
+                                            value="{{old('date_fin', $sessionpro->date_fin)}}" required>
                                             <x-input-error :messages="$errors->get('date_fin')" class="mt-2" />
                                         </div>
                                         <div class="col-md-4">
@@ -34,7 +34,7 @@
                                         </div>
                                         <div class="col-md-10 form-group">
                                             <input type="time" id="heure_debut" class="form-control" name="heure_debut"
-                                            value="{{old('heure_debut', $sessionpro->heure_debut)}}">
+                                            value="{{old('heure_debut', $sessionpro->heure_debut)}}" required>
                                             <x-input-error :messages="$errors->get('heure_debut')" class="mt-2" />
                                         </div>
                                         <div class="col-md-4">
@@ -42,17 +42,17 @@
                                         </div>
                                         <div class="col-md-10 form-group">
                                             <input type="time" id="heure_fin" class="form-control" name="heure_fin"
-                                            value="{{old('heure_fin', $sessionpro->heure_fin)}}">
+                                            value="{{old('heure_fin', $sessionpro->heure_fin)}}" required>
                                             <x-input-error :messages="$errors->get('heure_fin')" class="mt-2" />
                                         </div>
                                         <div class="col-md-4">
                                             <label for="lieu_id">Lieu</label>
                                         </div>
                                         <div class="col-md-10 form-group">
-                                            <select name="lieu_id" id="lieu_id">
+                                            <select name="lieu_id" id="lieu_id" required>
                                             @foreach ($lieus as $lieu)
                                                 <option value="{{old('lieu_id', $lieu->id)}}" {{ $sessionpro->lieu_id == $lieu->id ? 'selected' : '' }}>
-                                                   {{$lieu->ville}}@if($lieu->adresse), {{$lieu->adresse}}@endif
+                                                @if($lieu->adresse){{$lieu->adresse}}, @endif{{$lieu->ville}}
                                                 </option>
                                             @endforeach
                                             </select>

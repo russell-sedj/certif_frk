@@ -104,7 +104,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'tresorcertif@gmail.com'),
-        'name' => env('MAIL_FROM_NAME', 'certif'),
+        'name' => env('MAIL_FROM_NAME', 'Certifs'),
     ],
 
 ];
