@@ -9,7 +9,7 @@
             <div class="card-header">
             <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Catégories</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('formations')}}">Catégories</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Formations</li>
                     </ol>
                 </nav>      
@@ -38,12 +38,14 @@
                                 <div class="btn-group btn-group-space" role="group" aria-label="Actions">
                                     <a href="{{route('sessionpros.index', $formation)}}" class="btn btn-sm btn-primary mt-3">Sessions</a>
                                     <div>
+                                    @if(in_array(auth()->user()->role, ['admin','superviseur']))
                                     <a href="{{route('formations.edit', $formation)}}" class="btn btn-sm btn-secondary mt-3">Modifier</a></div>
                                     <form action="{{route('formations.destroy', [$formation->id, $formation->categorie])}}" method="POST" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger mt-3" onclick="return confirm('La suppression de cette formation entraînera également celle de toutes ses sessions et de toutes autres données qui y sont liées. Êtes-vous sûr de vouloir continuer?')">Supprimer</button>
                                     </form>
+                                    @endif
                                 </div>
                                 </td>
                             </tr>

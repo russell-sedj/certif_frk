@@ -21,8 +21,8 @@
     <div class="sidebar-header position-relative">
         <div class="d-flex justify-content-between align-items-center">
         <div class="logo position-relative text-primary">
-             <div class="position-absolute top-0 start-16 right-2 translate-middle">
-        <i class="bi bi-mortarboard-fill"></i>
+             <div class="position-absolute top-1 start-16 right-4 translate-middle">
+        <i class="bi bi-mortarboard-fill fs-4"></i>
             </div>
                 Certıfs 
             </div>
@@ -62,6 +62,7 @@
     <div class="sidebar-menu">
         <ul class="menu">
             <li class="sidebar-title">Menu</li>
+            @if(auth()->user()->role === 'aucun')
             <li
                 class="sidebar-item 
                 {{ Route::is('mesformations', 'users.*') ? 'active' : '' }}"
@@ -71,6 +72,8 @@
                     <span>Tableau de bord</span>
                 </a>
             </li>
+            @endif
+            @if(in_array(auth()->user()->role, ['admin','superviseur']))
             <li
                 class="sidebar-item 
                 {{ (Route::is('sessionpros.*') && !Route::is('sessionpros.index')) || Route::is('presences.*') ? 'active' : '' }}"
@@ -80,15 +83,17 @@
                     <span>Tableau de bord</span>
                 </a>
             </li>
+            @endif
             <li
                 class="sidebar-item 
-                {{ Route::is('formations.*', 'dashboard') ? 'active' : '' }}"
+                {{ Route::is('formations.*', 'formations') ? 'active' : '' }}"
             >
-                <a href="{{route('dashboard')}}" class='sidebar-link'>
+                <a href="{{route('formations')}}" class='sidebar-link'>
                     <i class="bi bi-mortarboard-fill"></i>
                     <span>Formations</span>
                 </a>
             </li>
+            @if(auth()->user()->role === 'aucun')
             <li
                 class="sidebar-item {{ Route::currentRouteNamed('demandesAgent.index') ? 'active' : '' }}">
                 <a href="{{route('demandesAgent.index')}}" class='sidebar-link'>
@@ -96,7 +101,8 @@
                     <span>Mes demandes</span>
                 </a>
             </li>
-
+            @endif
+            @if(in_array(auth()->user()->role, ['admin','superviseur']))
             <li
                 class="sidebar-item {{ Route::currentRouteNamed('demandesSup.index') ? 'active' : '' }}">
                 <a href="{{route('demandesSup.index')}}" class='sidebar-link'>
@@ -130,6 +136,8 @@
                     <span>Lieux</span>
                 </a>
             </li>
+            @endif
+            @if(auth()->user()->role === 'admin')
             <li
                 class="sidebar-item 
                 {{ Route::is('agents', 'register') ? 'active' : '' }}"
@@ -139,6 +147,7 @@
                     <span>Agents</span>
                 </a>
             </li>
+            @endif
             
             <li
                 class="sidebar-item has-sub 

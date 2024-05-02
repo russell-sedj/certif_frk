@@ -140,28 +140,6 @@ class SessionproController extends Controller
     public function dashboard(Request $request)
     {
         $sessionpros =Sessionpro::all()->sortByDesc('created_at');
-        
-        /*if ($request->has('category') && $request->category != '') {
-            $categories = Categorie::where('nom', $request->category)->get();
-
-            foreach ($categories as $categorie) {
-                $formations = $categorie->formations;
-                foreach ($formations as $formation) {
-                    $sessionpros = $sessionpros->concat($formation->sessionpros);
-                }
-            }
-        }
-        else if ($request->has('formation') && $request->formation != '') {
-            $formations = Formation::where('theme', $request->formation)->get();
-
-            foreach ($formations as $formation) {
-                $sessionpros = $sessionpros->concat($formation->sessionpros);
-            }
-        }
-        else {
-            $sessionpros = Sessionpro::all();
-        }*/
-
         return view('sessionpros.dashboard', compact('sessionpros'));
     }
 

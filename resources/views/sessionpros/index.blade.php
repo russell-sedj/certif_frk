@@ -7,7 +7,7 @@
             <div class="card-header">
             <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Catégories</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('formations')}}">Catégories</a></li>
                         <li class="breadcrumb-item"><a href="{{route('formations.index', $formation->categorie)}}">Formations</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Sessions</li>
                     </ol>
@@ -59,6 +59,7 @@
                                 @if($sessionpro->lieu->adresse){{$sessionpro->lieu->adresse}}, @endif {{$sessionpro->lieu->ville}}                                   
                                 </td>
                                 <td>
+                                @if(auth()->user()->role === 'aucun')
                                     @if($sessionpro->peut_inscrire)
                                     <form action="{{route('inscription', $sessionpro)}}" method="post">
                                         @csrf
@@ -68,6 +69,8 @@
                                         </button>
                                     </form>
                                     @endif
+                                @endif    
+                                @if(in_array(auth()->user()->role, ['admin','superviseur']))
                                     <a href="{{route('sessionpros.edit', $sessionpro)}}" class="btn btn-sm btn-warning mb-2"><i class="bi bi-pencil-fill"></i></a>
                                     
                                     <form action="{{route('sessionpros.destroy', [$sessionpro->id, $sessionpro->formation])}}" method="POST" style="display: inline;">
@@ -76,6 +79,7 @@
                                         <button type="submit" class="btn btn-sm btn-danger mb-2" onclick="return confirm('La suppression de cette session entraînera également celle de toutes autres données qui y sont liées. Êtes-vous sûr de vouloir continuer?')">                            <i class="bi bi-trash3-fill"></i>
 </button>
                                     </form>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
