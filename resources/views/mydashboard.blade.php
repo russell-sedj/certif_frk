@@ -2,6 +2,13 @@
 @section('content')
 <div class="container">
     <div class="row">
+        @if($categories->count()==0)
+        <div class="card">
+        <div class="card-body">
+              Aucune formation disponible.
+        </div>
+     </div>
+      @else
     @foreach($categories as $category)
         <div class="col-lg-5 col-md-5 mb-4 mr-9">
             <div class="card h-100">
@@ -15,6 +22,7 @@
             </div>
         </div>
     @endforeach
+    @endif
     </div>
 </div>
 <style>

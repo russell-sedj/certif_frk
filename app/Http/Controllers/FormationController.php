@@ -8,8 +8,7 @@ use App\Http\Requests\UpdateFormationRequest;
 use App\Models\Categorie;
 use App\Models\Lieu;
 use App\Models\Sessionpro;
-use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
 class FormationController extends Controller
 {
     /**
@@ -35,33 +34,59 @@ class FormationController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StoreFormationRequest $request)
-    {
-        //
-        $formation = new Formation;
-        $formation->theme = $request->theme;
-        $formation->description = $request->description;
-        $formation->categorie_id = $request->categorie_id;
-        $formation->save();
-        
-        $nombre_sessions = $request->nombre_sessions;
-        if($nombre_sessions > 0){
-        for ($i = 0; $i < $nombre_sessions; $i++) {
-               if (Lieu::count() === 0) {
-                return back()->with('AddSessionError', 'Aucun lieu enregistré. Veuillez d\'abord ajouter un lieu.');
-            }
-            $sessionpro = new Sessionpro;
-            $sessionpro->date_debut = $request->input("date_debut_$i");
-            $sessionpro->date_fin = $request->input("date_fin_$i");
-            $sessionpro->heure_debut = $request->input("heure_debut_$i");
-            $sessionpro->heure_fin = $request->input("heure_fin_$i");
-            $sessionpro->lieu_id = $request->input("lieu_$i");
-            $sessionpro->formation_id = $formation->id;
-            $sessionpro->save();
-        }
+{
+    $nombre_sessions = $request->nombre_sessions;
+    if ($nombre_sessions > 0 && Lieu::count() === 0) {
+        return back()->with('AddSessionError', 'Aucun lieu enregistré. Veuillez d\'abord ajouter un lieu.');
     }
-        
-        return redirect()->route('formations.index', $formation->categorie_id);
+    $errors = [];
+    for ($i = 0; $i < $nombre_sessions; $i++) {     
+        $validator = Validator::make($request->all(), [
+            'date_debut_'.$i => ['required', 'date'],
+            'date_fin_'.$i => ['required', 'date', 'after_or_equal:date_debut_'.$i],
+            'heure_debut_'.$i => ['required', 'date_format:H:i'],
+            'heure_fin_'.$i => ['required', 'date_format:H:i', 'after:heure_debut_'.$i],
+            'lieu_'.$i => ['required'],
+        ]);
+
+        if ($validator->fails()) {
+            foreach ($validator->errors()->all() as $error) {
+                $errors["date_debut_$i"][] = $error;
+                $errors["date_fin_$i"][] = $error;
+                $errors["heure_debut_$i"][] = $error;
+                $errors["heure_fin_$i"][] = $error;
+                $errors["lieu_$i"][] = $error;
+            }        }
     }
+
+    // Vérification des erreurs
+    if (!empty($errors)) {
+        return back()->withInput()->withErrors($errors)->with('nombre_sessions', $nombre_sessions);
+    }
+
+    // Création de la formation
+    $formation = new Formation;
+    $formation->theme = $request->theme;
+    $formation->description = $request->description;
+    $formation->categorie_id = $request->categorie_id;
+    $formation->save();
+
+    // Création des sessions
+    for ($i = 0; $i < $nombre_sessions; $i++) {
+        $sessionpro = Sessionpro::create([
+            'date_debut' => $request->input("date_debut_".$i),
+            'date_fin' => $request->input("date_fin_".$i),
+            'heure_debut' => $request->input("heure_debut_".$i),
+            'heure_fin' => $request->input("heure_fin_".$i),
+            'lieu_id' => $request->input("lieu_".$i),
+            'formation_id' => $formation->id
+        ]);
+    }
+    
+    // Redirection vers l'index des formations de la catégorie
+    return redirect()->route('formations.index', $formation->categorie_id);
+}
+
 
     /**
      * Display the specified resource.

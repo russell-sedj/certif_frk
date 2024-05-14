@@ -24,9 +24,10 @@ class StoreFormationRequest extends FormRequest
     {
         return [
             //
-            'theme'=>['required','string',
+            'theme'=>['required','string','max:255',
             Rule::unique('formations','theme')->where('description',$this->input('description')),
         ],
+        'description'=>['nullable','string','max:255']
         ];
     }
 }

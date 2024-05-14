@@ -16,7 +16,9 @@
                <h5 class="card-title">
                 <div class="d-flex justify-content-between align-items-center">
                     Liste des formations
+                    @if(in_array(auth()->user()->role, ['admin','superviseur']))
                     <a href="{{route('formations.create',$categorie)}}" class="btn btn-success">Ajouter une formation</a>
+                    @endif
                 </div>
                 </h5>
                 </div>

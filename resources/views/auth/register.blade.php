@@ -64,6 +64,10 @@
                                 <input type="radio" id="titre2" class="form-check-input" name="titre" value="DFPT">
                                 <label class="form-check-label" for="titre2">DFPT</label>
                             </div>
+                            <div class="form-check">
+                            <input type="radio" id="titre3" class="form-check-input" name="titre" value="" checked>
+                                        <label class="form-check-label" for="titre3" >Autre</label>
+                                    </div>
                             <x-input-error :messages="$errors->get('titre')" class="mt-2" />
                         </div>
                     </div>
@@ -77,6 +81,10 @@
                             <div class="form-check">
                                 <input type="radio" id="role2" class="form-check-input" name="role" value="superviseur">
                                 <label class="form-check-label" for="role2">Superviseur</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" id="role3" class="form-check-input" name="role" value="participant" checked>
+                                <label class="form-check-label" for="role3">Participant</label>
                             </div>
                             <x-input-error :messages="$errors->get('role')" class="mt-2" />
                         </div>

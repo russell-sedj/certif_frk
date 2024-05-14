@@ -33,12 +33,12 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'matricule'=>['required', 'string',
+            'matricule'=>['required', 'string','max:255',
             Rule::unique('users', 'matricule')->where(function ($query) use ($request) {
                 if ($request->filled('role')) {
                     return $query->where('role', $request->input('role'));
                 } else {
-                    return $query->whereIn('role', ['aucun']);
+                    return $query->whereIn('role', ['participant']);
                 }
             }),
                ],
@@ -55,7 +55,7 @@ class RegisteredUserController extends Controller
             'matricule'=> $request->matricule,
             'surname'=>$request->surname,
             'sexe'=>$request->sexe,
-            'role'=>$request->role ?? 'aucun',
+            'role'=>$request->role ?? 'participant',
             'titre' => $request->has('titre') ? $request->titre :null,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -68,17 +68,30 @@ class RegisteredUserController extends Controller
     }
 
     public function enrollment(Request $request, Sessionpro $sessionpro)
-    {
-        $user=$request->user();
-        $sessionpro=Sessionpro::find($sessionpro->id);
-        if (today()->isAfter($sessionpro->date_fin )) {
-            return back()->with('PeutInscrireError', 'Vous ne pouvez effectuer cette action car la session de formation est terminée.');
-        }
-        $user->sessionpros->contains($sessionpro->id)?$user->sessionpros()->detach($sessionpro->id):$user->sessionpros()->attach($sessionpro->id); 
-        
-        return redirect()->back();
-        //return redirect()->route('sessionpros.index', $sessionpro->formation_id);
+{
+    $participant = User::find($request->participant);
+    $sessionpro = Sessionpro::find($sessionpro->id);
+
+    if (today()->isAfter($sessionpro->date_fin)) {
+        return back()->with('PeutInscrireError', 'Vous ne pouvez effectuer cette action car la session de formation est terminée.');
     }
+
+    if ($participant->sessionpros->contains($sessionpro->id)) {
+        $participant->sessionpros()->detach($sessionpro->id);
+        return redirect()->back();
+    } else {
+        $codeFourni = $request->input('code');
+        if ($codeFourni != $sessionpro->code) {
+            return response()->json(['success' => false]);
+        } else {
+            $participant->sessionpros()->attach($sessionpro->id);
+            return response()->json(['success' => true]);
+        }
+    }
+
+    // return redirect()->route('sessionpros.index', $sessionpro->formation_id);
+}
+
     
     public function marquerPresenceView(Sessionpro $sessionpro, User $user)
     {

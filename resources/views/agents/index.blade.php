@@ -35,7 +35,7 @@
                             <td>{{$user->sexe}}</td>
                             <td>{{$user->email}}</td>
                             <td>{{$user->titre}}</td>
-                            <td>{{$user->role}}</td>
+                            <td>{{$user->role=="participant"? '':$user->role}}</td>
                             <td>
                                 <a href="{{route('profile.edit', $user)}}" class="btn btn-sm btn-warning"
                                 data-bs-toggle="tooltip" data-bs-placement="top"

@@ -42,7 +42,7 @@
                             <td>{{$sessionpro->formation->theme}}</td>
 
                             <td>@if($sessionpro->date_debut==$sessionpro->date_fin)
-                                {{ \Carbon\Carbon::parse($sessionpro->date_debut)->locale('fr')->isoFormat('D MMMM YYYY')}} @else
+                            Journée du {{ \Carbon\Carbon::parse($sessionpro->date_debut)->locale('fr')->isoFormat('D MMMM YYYY')}} @else
                                 {{ \Carbon\Carbon::parse($sessionpro->date_debut)->locale('fr')->isoFormat('D MMMM')}}
                                  au {{\Carbon\Carbon::parse($sessionpro->date_fin)->locale('fr')->isoFormat('D MMMM YYYY')}} @endif
                                 </td>
@@ -58,22 +58,22 @@
                             <form action="{{route('sessionpros.actionInscription', $sessionpro)}}" method="post">
                                     @csrf
                                     @method('PUT')
-                                    <button type="submit" class="btn btn-sm mb-2 mt-3 {{$sessionpro->peut_inscrire ? 'btn-warning' : 'btn-success'}}" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    <button type="submit" class="btn btn-sm mb-2 mt-3 {{$sessionpro->peut_inscrire ? 'btn-warning' : 'btn-success'}}" data-bs-toggle="tooltip" data-bs-placement="left"
                                 title="{{$sessionpro->peut_inscrire ? 'Clôturer les inscriptions' : 'Ouvrir les inscriptions'}}">
                                         @if(!$sessionpro->peut_inscrire)<i class="bi bi-person-plus-fill"></i>@else<i class="bi bi-person-fill-lock"></i>@endif
                                     </button>
                                 </form>    
-                            <a href="{{ route('sessionpros.participants', $sessionpro) }}" class="btn btn-sm btn-info mb-2 mt-3"data-bs-toggle="tooltip" data-bs-placement="top"
+                            <a href="{{ route('sessionpros.participants', $sessionpro) }}" class="btn btn-sm btn-info mb-2 mt-3"data-bs-toggle="tooltip" data-bs-placement="left"
                                 title="Participants"><i class="bi bi-people-fill"></i></a>
                                 
-                                <a href="{{ route('presences.index', $sessionpro) }}" class="btn btn-sm btn-primary mb-2 mt-3" data-bs-toggle="tooltip" data-bs-placement="top"
+                                <a href="{{ route('presences.index', $sessionpro) }}" class="btn btn-sm btn-primary mb-2 mt-3" data-bs-toggle="tooltip" data-bs-placement="left"
                                 title="Présences"><i class="bi bi-person-check-fill"></i></a>
                                 @if(!$sessionpro->peut_demander)
                                     <form action="{{route('sessionpros.openRequest', $sessionpro)}}" method="post">
                                         @csrf
                                         @method('PUT')
                                         <button type="submit" class="btn btn-sm btn-success mb-2 mt-3"  
-                                        onclick="return confirm('Cette action marque la fin de la session et est irréversible. Voulez-vous continuer?')" data-bs-toggle="tooltip" data-bs-placement="top"
+                                        onclick="return confirm('Cette action marque la fin de la session et est irréversible. Voulez-vous continuer?')" data-bs-toggle="tooltip" data-bs-placement="left"
                                         title="Autoriser les demandes">
                                         <i class="bi bi-mortarboard-fill"></i>
                                         </button>

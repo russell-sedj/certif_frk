@@ -18,7 +18,7 @@ class DemandeController extends Controller
         $query->select('id')
             ->from('sessionpro_user')
             ->where('user_id', $id);
-    })->get();
+    })->get()->sortByDesc('created_at');
     $cpt=$demandes->where('statut','envoyée')->count();
     foreach($demandes as $demande){
         $sessionpro=Sessionpro::find($demande->sessionproUser->sessionpro_id);

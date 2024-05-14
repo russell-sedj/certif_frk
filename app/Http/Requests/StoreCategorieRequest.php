@@ -22,9 +22,10 @@ class StoreCategorieRequest extends FormRequest
     public function rules(): array
     {
         return [
-         'nom'=>['required','string',
+         'nom'=>['required','string','max:255',
             Rule::unique('categories','nom')->where('description',$this->input('description')),
         ],
+        'description'=>['nullable','string','max:255']
             //
         ];
     }

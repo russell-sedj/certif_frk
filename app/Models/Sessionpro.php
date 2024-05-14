@@ -16,6 +16,7 @@ class Sessionpro extends Model
         'heure_fin',
         'peut_inscrire',
         'peut_demander',
+        'code',
         'formation_id',
         'lieu_id',
     ];

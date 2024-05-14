@@ -66,7 +66,7 @@
                                 </div>
                             </div>
                             @endif
-                            @if($user->role!='aucun')
+                            @if($user->role!='participant')
                             <div class="row">
                                 <div class="col-md-4">
                                     <label for="role">Rôle</label>

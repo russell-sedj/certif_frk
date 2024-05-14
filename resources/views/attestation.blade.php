@@ -104,7 +104,7 @@ Annuler
         const new_debut = @json(date('d/m/Y H:i',strtotime($debut)));
         const new_fin = @json(date('d/m/Y H:i',strtotime($fin)));
         const zip = new JSZip();
-        const zipFilename = `attestations_du_${new_debut}_au_${new_fin}.zip`; // Utilisation de backticks pour l'interpolation
+        const zipFilename = `attestations_du_${new_debut}_au_${new_fin}.zip`; 
         const promises = [];
 
         demandes.forEach(demande => {

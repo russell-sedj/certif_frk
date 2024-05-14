@@ -24,9 +24,9 @@ class UpdateCategorieRequest extends FormRequest
     {
         return [
             //
-            'nom'=>['required',
+            'nom'=>['required','max:255',
             Rule::unique('categories','nom')->where('description',$this->input('description'))->ignore($this->category->id)],
-
+            'description'=>['nullable','string','max:255']
         ];
     }
 }

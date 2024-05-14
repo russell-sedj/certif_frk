@@ -19,7 +19,7 @@ return new class extends Migration
             $table->time('heure_fin');
             $table->boolean('peut_inscrire')->default(false);
             $table->boolean('peut_demander')->default(false);
-
+            $table->string('code')->nullable();
             $table->unsignedBigInteger('formation_id');
             $table->foreign('formation_id')->references('id')->on('formations')->onDelete('cascade');
             

@@ -44,7 +44,7 @@
                                     <form action="{{route('sessionpros.noterParticipant', [$sessionpro, $user])}}" method="post">
                                         @csrf
                                         @method('PUT')
-                                        <input required type="number" name="note" value="{{ $sessionpro->users->firstWhere('id', $user->id)->pivot->note }}" min="0" max="20" step="0.05">
+                                        <input required type="number" name="note" value="{{ $sessionpro->users->firstWhere('id', $user->id)->pivot->note }}" min="0" max="20" step="0.25">
                                         <button type="submit" class="btn btn-warning"data-bs-toggle="tooltip" data-bs-placement="top"
                                 title="Modifier"><i class="bi bi-pencil-fill"></i></button>
                                     </form>
@@ -53,6 +53,7 @@
                                     <form action="{{route('inscription', $sessionpro)}}" method="POST" style="display: inline;">
                                     @csrf
                                     @method('PUT')
+                                    <input type="hidden" id="participant" name="participant" value="{{$user->id}}">
                                         <button type="submit" class="btn btn-sm btn-danger mb-2" onclick="return confirm('Êtes-vous sûr de vouloir retirer ce participant ?')"data-bs-toggle="tooltip" data-bs-placement="top"
                                 title="Retirer"><i class="bi bi-person-dash-fill"></i></button>
                                     </form>

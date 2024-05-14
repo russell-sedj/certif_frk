@@ -24,8 +24,10 @@ class StoreLieuRequest extends FormRequest
     {
         return [
             //
-            'ville'=>['required','string',
+            'ville'=>['required','string','max:255',
+
              Rule::unique('lieus','ville')->where('adresse',$this->input('adresse'))],
+             'adresse'=>['nullable','string','max:255']
         ];
     }
 }

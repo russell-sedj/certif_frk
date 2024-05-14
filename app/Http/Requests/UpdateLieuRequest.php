@@ -27,6 +27,8 @@ class UpdateLieuRequest extends FormRequest
             //
             'ville'=>['required','string',
              Rule::unique('lieus','ville')->where('adresse',$this->input('adresse'))->ignore($this->lieu->id)],
+             'adresse'=>['nullable','string','max:255']
+
         ];
     }
 }

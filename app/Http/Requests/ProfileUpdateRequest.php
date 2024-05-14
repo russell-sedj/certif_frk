@@ -18,12 +18,12 @@ class ProfileUpdateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'matricule'=>['required', 'string',
+            'matricule'=>['required', 'string','max:255',
              Rule::unique('users', 'matricule')->where(function ($query){
                 if ($this->filled('role')) {
                     return $query->where('role', $this->input('role'));
                 } else {
-                    return $query->whereIn('role', ['aucun']);
+                    return $query->whereIn('role', ['participant']);
                 }
             })->ignore($this->user->id),
                ],

@@ -62,7 +62,7 @@
     <div class="sidebar-menu">
         <ul class="menu">
             <li class="sidebar-title">Menu</li>
-            @if(auth()->user()->role === 'aucun')
+            @if(auth()->user()->role === 'participant')
             <li
                 class="sidebar-item 
                 {{ Route::is('mesformations', 'users.*') ? 'active' : '' }}"
@@ -93,7 +93,7 @@
                     <span>Formations</span>
                 </a>
             </li>
-            @if(auth()->user()->role === 'aucun')
+            @if(auth()->user()->role === 'participant')
             <li
                 class="sidebar-item {{ Route::currentRouteNamed('demandesAgent.index') ? 'active' : '' }}">
                 <a href="{{route('demandesAgent.index')}}" class='sidebar-link'>

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Sessionpro>
- */
+ */   
 class SessionproFactory extends Factory
 {
     /**
@@ -16,7 +16,7 @@ class SessionproFactory extends Factory
      */
     public function definition(): array
     {
-        return [
+            return [
             //
         ];
     }

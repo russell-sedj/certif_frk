@@ -16,7 +16,7 @@ class SessionproController extends Controller
      */
     public function index(Formation $formation, Request $request)
     {
-        $sessionpros = $formation->sessionpros->sortByDesc('created_at');;
+        $sessionpros = $formation->sessionpros->sortByDesc('created_at');
         $theme = $formation->theme;
         // $lieus=Lieu::all();
         $user=$request->user();
@@ -49,7 +49,8 @@ class SessionproController extends Controller
         $sessionpro->lieu_id = $request->lieu_id;
         $sessionpro->formation_id = $request->formation_id;
         $sessionpro->save();
-        
+        $sessionpro->code = date('is', strtotime($sessionpro->created_at)) . '-' . date('i', strtotime($sessionpro->formation->created_at));
+        $sessionpro->save();
         return redirect()->route('sessionpros.index', $sessionpro->formation_id);
     }
 

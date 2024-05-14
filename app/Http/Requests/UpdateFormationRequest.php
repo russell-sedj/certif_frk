@@ -26,7 +26,9 @@ class UpdateFormationRequest extends FormRequest
             //
             'theme'=>['required',
             Rule::unique('formations','theme')->where('description',$this->input('description'))->ignore($this->formation->id),
-            ]
+        ],
+            'description'=>['nullable','string','max:255']
+
         ];
     }
 }

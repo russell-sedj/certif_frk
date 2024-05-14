@@ -101,8 +101,8 @@
                                         <label class="form-check-label" for="role2">Superviseur</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="radio" id="role3" class="form-check-input" name="role" value="aucun" @if(old('role', $user->role) == 'aucun') checked @endif>
-                                        <label class="form-check-label" for="role3">Aucun</label>
+                                        <input type="radio" id="role3" class="form-check-input" name="role" value="participant" @if(old('role', $user->role) == 'participant') checked @endif>
+                                        <label class="form-check-label" for="role3">Participant</label>
                                     </div>
                                     <x-input-error :messages="$errors->get('role')" class="mt-2" />
                             </div>

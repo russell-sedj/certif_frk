@@ -32,11 +32,15 @@
                                 <td>{{$lieu->ville}}</td>
                                 <td>{{$lieu->adresse}}</td>
                                 <td>
-                                    <a href="{{route('lieus.edit', $lieu)}}" class="btn btn-sm btn-warning"><i class="bi bi-pencil-fill"></i></a>
+                                    <a href="{{route('lieus.edit', $lieu)}}" class="btn btn-sm btn-warning"
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Modifier"><i class="bi bi-pencil-fill"></i></a>
                                     <form action="{{ url('/lieus/'.$lieu->id)}}" method="POST" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce lieu ?')"><i class="bi bi-trash3-fill"></i></button>
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce lieu ?')"
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Supprimer"><i class="bi bi-trash3-fill"></i></button>
                                     </form>
                                 </td>
                             </tr>

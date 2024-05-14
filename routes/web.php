@@ -34,7 +34,7 @@ Route::get('/', function () {
     return view('mydashboard', compact('categories'));
     })->name('formations');
 
-    Route::middleware(EnsureUsersHasRole::class.':aucun')->group(function () {
+    Route::middleware(EnsureUsersHasRole::class.':participant')->group(function () {
         Route::get('/mesformations', function (Request $request) {
             $user=$request->user();
             return view('mesformations', compact('user'));
@@ -48,7 +48,7 @@ Route::get('/', function () {
 
 Route::middleware(EnsureUsersHasRole::class.':admin')->group(function () {
     Route::get('/agents', function () {
-        $users=User::all();
+        $users=User::all()->sortBy('matricule');
         return view('agents.index', compact('users'));
     })->name('agents');
 });
