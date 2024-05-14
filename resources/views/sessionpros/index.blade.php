@@ -135,12 +135,9 @@
     </div>
   </div>
 </div>
-<!-- Inclure les fichiers CSS et JavaScript de SweetAlert -->
-
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Afficher la fenêtre modale lors du clic sur le bouton "S'inscrire"
     document.querySelectorAll('.btn-info').forEach(function(button) {
         button.addEventListener('click', function(event) {
             event.preventDefault();
@@ -150,48 +147,42 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.show();
         });
     });
-
-    // Gérer la soumission du formulaire d'inscription
     document.getElementById('inscriptionForm').addEventListener('submit', function(event) {
         event.preventDefault();
         var code = document.getElementById('code').value;
         var sessionpro = document.getElementById('session').value;
         var participant=document.getElementById('participant').value;
-        // Utilisation de la méthode PUT pour l'inscription
+
         fetch('{{ route('inscription', ['sessionpro' => ':sessionpro']) }}'.replace(':sessionpro', sessionpro), {
             method: 'PUT',
             body: JSON.stringify({ code: code , participant: participant}),
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}' // Ajout du jeton CSRF pour la sécurité
+                'X-CSRF-TOKEN': '{{ csrf_token() }}' 
             }
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // Afficher une alerte SweetAlert de succès
                 Swal.fire({
                     icon: 'success',
                     title: 'Inscription validée !',
                     showConfirmButton: false,
-                    timer: 1500 // Fermer automatiquement l'alerte après 1,5 seconde
+                    timer: 1500 
                 }).then(() => {
-                    // Recharger la page pour mettre à jour les données
                     location.reload();
                 });
             } else {
-                // Afficher une alerte SweetAlert d'échec
                 Swal.fire({
                     icon: 'error',
                     title: 'Code invalide. Veuillez réessayer.',
                     showConfirmButton: false,
-                    timer: 3000 // Fermer automatiquement l'alerte après 3 secondes
+                    timer: 3000 
                 });
             }
         })
         .catch(error => {
             console.error('Erreur lors de la validation du code :', error);
-            // Afficher un message d'erreur générique
             alert('Une erreur est survenue. Veuillez réessayer.');
         });
     });

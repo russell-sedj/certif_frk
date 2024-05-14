@@ -29,6 +29,11 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @if($user->sessionpros->count()===0)
+                            <td colspan="6">
+                                Vous n'avez participé à aucune formation.
+                            </td>
+                            @endif
                           @foreach($user->sessionpros->sortByDesc('created_at') as $sessionpro)
                             <tr>
                                 <td style="text-align:center;">{{$sessionpro->formation->theme}}</td>

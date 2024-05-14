@@ -79,8 +79,10 @@ class FormationController extends Controller
             'heure_debut' => $request->input("heure_debut_".$i),
             'heure_fin' => $request->input("heure_fin_".$i),
             'lieu_id' => $request->input("lieu_".$i),
-            'formation_id' => $formation->id
+            'formation_id' => $formation->id,
         ]);
+        $sessionpro->code=date('is', strtotime($sessionpro->created_at)) . '-' . date('i', strtotime($sessionpro->formation->created_at));
+        $sessionpro->save();
     }
     
     // Redirection vers l'index des formations de la catégorie
