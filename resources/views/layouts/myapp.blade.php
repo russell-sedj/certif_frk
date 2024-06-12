@@ -151,7 +151,7 @@
             
             <li
                 class="sidebar-item has-sub 
-                {{ Route::is('profile.*', 'password') ? 'active' : '' }}"
+                {{(Route::is('profile.*', 'password') && !Route::is('profile.edit'))? 'active' : '' }}"
             >
                 <a href="#" class='sidebar-link'>
                     <i class="bi bi-person-circle"></i>

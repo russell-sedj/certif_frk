@@ -58,13 +58,13 @@
                                </td>
                                 <td style="display:flex; justify-content:center">  
                                 <div class="btn-group btn-group-space" role="group" aria-label="Actions">
-                              <a href="{{route('presences.participantsPresent', ['sessionpro'=>$sessionpro, 'presence'=>$presence])}}"class="btn btn-sm btn-primary"data-bs-toggle="tooltip" data-bs-placement="top"
+                              <a href="{{route('presences.participantsPresent', ['sessionpro'=>$sessionpro, 'presence'=>$presence])}}"class="btn btn-sm btn-primary"data-bs-toggle="tooltip" data-bs-placement="left"
                                 title="Participants présents"><i class="bi bi-people-fill"></i></a>
 
                                     <form action="{{route('presences.activate', $presence)}}" method="post">
                                         @csrf
                                         @method('PUT')
-                                        <button type="submit" class="btn btn-sm {{$presence->est_actif ? 'btn-warning' : 'btn-info'}}"data-bs-toggle="tooltip" data-bs-placement="top"
+                                        <button type="submit" class="btn btn-sm {{$presence->est_actif ? 'btn-warning' : 'btn-info'}}"data-bs-toggle="tooltip" data-bs-placement="left"
                                 title="{{$presence->est_actif ? 'Clôturer la présence' : 'Ouvrir la présence'}}">
                                             @if(!$presence->est_actif)<i class="bi bi-person-plus-fill"></i>@else<i class="bi bi-person-fill-lock"></i>@endif
                                         </button>
@@ -73,7 +73,7 @@
                                     <form action="{{route('presences.destroy', [$presence->id, $presence->sessionpro])}}" method="POST" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir  supprimer cette présence ?')" data-bs-toggle="tooltip" data-bs-placement="top"
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir  supprimer cette présence ?')" data-bs-toggle="tooltip" data-bs-placement="left"
                                 title="Supprimer"> <i class="bi bi-trash3-fill"></i>
                                       </button>
                                     </form>

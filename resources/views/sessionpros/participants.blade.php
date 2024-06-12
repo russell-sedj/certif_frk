@@ -46,7 +46,7 @@
                                         @method('PUT')
                                         <input required type="number" name="note" value="{{ $sessionpro->users->firstWhere('id', $user->id)->pivot->note }}" min="0" max="20" step="0.25">
                                         <button type="submit" class="btn btn-warning"data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Modifier"><i class="bi bi-pencil-fill"></i></button>
+                                title="Noter"><i class="bi bi-pencil-fill"></i></button>
                                     </form>
                                 </td>
                                 <td class="text-center">                                    

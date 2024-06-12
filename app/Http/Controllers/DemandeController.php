@@ -109,7 +109,7 @@ private function getMinMaxDates($demandes)
             $demande->statut='traitée';
             $demande->save();
         }
-        if ($duree === 'journee') {
+        
             $toastMessage = "Les réponses aux demandes de la journée du <strong>" .
             \Carbon\Carbon::parse($debut)->locale('fr')->isoFormat('D MMMM YYYY')
             . "</strong>";
@@ -121,7 +121,7 @@ private function getMinMaxDates($demandes)
             $toastMessage .= " ont été envoyées avec succès!";       
             session()->flash('toast_message', $toastMessage);
             session()->flash('toast_type', 'success');
-        }
+        
         return redirect()->route('demandesSup.index');
     }
     public function download(Request $request){
