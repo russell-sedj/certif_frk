@@ -1,6 +1,6 @@
 # Certif FRK — Gestion des formations (Trésor Public)
 
-Application de gestion des formations professionnelles réalisée pendant un stage au **Trésor Public**. Elle permet de gérer les formations, les sessions, les lieux, les inscriptions, les présences et les demandes d'attestation pour un réseau d'environ **7 000 agents**.
+Application de gestion des formations professionnelles réalisée pour le **Trésor Public**. Elle permet de gérer les formations, les sessions, les lieux, les inscriptions, les présences et les demandes d'attestation pour un réseau d'environ **7 000 agents**.
 
 ![Aperçu de l'interface](docs/certif.png)
 
