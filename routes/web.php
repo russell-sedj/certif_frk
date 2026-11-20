@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DemandeController;
+use App\Http\Controllers\DemoController;
 use App\Http\Controllers\FormationController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +15,18 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\EnsureUsersHasRole;
+
+if (config('demo.enabled')) {
+    Route::get('/demo/login/{role}', [DemoController::class, 'login'])
+        ->whereIn('role', ['admin', 'superviseur', 'participant'])
+        ->middleware('throttle:20,1')
+        ->name('demo.login');
+
+    Route::post('/demo/reset', [DemoController::class, 'reset'])
+        ->middleware('throttle:3,10')
+        ->name('demo.reset');
+}
+
 Route::get('/', function () {
     if(Auth::check()){
     if(in_array(auth()->user()->role, ['admin','superviseur'])){

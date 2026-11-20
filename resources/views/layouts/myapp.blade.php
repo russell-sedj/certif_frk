@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @if (config('demo.enabled'))
+        <meta name="robots" content="noindex,nofollow">
+    @endif
     <title>Certifs</title>
         
     <link rel="shortcut icon" href="/./images/certifs.jpg" type="image/x-icon">
@@ -14,6 +17,7 @@
 </head>
 
 <body>
+@include('partials.demo-banner')
     <script src="/./assets/static/js/initTheme.js"></script>
     <div id="app">
     <div id="sidebar">

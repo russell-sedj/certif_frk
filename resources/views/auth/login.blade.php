@@ -33,7 +33,7 @@
         </div>
 
         <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
+            @if (! config('demo.enabled') && Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
                     {{ __('Forgot your password?') }}
                 </a>
@@ -44,4 +44,63 @@
             </x-primary-button>
         </div>
     </form>
+
+    @if (config('demo.enabled'))
+        <div class="mt-6 border-t border-gray-200 pt-5">
+            <p class="text-sm font-semibold text-gray-700">Démo — accès direct</p>
+            <p class="mt-1 text-xs text-gray-500">
+                Données fictives. Choisissez un profil pour découvrir l'application sans créer de compte.
+            </p>
+
+            <div class="mt-3 space-y-2">
+                <a href="{{ route('demo.login', 'admin') }}"
+                   class="flex items-center justify-between rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                    <span>
+                        <strong>Administrateur</strong><br>
+                        <span class="text-xs text-gray-500">Formations, agents, catégories et lieux</span>
+                    </span>
+                    <span aria-hidden="true">&rarr;</span>
+                </a>
+
+                <a href="{{ route('demo.login', 'superviseur') }}"
+                   class="flex items-center justify-between rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                    <span>
+                        <strong>Superviseur</strong><br>
+                        <span class="text-xs text-gray-500">Sessions, présences et demandes d'attestation</span>
+                    </span>
+                    <span aria-hidden="true">&rarr;</span>
+                </a>
+
+                <a href="{{ route('demo.login', 'participant') }}"
+                   class="flex items-center justify-between rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                    <span>
+                        <strong>Participant</strong><br>
+                        <span class="text-xs text-gray-500">Mes formations et mes demandes d'attestation</span>
+                    </span>
+                    <span aria-hidden="true">&rarr;</span>
+                </a>
+            </div>
+
+            <details class="mt-3 text-xs text-gray-500">
+                <summary class="cursor-pointer">Comptes et mot de passe</summary>
+                <ul class="mt-2 space-y-1">
+                    <li><code>admin@demo.certifs.test</code> / <code>{{ config('demo.password') }}</code></li>
+                    <li><code>superviseur@demo.certifs.test</code> / <code>{{ config('demo.password') }}</code></li>
+                    <li><code>participant@demo.certifs.test</code> / <code>{{ config('demo.password') }}</code></li>
+                </ul>
+            </details>
+
+            <p class="mt-3 text-xs text-gray-500">
+                Les données sont remises à zéro automatiquement chaque nuit.
+            </p>
+
+            <form method="POST" action="{{ route('demo.reset') }}" class="mt-2"
+                  onsubmit="return confirm('Réinitialiser toutes les données de la démo ?');">
+                @csrf
+                <button type="submit" class="text-xs text-gray-500 underline hover:text-gray-700">
+                    Réinitialiser la démo maintenant
+                </button>
+            </form>
+        </div>
+    @endif
 </x-guest-layout>

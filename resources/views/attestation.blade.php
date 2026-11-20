@@ -20,7 +20,26 @@
         background-image: url("{{ asset('images/attestation_background.png') }}");
         background-repeat: no-repeat;
         background-size: 100% 100%;
+        position: relative;
     }
+
+    @if (config('demo.enabled'))
+    .demo-watermark {
+        position: absolute;
+        top: 42%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        transform: rotate(-28deg);
+        font-family: Arial, sans-serif;
+        font-size: 72px;
+        font-weight: 800;
+        letter-spacing: 8px;
+        color: rgba(180, 0, 0, 0.12);
+        pointer-events: none;
+        z-index: 20;
+    }
+    @endif
 </style>
 
 <button id="downloadButton" type="button" 
@@ -35,6 +54,9 @@ Annuler
 
 @foreach ($demandes as $demande)
 <div class="background ms-5 me-8 mt-8" id="attestation{{$demande->id}}">
+    @if (config('demo.enabled'))
+        <div class="demo-watermark">SPÉCIMEN — DÉMO</div>
+    @endif
     <div class="p-20">
         <body>
             <header>
@@ -89,6 +111,11 @@ Annuler
                             </div>
                         </div>
                     </div>
+                    @if (config('demo.enabled'))
+                        <p class="text-center text-[10px] mt-6" style="color:#b00020;">
+                            SPÉCIMEN — Document généré dans le cadre d'une démonstration, sans valeur officielle.
+                        </p>
+                    @endif
             </main>
         </body>
     </div>

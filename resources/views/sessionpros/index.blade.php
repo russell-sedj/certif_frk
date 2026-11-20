@@ -83,6 +83,9 @@
                                         {{ !$user->sessionpros->contains($sessionpro->id)? "S'inscrire" : "Se désinscrire"}}
                                         </button>
                                     </form>
+                                    @if(config('demo.enabled') && $sessionpro->peut_inscrire)
+                                        <small class="text-muted d-block mt-1">Code démo : <strong>{{ $sessionpro->code }}</strong></small>
+                                    @endif
                                     @endif
                                 @endif    
                                 @if(in_array(auth()->user()->role, ['admin','superviseur']))

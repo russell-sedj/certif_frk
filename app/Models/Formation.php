@@ -11,7 +11,7 @@ class Formation extends Model
 {
     use HasFactory;
     protected $fillable=[
-        "theme", "description"
+        "theme", "description", "categorie_id"
     ];
 
     public function categorie()

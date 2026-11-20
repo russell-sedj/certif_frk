@@ -11,7 +11,7 @@ class Presence extends Model
 
     protected $fillable = [
         'date',
-        'statut',
+        'est_actif',
         'nb_participants',
         'sessionpro_id',
     ];

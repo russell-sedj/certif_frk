@@ -1,8 +1,7 @@
 <?php
 
 namespace Database\Seeders;
-use App\Models\Lieu;
-use App\Models\User;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,8 +12,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Création des utilisateurs
-        User::factory(40)->create();
+        $this->call(DemoSeeder::class);
     }
-
 }

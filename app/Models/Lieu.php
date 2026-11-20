@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Lieu extends Model
 {
     use HasFactory;
-    protected $fillable=["ville","addresse",];
+    protected $fillable=["ville","adresse",];
 
     public function sessionpros(){
         return $this->hasMany(Sessionpro::class);

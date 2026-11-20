@@ -18,9 +18,7 @@ class EnsureUsersHasRole
         if ($request->user() && in_array($request->user()->role, $roles)) {
             return $next($request);
         }
-    
-        echo '<script>alert("Vous n\'êtes pas autorisé à accéder à cette page.");</script>';
-        echo '<script>window.history.back();</script>';
-    
+
+        abort(403, "Vous n'êtes pas autorisé à accéder à cette page.");
     }
 }

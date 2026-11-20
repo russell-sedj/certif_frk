@@ -4,6 +4,21 @@ Application de gestion des formations professionnelles réalisée pour le **Tré
 
 ![Aperçu de l'interface](docs/certif.png)
 
+## Démo publique
+
+> **Démonstration — données fictives.** Une version publique est prévue sur alwaysdata : [certif-frk.alwaysdata.net](https://certif-frk.alwaysdata.net). La démo est remise à zéro chaque nuit.
+
+| Rôle | Email | Mot de passe |
+|---|---|---|
+| Administrateur | `admin@demo.certifs.test` | `Demo1234!` |
+| Superviseur | `superviseur@demo.certifs.test` | `Demo1234!` |
+| Participant | `participant@demo.certifs.test` | `Demo1234!` |
+
+La page de connexion propose aussi trois boutons d'accès direct. Les attestations générées portent un filigrane **SPÉCIMEN — DÉMO**.
+
+- Guide de déploiement : [docs/DEPLOY_ALWAYSDATA.md](docs/DEPLOY_ALWAYSDATA.md)
+- Présentation portfolio : [docs/PORTFOLIO.md](docs/PORTFOLIO.md)
+
 ## Stack
 
 - **Framework** : Laravel 11 (PHP 8.2 / 8.3)
@@ -68,6 +83,8 @@ Appliquer les migrations et les seeders :
 php artisan migrate --seed
 ```
 
+Le seeder par défaut charge le jeu de données de démonstration (`DemoSeeder`). Les trois comptes de démo sont créés avec le mot de passe `Demo1234!`.
+
 Lancer le frontend et le serveur :
 
 ```bash
@@ -94,6 +111,21 @@ routes/
   web.php              # Routes et guards de rôles
 public/
   lang/french.json     # Traductions
+```
+
+## Mode démo
+
+Le mode démo est activé par `DEMO_MODE=true` dans `.env`. Il ajoute :
+
+- trois comptes fixes et des boutons de connexion directe sur la page de login ;
+- une bannière « DÉMO — données fictives » et un bouton de réinitialisation ;
+- la commande `php artisan demo:reset`, qui relance `migrate:fresh` et `DemoSeeder` ;
+- un filigrane « SPÉCIMEN — DÉMO » sur les attestations.
+
+En production, un cron quotidien lance :
+
+```bash
+cd /home/<compte>/www/certif && php artisan demo:reset --force
 ```
 
 ## Sécurité
