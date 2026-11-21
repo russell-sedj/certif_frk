@@ -35,9 +35,6 @@ class ResetDemo extends Command
             '--seeder' => DemoSeeder::class,
         ]);
 
-        $this->call('config:clear');
-        $this->call('view:clear');
-
         $this->info('Démo réinitialisée.');
 
         return self::SUCCESS;

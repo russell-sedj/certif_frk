@@ -4,6 +4,25 @@ Ce guide décrit le déploiement de **Certifs — Démo** sur l'offre **Free** d
 
 > La démo utilise uniquement des **données fictives**. Elle est remise à zéro chaque nuit par un cron. Elle ne doit jamais contenir de données réelles d'agents.
 
+## État du déploiement actuel
+
+| | |
+|---|---|
+| URL | [https://certif-frk.alwaysdata.net](https://certif-frk.alwaysdata.net) |
+| Compte | `certif-frk` |
+| Racine du site | `/home/certif-frk/www/certif/public` |
+| PHP du site | 8.3.37 |
+| Base MySQL | `mysql-certif-frk.alwaysdata.net` / `certif-frk_db` / `certif-frk` |
+| PHP CLI par défaut | 8.4.28 |
+
+Le PHP CLI de l'environnement est resté en 8.4. Pour lancer `artisan` ou le cron, utiliser le binaire 8.3 explicite :
+
+```bash
+/usr/alwaysdata/php/8.3.37/bin/php -c /home/certif-frk/php83.ini artisan <commande>
+```
+
+Le fichier `/home/certif-frk/php83.ini` charge les extensions PHP 8.3 (pdo_mysql, mbstring, openssl, etc.). Alternative plus propre : passer **Environnement → PHP** en 8.3, puis utiliser simplement `php artisan`.
+
 ## 1. Créer le compte
 
 1. Aller sur [admin.alwaysdata.com](https://admin.alwaysdata.com/) et créer un compte.
@@ -179,9 +198,10 @@ chmod -R 775 storage bootstrap/cache
 
 Dans **Advanced → Scheduled tasks**, ajouter une tâche :
 
-- Commande : `cd /home/<compte>/www/certif && php artisan demo:reset --force`
+- Commande (compte actuel) :
+  `cd /home/certif-frk/www/certif && /usr/alwaysdata/php/8.3.37/bin/php -c /home/certif-frk/php83.ini artisan demo:reset --force`
 - Fréquence : tous les jours à 04:00
-- Version de PHP : 8.3 (dans **Environnement**)
+- Version de PHP : 8.3 (dans **Environnement**). Si le CLI reste en 8.4, la commande explicite ci-dessus fonctionne.
 
 La commande :
 

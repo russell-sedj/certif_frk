@@ -6,7 +6,7 @@ Application de gestion des formations professionnelles réalisée pour le **Tré
 
 ## Démo publique
 
-> **Démonstration — données fictives.** Une version publique est prévue sur alwaysdata : [certif-frk.alwaysdata.net](https://certif-frk.alwaysdata.net). La démo est remise à zéro chaque nuit.
+> **Démonstration — données fictives.** La démo est en ligne : [certif-frk.alwaysdata.net](https://certif-frk.alwaysdata.net). Elle est remise à zéro chaque nuit.
 
 | Rôle | Email | Mot de passe |
 |---|---|---|
@@ -127,6 +127,8 @@ En production, un cron quotidien lance :
 ```bash
 cd /home/<compte>/www/certif && php artisan demo:reset --force
 ```
+
+> Sur alwaysdata, le PHP CLI par défaut peut être en 8.4. Utiliser le binaire 8.3 explicite (voir [docs/DEPLOY_ALWAYSDATA.md](docs/DEPLOY_ALWAYSDATA.md)) ou passer l'environnement en PHP 8.3.
 
 ## Sécurité
 
