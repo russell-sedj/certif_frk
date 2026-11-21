@@ -68,9 +68,9 @@ Le contrôle d'accès est centralisé dans le middleware `EnsureUsersHasRole`, a
 
 ![Espace participant](screenshots/participant-dashboard.png)
 
-### Demandes d'attestation (superviseur)
+### Tableau de bord superviseur
 
-![Demandes d'attestation](screenshots/supervisor-demandes.png)
+![Tableau de bord superviseur](screenshots/supervisor-dashboard.png)
 
 ## Ce que la démo permet de tester
 
