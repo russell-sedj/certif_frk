@@ -7,7 +7,7 @@ Application de gestion des formations professionnelles réalisée pour le **Tré
 ## Démo en ligne
 
 > **Démonstration : données fictives.**  
-> **[Ouvrir la démo](https://certif-frk.alwaysdata.net)** (toujours en ligne, sans cold start).  
+> **[Ouvrir la démo](https://demo-rvss.alwaysdata.net)** (toujours en ligne, sans cold start).  
 > Les données sont remises à zéro chaque nuit.
 
 | Rôle | Email | Mot de passe |
@@ -16,7 +16,7 @@ Application de gestion des formations professionnelles réalisée pour le **Tré
 | Superviseur | `superviseur@demo.certifs.test` | `Demo1234!` |
 | Participant | `participant@demo.certifs.test` | `Demo1234!` |
 
-La page de connexion propose aussi trois boutons d'accès direct. Les attestations générées portent un filigrane **SPÉCIMEN · DÉMO**.
+La page de connexion propose aussi trois boutons d'accès direct. Les attestations générées portent un filigrane **SPÉCIMEN - DÉMO**.
 
 > Ces comptes sont **publics et réservés à la démonstration**. Les données sont fictives et remises à zéro chaque nuit. Ne réutilise pas ces mots de passe ailleurs. Le mot de passe de l'administration alwaysdata et le fichier `.env` ne sont pas dans le dépôt.
 
@@ -123,9 +123,9 @@ public/
 Le mode démo est activé par `DEMO_MODE=true` dans `.env`. Il ajoute :
 
 - trois comptes fixes et des boutons de connexion directe sur la page de login ;
-- une bannière « DÉMO · données fictives » et un bouton de réinitialisation ;
+- une bannière « DÉMO : données fictives » et un bouton de réinitialisation ;
 - la commande `php artisan demo:reset`, qui relance `migrate:fresh` et `DemoSeeder` ;
-- un filigrane « SPÉCIMEN · DÉMO » sur les attestations.
+- un filigrane « SPÉCIMEN - DÉMO » sur les attestations.
 
 En production, un cron quotidien lance :
 

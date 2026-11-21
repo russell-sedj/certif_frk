@@ -55,7 +55,7 @@ Annuler
 @foreach ($demandes as $demande)
 <div class="background ms-5 me-8 mt-8" id="attestation{{$demande->id}}">
     @if (config('demo.enabled'))
-        <div class="demo-watermark">SPÉCIMEN · DÉMO</div>
+        <div class="demo-watermark">SPÉCIMEN - DÉMO</div>
     @endif
     <div class="p-20">
         <body>
@@ -113,7 +113,7 @@ Annuler
                     </div>
                     @if (config('demo.enabled'))
                         <p class="text-center text-[10px] mt-6" style="color:#b00020;">
-                            SPÉCIMEN · Document généré dans le cadre d'une démonstration, sans valeur officielle.
+                            SPÉCIMEN - Document de démonstration, sans valeur officielle.
                         </p>
                     @endif
             </main>

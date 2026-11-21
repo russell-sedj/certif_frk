@@ -47,9 +47,9 @@
 
     @if (config('demo.enabled'))
         <div class="mt-6 border-t border-gray-200 pt-5">
-            <p class="text-sm font-semibold text-gray-700">Démo · accès direct</p>
+            <p class="text-sm font-semibold text-gray-700">Démo : accès direct</p>
             <p class="mt-1 text-xs text-gray-500">
-                Données fictives. Choisissez un profil pour découvrir l'application sans créer de compte.
+                Choisissez un profil pour tester la démo. Aucun compte à créer, les données sont fictives.
             </p>
 
             <div class="mt-3 space-y-2">

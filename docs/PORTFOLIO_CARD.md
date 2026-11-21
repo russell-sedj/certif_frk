@@ -12,9 +12,9 @@ Gestion des formations, inscriptions, présences et attestations pour un réseau
 
 Application métier pour un réseau d'environ 7 000 agents : catalogue de formations, sessions, inscriptions par code, suivi des présences et demandes d'attestation. Trois rôles (admin, superviseur, participant) avec des parcours et des permissions dédiés.
 
-**Stack** : Laravel 11 · PHP 8.3 · MySQL · Blade · Alpine.js · Tailwind CSS · Pest
+**Stack** : Laravel 11, PHP 8.3, MySQL, Blade, Alpine.js, Tailwind CSS, Pest
 **Rôle** : conception et développement full-stack
-**Démo** : https://certif-frk.alwaysdata.net
+**Démo** : https://demo-rvss.alwaysdata.net
 
 ## Version carte (FR)
 
@@ -24,7 +24,7 @@ Application métier pour un réseau d'environ 7 000 agents : catalogue de format
 
 **Description** : Certif FRK centralise tout le cycle de vie des formations professionnelles : catalogue, sessions, inscriptions par code, suivi des présences et demandes d'attestation. L'application propose trois espaces distincts (administration, supervision, participant) avec un contrôle d'accès par rôle. Le projet est développé avec Laravel 11, MySQL, Blade, Alpine.js et Tailwind CSS. Une démo publique avec données fictives permet de tester les trois parcours.
 
-**Stack** : Laravel 11 · PHP 8.3 · MySQL · Blade · Alpine.js · Tailwind CSS · Vite · Pest
+**Stack** : Laravel 11, PHP 8.3, MySQL, Blade, Alpine.js, Tailwind CSS, Vite, Pest
 
 **Points forts** :
 - Contrôle d'accès multi-rôles et guards par groupe de routes.
@@ -34,7 +34,7 @@ Application métier pour un réseau d'environ 7 000 agents : catalogue de format
 - Déploiement alwaysdata Free : PHP 8.3, MySQL, HTTPS et assets Vite.
 
 **Liens** :
-- Démo : https://certif-frk.alwaysdata.net
+- Démo : https://demo-rvss.alwaysdata.net
 - Code : https://github.com/russell-sedj/certif_frk
 - Étude de cas : `docs/PORTFOLIO.md`
 
@@ -54,9 +54,9 @@ Application métier pour un réseau d'environ 7 000 agents : catalogue de format
 
 A business application for a network of around 7,000 agents: training catalog, sessions, code-based enrollment, attendance tracking and certificate requests. Three roles (admin, supervisor, participant) with dedicated permissions and flows.
 
-**Stack** : Laravel 11 · PHP 8.3 · MySQL · Blade · Alpine.js · Tailwind CSS · Pest
+**Stack** : Laravel 11, PHP 8.3, MySQL, Blade, Alpine.js, Tailwind CSS, Pest
 **Role** : full-stack design and development
-**Demo** : https://certif-frk.alwaysdata.net
+**Demo** : https://demo-rvss.alwaysdata.net
 
 **Highlights** :
 - Multi-role access control with route-level guards.

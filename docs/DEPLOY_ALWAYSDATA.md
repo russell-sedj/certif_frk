@@ -8,27 +8,27 @@ Ce guide décrit le déploiement de **Certifs (démo)** sur l'offre **Free** d'a
 
 | | |
 |---|---|
-| URL | [https://certif-frk.alwaysdata.net](https://certif-frk.alwaysdata.net) |
-| Compte | `certif-frk` |
-| Racine du site | `/home/certif-frk/www/certif/public` |
+| URL | [https://demo-rvss.alwaysdata.net](https://demo-rvss.alwaysdata.net) |
+| Compte | `demo-rvss` |
+| Racine du site | `/home/demo-rvss/www/certif/public` |
 | PHP du site | 8.3.37 |
-| Base MySQL | `mysql-certif-frk.alwaysdata.net` / `certif-frk_db` / `certif-frk` |
+| Base MySQL | `mysql-demo-rvss.alwaysdata.net` / `demo-rvss_db` / `demo-rvss` |
 | PHP CLI par défaut | 8.4.28 |
-| Script de reset | `/home/certif-frk/www/certif/demo-reset.sh` |
+| Script de reset | `/home/demo-rvss/www/certif/demo-reset.sh` |
 
 Le PHP CLI de l'environnement est resté en 8.4. Pour lancer `artisan` ou le cron, utiliser le binaire 8.3 explicite :
 
 ```bash
-/usr/alwaysdata/php/8.3.37/bin/php -c /home/certif-frk/php83.ini artisan <commande>
+/usr/alwaysdata/php/8.3.37/bin/php -c /home/demo-rvss/php83.ini artisan <commande>
 ```
 
-Le fichier `/home/certif-frk/php83.ini` charge les extensions PHP 8.3 (pdo_mysql, mbstring, openssl, etc.). Alternative plus propre : passer **Environnement → PHP** en 8.3, puis utiliser simplement `php artisan`.
+Le fichier `/home/demo-rvss/php83.ini` charge les extensions PHP 8.3 (pdo_mysql, mbstring, openssl, etc.). Alternative plus propre : passer **Environnement → PHP** en 8.3, puis utiliser simplement `php artisan`.
 
 ## 1. Créer le compte
 
 1. Aller sur [admin.alwaysdata.com](https://admin.alwaysdata.com/) et créer un compte.
 2. Dans **Choix de l'offre**, sélectionner **Free** (0 €), et non l'offre *Small* qui est payante.
-3. Choisir un nom de compte, par exemple `certif-frk` : le site sera accessible à l'adresse `https://certif-frk.alwaysdata.net`.
+3. Choisir un nom de compte, par exemple `demo-rvss` : le site sera accessible à l'adresse `https://demo-rvss.alwaysdata.net`.
 4. Accepter les conditions et valider la création.
 
 > L'offre Free est réservée à un usage personnel (portfolio, démonstration). Elle n'autorise pas les sites commerciaux ni les domaines personnalisés. Pour un domaine perso, il faut l'offre Plus (à partir de 5 €/mois).
@@ -200,11 +200,11 @@ chmod -R 775 storage bootstrap/cache
 Dans **Advanced → Scheduled tasks**, ajouter une tâche :
 
 - Commande (compte actuel) :
-  `cd /home/certif-frk/www/certif && /usr/alwaysdata/php/8.3.37/bin/php -c /home/certif-frk/php83.ini artisan demo:reset --force`
+  `cd /home/demo-rvss/www/certif && /usr/alwaysdata/php/8.3.37/bin/php -c /home/demo-rvss/php83.ini artisan demo:reset --force`
 - Fréquence : tous les jours à 04:00
 - Version de PHP : 8.3 (dans **Environnement**). Si le CLI reste en 8.4, la commande explicite ci-dessus fonctionne.
 
-Le compte actuel dispose du script `/home/certif-frk/www/certif/demo-reset.sh`, qui encapsule cette commande. La tâche planifiée peut l'appeler directement.
+Le compte actuel dispose du script `/home/demo-rvss/www/certif/demo-reset.sh`, qui encapsule cette commande. La tâche planifiée peut l'appeler directement.
 
 La commande :
 
@@ -220,7 +220,7 @@ Les logs de la tâche sont dans `/home/<compte>/admin/logs/jobs/`. La remise à 
 2. Tester les trois rôles.
 3. Vérifier `/up` (health check Laravel) : doit répondre 200.
 4. Cliquer sur **Réinitialiser** dans la bannière : les données doivent revenir à l'état initial.
-5. Se connecter en superviseur, ouvrir les demandes, télécharger une attestation : le PDF doit porter le filigrane **SPÉCIMEN · DÉMO**.
+5. Se connecter en superviseur, ouvrir les demandes, télécharger une attestation : le PDF doit porter le filigrane **SPÉCIMEN - DÉMO**.
 
 Comptes :
 
@@ -259,7 +259,7 @@ Si les seeders ont changé, relancer `php artisan demo:reset --force` (ou attend
 ## 16. Sécurité et limites
 
 - La démo est publique : les trois comptes le sont aussi. **Ne jamais y mettre de données réelles.**
-- Les données sont fictives, réinitialisées chaque nuit, et les attestations portent un filigrane « SPÉCIMEN · DÉMO ».
+- Les données sont fictives, réinitialisées chaque nuit, et les attestations portent un filigrane « SPÉCIMEN - DÉMO ».
 - `APP_DEBUG=false`, `.env` non versionné, `robots.txt`/meta `noindex` pour ne pas indexer la démo.
 - L'offre Free est personnelle et sans domaine perso. Pour un domaine et plus de confort, prévoir 5 €/mois.
 - Les offres gratuites peuvent évoluer : garder ce guide et un plan B (offre Plus ou petit VPS) sous la main.
