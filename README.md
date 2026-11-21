@@ -22,6 +22,7 @@ La page de connexion propose aussi trois boutons d'accès direct. Les attestatio
 
 - Guide de déploiement : [docs/DEPLOY_ALWAYSDATA.md](docs/DEPLOY_ALWAYSDATA.md)
 - Présentation portfolio : [docs/PORTFOLIO.md](docs/PORTFOLIO.md)
+- Texte court pour la carte portfolio : [docs/PORTFOLIO_CARD.md](docs/PORTFOLIO_CARD.md)
 
 ## Stack
 
