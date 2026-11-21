@@ -1,4 +1,4 @@
-# Certif FRK — fiche portfolio
+# Certif FRK - fiche portfolio
 
 > Application de gestion des formations professionnelles pour un réseau d'environ **7 000 agents**.
 > Projet présenté en démonstration publique avec des **données fictives**.
@@ -55,7 +55,7 @@ Le contrôle d'accès est centralisé dans le middleware `EnsureUsersHasRole`, a
 - **Workflow d'inscription par code** : le superviseur ouvre les inscriptions, le participant utilise un code de session ; l'inscription est vérifiée côté serveur.
 - **Présences** : gestion d'une présence active à la fois, numéros de présence uniques, recalcul du nombre de présences par participant.
 - **Attestations** : génération côté navigateur (html2pdf + JSZip) à partir d'un template Blade, avec téléchargement groupé en ZIP.
-- **Mode démo** : `DemoSeeder` avec dates relatives, trois comptes fixes, bannière, bouton de reset et cron quotidien ; les attestations portent un filigrane « SPÉCIMEN — DÉMO ».
+- **Mode démo** : `DemoSeeder` avec dates relatives, trois comptes fixes, bannière, bouton de reset et cron quotidien ; les attestations portent un filigrane « SPÉCIMEN · DÉMO ».
 - **Déploiement** : offre alwaysdata Free (PHP 8.3 + MySQL + cron), configuration HTTPS/proxy, assets Vite construits en local.
 
 ## Captures

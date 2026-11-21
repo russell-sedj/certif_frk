@@ -1,6 +1,6 @@
 # Déployer la démo sur alwaysdata (offre Free)
 
-Ce guide décrit le déploiement de **Certifs — Démo** sur l'offre **Free** d'alwaysdata : 0 €, sans carte bancaire, 1 Go de disque, 256 Mo de RAM, PHP 8.3, MySQL et tâches planifiées.
+Ce guide décrit le déploiement de **Certifs (démo)** sur l'offre **Free** d'alwaysdata : 0 €, sans carte bancaire, 1 Go de disque, 256 Mo de RAM, PHP 8.3, MySQL et tâches planifiées.
 
 > La démo utilise uniquement des **données fictives**. Elle est remise à zéro chaque nuit par un cron. Elle ne doit jamais contenir de données réelles d'agents.
 
@@ -123,7 +123,7 @@ cp .env.example .env
 Éditer `.env` avec les valeurs de production :
 
 ```env
-APP_NAME="Certifs — Démo"
+APP_NAME="Certifs"
 APP_ENV=production
 APP_KEY=
 APP_DEBUG=false
@@ -220,7 +220,7 @@ Les logs de la tâche sont dans `/home/<compte>/admin/logs/jobs/`. La remise à 
 2. Tester les trois rôles.
 3. Vérifier `/up` (health check Laravel) : doit répondre 200.
 4. Cliquer sur **Réinitialiser** dans la bannière : les données doivent revenir à l'état initial.
-5. Se connecter en superviseur, ouvrir les demandes, télécharger une attestation : le PDF doit porter le filigrane **SPÉCIMEN — DÉMO**.
+5. Se connecter en superviseur, ouvrir les demandes, télécharger une attestation : le PDF doit porter le filigrane **SPÉCIMEN · DÉMO**.
 
 Comptes :
 
@@ -259,7 +259,7 @@ Si les seeders ont changé, relancer `php artisan demo:reset --force` (ou attend
 ## 16. Sécurité et limites
 
 - La démo est publique : les trois comptes le sont aussi. **Ne jamais y mettre de données réelles.**
-- Les données sont fictives, réinitialisées chaque nuit, et les attestations portent un filigrane « SPÉCIMEN — DÉMO ».
+- Les données sont fictives, réinitialisées chaque nuit, et les attestations portent un filigrane « SPÉCIMEN · DÉMO ».
 - `APP_DEBUG=false`, `.env` non versionné, `robots.txt`/meta `noindex` pour ne pas indexer la démo.
 - L'offre Free est personnelle et sans domaine perso. Pour un domaine et plus de confort, prévoir 5 €/mois.
 - Les offres gratuites peuvent évoluer : garder ce guide et un plan B (offre Plus ou petit VPS) sous la main.

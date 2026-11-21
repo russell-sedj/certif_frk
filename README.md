@@ -1,12 +1,14 @@
-# Certif FRK — Gestion des formations (Trésor Public)
+# Certif FRK - Gestion des formations (Trésor Public)
 
 Application de gestion des formations professionnelles réalisée pour le **Trésor Public**. Elle permet de gérer les formations, les sessions, les lieux, les inscriptions, les présences et les demandes d'attestation pour un réseau d'environ **7 000 agents**.
 
 ![Aperçu de l'interface](docs/certif.png)
 
-## Démo publique
+## Démo en ligne
 
-> **Démonstration — données fictives.** La démo est en ligne : [certif-frk.alwaysdata.net](https://certif-frk.alwaysdata.net). Elle est remise à zéro chaque nuit.
+> **Démonstration : données fictives.**  
+> **[Ouvrir la démo](https://certif-frk.alwaysdata.net)** (toujours en ligne, sans cold start).  
+> Les données sont remises à zéro chaque nuit.
 
 | Rôle | Email | Mot de passe |
 |---|---|---|
@@ -14,7 +16,9 @@ Application de gestion des formations professionnelles réalisée pour le **Tré
 | Superviseur | `superviseur@demo.certifs.test` | `Demo1234!` |
 | Participant | `participant@demo.certifs.test` | `Demo1234!` |
 
-La page de connexion propose aussi trois boutons d'accès direct. Les attestations générées portent un filigrane **SPÉCIMEN — DÉMO**.
+La page de connexion propose aussi trois boutons d'accès direct. Les attestations générées portent un filigrane **SPÉCIMEN · DÉMO**.
+
+> Ces comptes sont **publics et réservés à la démonstration**. Les données sont fictives et remises à zéro chaque nuit. Ne réutilise pas ces mots de passe ailleurs. Le mot de passe de l'administration alwaysdata et le fichier `.env` ne sont pas dans le dépôt.
 
 - Guide de déploiement : [docs/DEPLOY_ALWAYSDATA.md](docs/DEPLOY_ALWAYSDATA.md)
 - Présentation portfolio : [docs/PORTFOLIO.md](docs/PORTFOLIO.md)
@@ -118,9 +122,9 @@ public/
 Le mode démo est activé par `DEMO_MODE=true` dans `.env`. Il ajoute :
 
 - trois comptes fixes et des boutons de connexion directe sur la page de login ;
-- une bannière « DÉMO — données fictives » et un bouton de réinitialisation ;
+- une bannière « DÉMO · données fictives » et un bouton de réinitialisation ;
 - la commande `php artisan demo:reset`, qui relance `migrate:fresh` et `DemoSeeder` ;
-- un filigrane « SPÉCIMEN — DÉMO » sur les attestations.
+- un filigrane « SPÉCIMEN · DÉMO » sur les attestations.
 
 En production, un cron quotidien lance :
 
@@ -138,4 +142,4 @@ cd /home/<compte>/www/certif && php artisan demo:reset --force
 
 ## Auteur
 
-Russell Dossou-Yovo — [GitHub](https://github.com/russell-sedj)
+Russell Dossou-Yovo - [GitHub](https://github.com/russell-sedj)

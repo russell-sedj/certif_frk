@@ -222,7 +222,7 @@ class DemoSeeder extends Seeder
         }
 
         $formations = [
-            ['compta1', 'Comptabilité générale — niveau 1', 'Les fondamentaux de la comptabilité générale appliqués au secteur public.', 'Comptabilité publique'],
+            ['compta1', 'Comptabilité générale - niveau 1', 'Les fondamentaux de la comptabilité générale appliqués au secteur public.', 'Comptabilité publique'],
             ['compta2', 'Comptabilité publique et SYSCOHADA', 'Opérations comptables, états financiers et référentiel SYSCOHADA.', 'Comptabilité publique'],
             ['marches1', 'Passation des marchés publics', 'Procédures de passation, seuils et bonnes pratiques.', 'Marchés publics'],
             ['marches2', 'Exécution et contrôle des marchés publics', 'Suivi de l\'exécution, réception et contrôle des marchés.', 'Marchés publics'],

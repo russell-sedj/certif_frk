@@ -1,7 +1,7 @@
 @if (config('demo.enabled'))
     <div class="demo-banner" role="status">
         <span>
-            <strong>DÉMO</strong> — Données fictives · Projet de démonstration non officiel
+            <strong>DÉMO</strong> · Données fictives · Projet de démonstration non officiel
         </span>
         <form method="POST" action="{{ route('demo.reset') }}" onsubmit="return confirm('Réinitialiser toutes les données de la démo ?');">
             @csrf
