@@ -1,7 +1,7 @@
 @extends('layouts.myapp')
 @section('content')
-<link rel="stylesheet" href="/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
-<link rel="stylesheet" href="/./assets/compiled/css/table-datatable-jquery.css">
+<link rel="stylesheet" href="{{ asset('assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/compiled/css/table-datatable-jquery.css') }}">
 
 <div class="container">
     <div class="row">
@@ -95,10 +95,10 @@
         </div>
     </div>
 </div>
-<script src="/assets/extensions/jquery/jquery.min.js"></script>
-<script src="/assets/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="/assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
-<script src="/assets/static/js/pages/datatables.js"></script>
+<script src="{{ asset('assets/extensions/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/extensions/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
+<script src="{{ asset('assets/static/js/pages/datatables.js') }}"></script>
 @endsection
 <style>
     .btn-group-space .btn {

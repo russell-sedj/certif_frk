@@ -64,7 +64,7 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
 
-        return redirect(route('agents', absolute: false));
+        return redirect()->route('agents');
     }
 
     public function enrollment(Request $request, Sessionpro $sessionpro)

@@ -9,16 +9,16 @@
     @endif
     <title>Certifs</title>
         
-    <link rel="shortcut icon" href="/./images/certifs.jpg" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('images/certifs.jpg') }}" type="image/x-icon">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-  <link rel="stylesheet" href="/./assets/compiled/css/app.css">
-  <link rel="stylesheet" href="/./assets/compiled/css/app-dark.css">
-  <link rel="stylesheet" href="/./assets/compiled/css/iconly.css">
+  <link rel="stylesheet" href="{{ asset('assets/compiled/css/app.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/compiled/css/app-dark.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/compiled/css/iconly.css') }}">
 </head>
 
 <body>
 @include('partials.demo-banner')
-    <script src="/./assets/static/js/initTheme.js"></script>
+    <script src="{{ asset('assets/static/js/initTheme.js') }}"></script>
     <div id="app">
     <div id="sidebar">
             <div class="sidebar-wrapper active">
@@ -211,9 +211,9 @@
     </div>
 </footer>
     </div>
-    <script src="/./assets/static/js/components/dark.js"></script>
-    <script src="/./assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="/./assets/compiled/js/app.js"></script>
+    <script src="{{ asset('assets/static/js/components/dark.js') }}"></script>
+    <script src="{{ asset('assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ asset('assets/compiled/js/app.js') }}"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function () {
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
