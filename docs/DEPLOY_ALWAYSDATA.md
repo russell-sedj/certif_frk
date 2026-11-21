@@ -14,6 +14,7 @@ Ce guide décrit le déploiement de **Certifs — Démo** sur l'offre **Free** d
 | PHP du site | 8.3.37 |
 | Base MySQL | `mysql-certif-frk.alwaysdata.net` / `certif-frk_db` / `certif-frk` |
 | PHP CLI par défaut | 8.4.28 |
+| Script de reset | `/home/certif-frk/www/certif/demo-reset.sh` |
 
 Le PHP CLI de l'environnement est resté en 8.4. Pour lancer `artisan` ou le cron, utiliser le binaire 8.3 explicite :
 
@@ -202,6 +203,8 @@ Dans **Advanced → Scheduled tasks**, ajouter une tâche :
   `cd /home/certif-frk/www/certif && /usr/alwaysdata/php/8.3.37/bin/php -c /home/certif-frk/php83.ini artisan demo:reset --force`
 - Fréquence : tous les jours à 04:00
 - Version de PHP : 8.3 (dans **Environnement**). Si le CLI reste en 8.4, la commande explicite ci-dessus fonctionne.
+
+Le compte actuel dispose du script `/home/certif-frk/www/certif/demo-reset.sh`, qui encapsule cette commande. La tâche planifiée peut l'appeler directement.
 
 La commande :
 
