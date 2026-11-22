@@ -12,7 +12,7 @@ beforeEach(function () {
 it('affiche les accès de démonstration sur la page de connexion', function () {
     $this->get('/login')
         ->assertOk()
-        ->assertSee('Démo · accès direct');
+        ->assertSee('Démo : accès direct');
 });
 
 it('connecte un administrateur et affiche le tableau de bord', function () {

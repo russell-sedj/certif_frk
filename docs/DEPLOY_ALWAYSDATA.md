@@ -8,27 +8,57 @@ Ce guide décrit le déploiement de **Certifs (démo)** sur l'offre **Free** d'a
 
 | | |
 |---|---|
-| URL | [https://demo-rvss.alwaysdata.net](https://demo-rvss.alwaysdata.net) |
-| Compte | `demo-rvss` |
-| Racine du site | `/home/demo-rvss/www/certif/public` |
-| PHP du site | 8.3.37 |
-| Base MySQL | `mysql-demo-rvss.alwaysdata.net` / `demo-rvss_db` / `demo-rvss` |
-| PHP CLI par défaut | 8.4.28 |
-| Script de reset | `/home/demo-rvss/www/certif/demo-reset.sh` |
+| URL | [https://test-rvss.alwaysdata.net/certif/](https://test-rvss.alwaysdata.net/certif/) |
+| Compte | `test-rvss` |
+| Racine du site | `/home/test-rvss/www` |
+| Application | `/home/test-rvss/apps/certif` |
+| Lien public | `/home/test-rvss/www/certif` -> `/home/test-rvss/apps/certif/public` |
+| PHP du site | 8.3 |
+| Base MySQL | `mysql-test-rvss.alwaysdata.net` / `test-rvss_certif` / `test-rvss_certif_user1` |
+| Script de reset | `/home/test-rvss/apps/certif/demo-reset.sh` |
 
-Le PHP CLI de l'environnement est resté en 8.4. Pour lancer `artisan` ou le cron, utiliser le binaire 8.3 explicite :
+Le compte héberge plusieurs projets. La structure et les règles communes sont décrites dans [HOSTING.md](HOSTING.md). Certif occupe le chemin `/certif/`, le reste de `www` reste libre pour les autres sites.
 
-```bash
-/usr/alwaysdata/php/8.3.37/bin/php -c /home/demo-rvss/php83.ini artisan <commande>
+## Organisation des dossiers
+
+```text
+/home/test-rvss/
+├── www/                       racine web du site principal
+│   ├── index.html             page d'accueil provisoire
+│   └── certif -> ../apps/certif/public
+├── apps/
+│   └── certif/                code Laravel, .env, vendor, storage
+└── admin/                     logs et configuration alwaysdata
 ```
 
-Le fichier `/home/demo-rvss/php83.ini` charge les extensions PHP 8.3 (pdo_mysql, mbstring, openssl, etc.). Alternative plus propre : passer **Environnement → PHP** en 8.3, puis utiliser simplement `php artisan`.
+Règles :
+
+- Le code et les fichiers sensibles restent dans `~/apps`, jamais dans `~/www`.
+- Seul le dossier `public` de Laravel est exposé, via un lien symbolique.
+- Un nouveau projet PHP suit le même schéma : `~/apps/<projet>` et `~/www/<projet>` -> `~/apps/<projet>/public`.
+- Un projet Node.js, Java, .NET ou Python utilise un site séparé sur un sous-domaine, avec `~/apps/<projet>` comme dossier de travail. Voir [HOSTING.md](HOSTING.md).
+
+## PHP en ligne de commande
+
+Le PHP par défaut du compte peut être en 8.4. Pour toutes les commandes Artisan, forcer la version 8.3 :
+
+```bash
+PHP_VERSION=8.3 php artisan <commande>
+```
+
+Le binaire explicite fonctionne aussi :
+
+```bash
+/usr/alwaysdata/php/8.3/bin/php artisan <commande>
+```
+
+Pour le cron, préférer le script `demo-reset.sh`, qui fixe déjà la version et le dossier.
 
 ## 1. Créer le compte
 
 1. Aller sur [admin.alwaysdata.com](https://admin.alwaysdata.com/) et créer un compte.
 2. Dans **Choix de l'offre**, sélectionner **Free** (0 €), et non l'offre *Small* qui est payante.
-3. Choisir un nom de compte, par exemple `demo-rvss` : le site sera accessible à l'adresse `https://demo-rvss.alwaysdata.net`.
+3. Choisir un nom de compte, par exemple `test-rvss` : le site sera accessible à l'adresse `https://test-rvss.alwaysdata.net`.
 4. Accepter les conditions et valider la création.
 
 > L'offre Free est réservée à un usage personnel (portfolio, démonstration). Elle n'autorise pas les sites commerciaux ni les domaines personnalisés. Pour un domaine perso, il faut l'offre Plus (à partir de 5 €/mois).
@@ -38,32 +68,38 @@ Le fichier `/home/demo-rvss/php83.ini` charge les extensions PHP 8.3 (pdo_mysql,
 Dans l'interface d'administration :
 
 1. **Bases de données → MySQL → Ajouter une base**.
-2. Créer une base `certif` (ticket : elle sera nommée `<compte>_certif`).
-3. Créer un utilisateur MySQL avec un mot de passe solide, ou utiliser l'utilisateur par défaut.
-4. Noter :
-   - hôte : `mysql-<compte>.alwaysdata.net`
-   - base : `<compte>_certif`
-   - utilisateur : `<compte>`
-   - mot de passe : celui choisi
+2. Créer une base `certif` (elle sera nommée `test-rvss_certif`).
+3. Créer un utilisateur MySQL `test-rvss_certif_user1` avec le mot de passe `CertifDemo2026`.
+4. Laisser **Adresse IP** vide et **Connexion SSL** décochée.
+5. Donner à cet utilisateur tous les droits sur `test-rvss_certif`.
+6. Noter :
+   - hôte : `mysql-test-rvss.alwaysdata.net`
+   - base : `test-rvss_certif`
+   - utilisateur : `test-rvss_certif_user1`
+   - mot de passe : `CertifDemo2026`
+
+> Un mot de passe sans caractères spéciaux évite les erreurs de parsing dans `.env`. Ce mot de passe ne sert qu'à la base de démonstration.
 
 ## 3. Créer le site
 
-1. **Web → Sites → Ajouter un site**.
-2. Adresse : `<compte>.alwaysdata.net`.
+1. **Web → Sites → Ajouter un site** (ou modifier le site créé par défaut).
+2. Adresse : `test-rvss.alwaysdata.net`.
 3. Type : **PHP**.
 4. Version de PHP : **8.3** (les dépendances verrouillées ne sont pas compatibles avec PHP 8.4).
-5. Racine du site : `/home/<compte>/www/certif/public`.
-6. Activer **HTTPS** (certificat Let's Encrypt).
+5. Racine du site : `/home/test-rvss/www`.
+6. Activer **HTTPS** et la redirection HTTP vers HTTPS.
 7. Valider.
+
+Le dossier racine n'est pas créé automatiquement : il faut le faire en SSH (étape 5).
 
 ## 4. Accès SSH
 
 1. **Accès distant → SSH/SFTP**.
-2. Ajouter une clé SSH publique (recommandé) ou utiliser le mot de passe du compte.
-3. L'hôte est `ssh-<compte>.alwaysdata.net`, l'utilisateur est `<compte>`.
+2. Ajouter la clé SSH publique utilisée pour le déploiement.
+3. L'hôte est `ssh-test-rvss.alwaysdata.net`, l'utilisateur est `test-rvss`.
 
 ```bash
-ssh <compte>@ssh-<compte>.alwaysdata.net
+ssh test-rvss@ssh-test-rvss.alwaysdata.net
 ```
 
 ## 5. Déployer le code
@@ -71,11 +107,12 @@ ssh <compte>@ssh-<compte>.alwaysdata.net
 Le plus simple est de cloner le dépôt public :
 
 ```bash
-mkdir -p ~/www/certif
-git clone https://github.com/russell-sedj/certif_frk.git ~/www/certif
+mkdir -p ~/apps ~/www
+git clone https://github.com/russell-sedj/certif_frk.git ~/apps/certif
+ln -s ~/apps/certif/public ~/www/certif
 ```
 
-Alternative : envoyer une archive ZIP via SFTP, puis la décompresser dans `~/www/certif`.
+Alternative : envoyer une archive ZIP via SFTP, puis la décompresser dans `~/apps/certif`.
 
 > `public/build` et `vendor` ne sont pas versionnés. Voir les étapes 6 et 7.
 
@@ -84,15 +121,16 @@ Alternative : envoyer une archive ZIP via SFTP, puis la décompresser dans `~/ww
 Toujours en SSH, dans le dossier du projet :
 
 ```bash
-cd ~/www/certif
+cd ~/apps/certif
 composer install --no-dev --optimize-autoloader
 ```
 
 Si `composer` n'est pas disponible :
 
 ```bash
-curl -sS https://getcomposer.org/installer | php
-php composer.phar install --no-dev --optimize-autoloader
+cd ~/apps/certif
+curl -sS https://getcomposer.org/installer | PHP_VERSION=8.3 php
+PHP_VERSION=8.3 php composer.phar install --no-dev --optimize-autoloader
 ```
 
 ## 7. Construire les assets
@@ -107,14 +145,14 @@ npm run build
 Puis, depuis la machine locale :
 
 ```bash
-scp -r public/build <compte>@ssh-<compte>.alwaysdata.net:~/www/certif/public/
+scp -r public/build test-rvss@ssh-test-rvss.alwaysdata.net:~/apps/certif/public/
 ```
 
 > Sans `public/build`, les pages qui utilisent `@vite` renvoient une erreur « Vite manifest not found ».
 
 ## 8. Configurer `.env`
 
-Toujours dans `~/www/certif` :
+Toujours dans `~/apps/certif` :
 
 ```bash
 cp .env.example .env
@@ -127,7 +165,8 @@ APP_NAME="Certifs"
 APP_ENV=production
 APP_KEY=
 APP_DEBUG=false
-APP_URL=https://<compte>.alwaysdata.net
+APP_URL=https://test-rvss.alwaysdata.net/certif
+ASSET_URL=https://test-rvss.alwaysdata.net/certif
 APP_TIMEZONE=Africa/Porto-Novo
 
 APP_LOCALE=fr
@@ -138,11 +177,11 @@ LOG_CHANNEL=daily
 LOG_LEVEL=warning
 
 DB_CONNECTION=mysql
-DB_HOST=mysql-<compte>.alwaysdata.net
+DB_HOST=mysql-test-rvss.alwaysdata.net
 DB_PORT=3306
-DB_DATABASE=<compte>_certif
-DB_USERNAME=<compte>
-DB_PASSWORD=<mot_de_passe_mysql>
+DB_DATABASE=test-rvss_certif
+DB_USERNAME=test-rvss_certif_user1
+DB_PASSWORD=CertifDemo2026
 
 SESSION_DRIVER=database
 SESSION_LIFETIME=120
@@ -167,15 +206,17 @@ DEMO_PASSWORD=Demo1234!
 Générer la clé applicative :
 
 ```bash
-php artisan key:generate
+PHP_VERSION=8.3 php artisan key:generate
 ```
 
+> `APP_URL` et `ASSET_URL` contiennent le chemin `/certif` : c'est ce qui permet à Laravel de générer des URL et des liens d'assets corrects quand l'application n'est pas à la racine du domaine.
+>
 > `MAIL_MAILER=log` est volontaire : la démo n'envoie aucun email. Les mots de passe oubliés ne fonctionnent pas, c'est normal.
 
 ## 9. Migrations et données de démonstration
 
 ```bash
-php artisan migrate:fresh --seed --force
+PHP_VERSION=8.3 php artisan migrate:fresh --seed --force
 ```
 
 `DatabaseSeeder` appelle `DemoSeeder` : catégories, formations, lieux, sessions passées/en cours/à venir, inscriptions, présences, demandes et comptes de démonstration.
@@ -183,28 +224,36 @@ php artisan migrate:fresh --seed --force
 ## 10. Optimiser pour la production
 
 ```bash
-php artisan config:cache
-php artisan view:cache
+PHP_VERSION=8.3 php artisan config:cache
+PHP_VERSION=8.3 php artisan view:cache
 ```
 
 > **Ne pas lancer `php artisan optimize`** : il inclut `route:cache`, qui échoue à cause des routes déclarées avec des closures dans `routes/web.php`. `config:cache` et `view:cache` suffisent.
+>
+> Après chaque modification de `.env`, relancer `config:clear` puis `config:cache`.
 
 ## 11. Permissions
 
 ```bash
-chmod -R 775 storage bootstrap/cache
+chmod -R 775 ~/apps/certif/storage ~/apps/certif/bootstrap/cache
 ```
 
 ## 12. Remise à zéro automatique
 
+Le script `~/apps/certif/demo-reset.sh` encapsule la commande :
+
+```bash
+#!/bin/sh
+cd /home/test-rvss/apps/certif || exit 1
+exec env PHP_VERSION=8.3 php artisan demo:reset --force
+```
+
 Dans **Advanced → Scheduled tasks**, ajouter une tâche :
 
-- Commande (compte actuel) :
-  `cd /home/demo-rvss/www/certif && /usr/alwaysdata/php/8.3.37/bin/php -c /home/demo-rvss/php83.ini artisan demo:reset --force`
+- Commande : `/home/test-rvss/apps/certif/demo-reset.sh`
+- Répertoire de travail : `/home/test-rvss/`
+- Utilisateur SSH : `test-rvss`
 - Fréquence : tous les jours à 04:00
-- Version de PHP : 8.3 (dans **Environnement**). Si le CLI reste en 8.4, la commande explicite ci-dessus fonctionne.
-
-Le compte actuel dispose du script `/home/demo-rvss/www/certif/demo-reset.sh`, qui encapsule cette commande. La tâche planifiée peut l'appeler directement.
 
 La commande :
 
@@ -212,13 +261,13 @@ La commande :
 2. exécute `migrate:fresh` + `DemoSeeder` ;
 3. vide les caches de config et de vues.
 
-Les logs de la tâche sont dans `/home/<compte>/admin/logs/jobs/`. La remise à zéro réinitialise aussi les sessions : les visiteurs connectés sont déconnectés à 4 h du matin. C'est acceptable pour une démo.
+Les logs de la tâche sont dans `/home/test-rvss/admin/logs/jobs/`. La remise à zéro réinitialise aussi les sessions : les visiteurs connectés sont déconnectés à 4 h du matin. C'est acceptable pour une démo.
 
 ## 13. Vérifier
 
-1. Ouvrir `https://<compte>.alwaysdata.net` : la page de connexion doit proposer les trois boutons de démo.
+1. Ouvrir `https://test-rvss.alwaysdata.net/certif/` : la page de connexion doit proposer les trois boutons de démo.
 2. Tester les trois rôles.
-3. Vérifier `/up` (health check Laravel) : doit répondre 200.
+3. Vérifier `/certif/up` (health check Laravel) : doit répondre 200.
 4. Cliquer sur **Réinitialiser** dans la bannière : les données doivent revenir à l'état initial.
 5. Se connecter en superviseur, ouvrir les demandes, télécharger une attestation : le PDF doit porter le filigrane **SPÉCIMEN - DÉMO**.
 
@@ -233,15 +282,15 @@ Comptes :
 ## 14. Mettre à jour la démo
 
 ```bash
-cd ~/www/certif
+cd ~/apps/certif
 git pull
 composer install --no-dev --optimize-autoloader
-php artisan migrate --force
-php artisan config:cache
-php artisan view:cache
+PHP_VERSION=8.3 php artisan migrate --force
+PHP_VERSION=8.3 php artisan config:cache
+PHP_VERSION=8.3 php artisan view:cache
 ```
 
-Si les seeders ont changé, relancer `php artisan demo:reset --force` (ou attendre le cron). Si les assets ont changé, reconstruire et renvoyer `public/build`.
+Si les seeders ont changé, relancer `PHP_VERSION=8.3 php artisan demo:reset --force` (ou attendre le cron). Si les assets ont changé, reconstruire et renvoyer `public/build`.
 
 ## 15. Dépannage
 
@@ -251,8 +300,10 @@ Si les seeders ont changé, relancer `php artisan demo:reset --force` (ou attend
 | `Vite manifest not found` | `public/build` manquant : `npm run build` puis envoyer le dossier. |
 | 419 « Page expirée » | Cookie de session / HTTPS. Vérifier `APP_URL`, `SESSION_SECURE_COOKIE` et que le site est bien ouvert en HTTPS. |
 | `route:cache` échoue | Routes avec closures : ne pas utiliser `php artisan optimize`. |
-| Connexion MySQL refusée | L'hôte est `mysql-<compte>.alwaysdata.net`, la base et l'utilisateur sont préfixés par `<compte>`. |
-| Assets en HTTP (mixed content) | `APP_URL` en HTTPS ; `TrustProxies` est configuré et `URL::forceScheme('https')` est actif en production. |
+| Connexion MySQL refusée (1045) | Le mot de passe ou le nom d'utilisateur ne correspond pas. Tester la connexion directement en SSH avant de toucher à Laravel. |
+| Connexion MySQL refusée (1044) | L'utilisateur n'a pas les droits sur la base : donner `GRANT ALL` sur la base dans la fiche MySQL. |
+| Assets en HTTP (mixed content) | `APP_URL` et `ASSET_URL` en HTTPS, avec le chemin `/certif`. |
+| Liens sans `/certif` | `ASSET_URL` manquant ou `config:cache` non relancé. |
 | Page blanche après reset | Le reset vide les sessions : se reconnecter via les boutons de démo. |
 | Trop de monde / RAM | 256 Mo sur l'offre Free. Pour un vrai lancement, passer à l'offre Plus (1 Go RAM, domaine perso, 5 €/mois). |
 

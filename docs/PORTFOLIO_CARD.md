@@ -14,7 +14,7 @@ Application métier pour un réseau d'environ 7 000 agents : catalogue de format
 
 **Stack** : Laravel 11, PHP 8.3, MySQL, Blade, Alpine.js, Tailwind CSS, Pest
 **Rôle** : conception et développement full-stack
-**Démo** : https://demo-rvss.alwaysdata.net
+**Démo** : https://test-rvss.alwaysdata.net/certif/
 
 ## Version carte (FR)
 
@@ -34,7 +34,7 @@ Application métier pour un réseau d'environ 7 000 agents : catalogue de format
 - Déploiement alwaysdata Free : PHP 8.3, MySQL, HTTPS et assets Vite.
 
 **Liens** :
-- Démo : https://demo-rvss.alwaysdata.net
+- Démo : https://test-rvss.alwaysdata.net/certif/
 - Code : https://github.com/russell-sedj/certif_frk
 - Étude de cas : `docs/PORTFOLIO.md`
 
@@ -56,7 +56,7 @@ A business application for a network of around 7,000 agents: training catalog, s
 
 **Stack** : Laravel 11, PHP 8.3, MySQL, Blade, Alpine.js, Tailwind CSS, Pest
 **Role** : full-stack design and development
-**Demo** : https://demo-rvss.alwaysdata.net
+**Demo** : https://test-rvss.alwaysdata.net/certif/
 
 **Highlights** :
 - Multi-role access control with route-level guards.

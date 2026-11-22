@@ -7,7 +7,7 @@ Application de gestion des formations professionnelles réalisée pour le **Tré
 ## Démo en ligne
 
 > **Démonstration : données fictives.**  
-> **[Ouvrir la démo](https://demo-rvss.alwaysdata.net)** (toujours en ligne, sans cold start).  
+> **[Ouvrir la démo](https://test-rvss.alwaysdata.net/certif/)** (toujours en ligne, sans cold start).  
 > Les données sont remises à zéro chaque nuit.
 
 | Rôle | Email | Mot de passe |
@@ -21,6 +21,7 @@ La page de connexion propose aussi trois boutons d'accès direct. Les attestatio
 > Ces comptes sont **publics et réservés à la démonstration**. Les données sont fictives et remises à zéro chaque nuit. Ne réutilise pas ces mots de passe ailleurs. Le mot de passe de l'administration alwaysdata et le fichier `.env` ne sont pas dans le dépôt.
 
 - Guide de déploiement : [docs/DEPLOY_ALWAYSDATA.md](docs/DEPLOY_ALWAYSDATA.md)
+- Héberger plusieurs projets sur le même compte : [docs/HOSTING.md](docs/HOSTING.md)
 - Présentation portfolio : [docs/PORTFOLIO.md](docs/PORTFOLIO.md)
 - Texte court pour la carte portfolio : [docs/PORTFOLIO_CARD.md](docs/PORTFOLIO_CARD.md)
 

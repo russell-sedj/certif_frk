@@ -3,7 +3,7 @@
 > Application de gestion des formations professionnelles pour un réseau d'environ **7 000 agents**.
 > Projet présenté en démonstration publique avec des **données fictives**.
 
-- **Démo** : [demo-rvss.alwaysdata.net](https://demo-rvss.alwaysdata.net)
+- **Démo** : [test-rvss.alwaysdata.net/certif](https://test-rvss.alwaysdata.net/certif/)
 - **Code** : [github.com/russell-sedj/certif_frk](https://github.com/russell-sedj/certif_frk)
 - **Rôle** : conception et développement full-stack
 - **Stack** : Laravel 11, PHP 8.3, MySQL, Blade, Alpine.js, Tailwind CSS, Vite, Pest
@@ -100,5 +100,5 @@ Le contrôle d'accès est centralisé dans le middleware `EnsureUsersHasRole`, a
 
 Built with **Laravel 11, PHP 8.3, MySQL, Blade, Alpine.js, Tailwind CSS, Vite and Pest**. The public demo uses fictional data, one-click demo accounts for the three roles, and a nightly reset. Certificates are watermarked as specimens.
 
-- **Demo**: [demo-rvss.alwaysdata.net](https://demo-rvss.alwaysdata.net)
+- **Demo**: [test-rvss.alwaysdata.net/certif](https://test-rvss.alwaysdata.net/certif/)
 - **Source**: [github.com/russell-sedj/certif_frk](https://github.com/russell-sedj/certif_frk)
