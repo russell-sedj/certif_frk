@@ -108,7 +108,7 @@ Le portfolio et Certif partagent le même compte alwaysdata `test-rvss`. Certif 
 
 Règles :
 
-- Le portfolio peut remplacer `~/www/index.html` et ajouter ses fichiers dans `~/www`.
+- Le portfolio peut remplacer `~/www/index.html` et ajouter ses fichiers dans `~/www`. La page actuelle est une page provisoire qui présente Certif.
 - Ne pas modifier `~/apps/certif`, ni le lien `~/www/certif`, ni `APP_URL` / `ASSET_URL` dans `~/apps/certif/.env`.
 - Pour un autre projet PHP, suivre [HOSTING.md](HOSTING.md) : `~/apps/<nom>` + lien `~/www/<nom>`.
 - Pour un projet Java, .NET ou Node.js, créer un site sur un sous-domaine.
