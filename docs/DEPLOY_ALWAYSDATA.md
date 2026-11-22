@@ -125,15 +125,19 @@ Toujours en SSH, dans le dossier du projet :
 
 ```bash
 cd ~/apps/certif
-composer install --no-dev --optimize-autoloader
+/usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini /usr/bin/composer install --no-dev --optimize-autoloader --no-scripts
+/usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini artisan package:discover
 ```
+
+`--no-scripts` évite que Composer relance `artisan` avec le PHP 8.4 par défaut. `package:discover` est lancé juste après avec le bon PHP.
 
 Si `composer` n'est pas disponible :
 
 ```bash
 cd ~/apps/certif
 curl -sS https://getcomposer.org/installer | /usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini
-/usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini composer.phar install --no-dev --optimize-autoloader
+/usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini composer.phar install --no-dev --optimize-autoloader --no-scripts
+/usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini artisan package:discover
 ```
 
 ## 7. Construire les assets
@@ -291,7 +295,8 @@ Comptes :
 ```bash
 cd ~/apps/certif
 git pull
-composer install --no-dev --optimize-autoloader
+/usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini /usr/bin/composer install --no-dev --optimize-autoloader --no-scripts
+/usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini artisan package:discover
 /usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini artisan migrate --force
 /usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini artisan config:cache
 /usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini artisan view:cache
