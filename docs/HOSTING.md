@@ -42,6 +42,16 @@ Cette racine sert deux choses :
 
 Apache suit les liens symboliques. C'est ce qui permet d'avoir `www/certif` qui pointe vers `apps/certif/public` tout en gardant le code hors de la racine web.
 
+## PHP en ligne de commande
+
+Le PHP par défaut du compte est en 8.4. Son `php.ini` charge les extensions 8.4, ce qui casse un binaire 8.3. Le fichier `/home/test-rvss/php83.ini` contient la configuration 8.3 correcte et sert à tous les projets PHP du compte.
+
+```bash
+/usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini -v
+```
+
+Pour Composer, Artisan ou un script PHP, toujours passer par ce couple binaire + INI.
+
 ## Ajouter un projet PHP
 
 Exemple avec un projet nommé `facturation` :
@@ -50,9 +60,10 @@ Exemple avec un projet nommé `facturation` :
 cd ~/apps
 git clone <url-du-depot> facturation
 cd facturation
-composer install --no-dev --optimize-autoloader
+/usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini /usr/bin/composer install --no-dev --optimize-autoloader --no-scripts
 cp .env.example .env
-PHP_VERSION=8.3 php artisan key:generate
+/usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini artisan key:generate
+/usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini artisan package:discover
 ln -s ~/apps/facturation/public ~/www/facturation
 chmod -R 775 storage bootstrap/cache
 ```
@@ -152,7 +163,9 @@ Le script doit être exécutable et fixer lui-même la version du langage et le 
 ```sh
 #!/bin/sh
 cd /home/test-rvss/apps/<projet> || exit 1
-exec env PHP_VERSION=8.3 php artisan demo:reset --force
+PHP83=$(ls -d /usr/alwaysdata/php/8.3.*/bin/php 2>/dev/null | sort -V | tail -1)
+[ -n "$PHP83" ] || PHP83=/usr/alwaysdata/php/8.3.37/bin/php
+exec "$PHP83" -c /home/test-rvss/php83.ini artisan demo:reset --force
 ```
 
 Dans **Advanced → Scheduled tasks**, utiliser le chemin complet du script, le répertoire `/home/test-rvss/` et l'utilisateur `test-rvss`.

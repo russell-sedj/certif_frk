@@ -13,7 +13,8 @@ Ce guide décrit le déploiement de **Certifs (démo)** sur l'offre **Free** d'a
 | Racine du site | `/home/test-rvss/www` |
 | Application | `/home/test-rvss/apps/certif` |
 | Lien public | `/home/test-rvss/www/certif` -> `/home/test-rvss/apps/certif/public` |
-| PHP du site | 8.3 |
+| PHP du site | 8.3.37 |
+| INI CLI PHP 8.3 | `/home/test-rvss/php83.ini` |
 | Base MySQL | `mysql-test-rvss.alwaysdata.net` / `test-rvss_certif` / `test-rvss_certif_user1` |
 | Script de reset | `/home/test-rvss/apps/certif/demo-reset.sh` |
 
@@ -40,19 +41,21 @@ Règles :
 
 ## PHP en ligne de commande
 
-Le PHP par défaut du compte peut être en 8.4. Pour toutes les commandes Artisan, forcer la version 8.3 :
+Le PHP par défaut du compte est en 8.4, et son `php.ini` charge les extensions 8.4. Lancer un binaire 8.3 avec ce fichier provoque des erreurs (`undefined symbol`, extensions non chargées). Le compte dispose donc d'un fichier dédié, copié depuis la configuration PHP 8.3 du site :
 
-```bash
-PHP_VERSION=8.3 php artisan <commande>
+```text
+/home/test-rvss/php83.ini
 ```
 
-Le binaire explicite fonctionne aussi :
+Toutes les commandes Artisan passent par :
 
 ```bash
-/usr/alwaysdata/php/8.3/bin/php artisan <commande>
+/usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini artisan <commande>
 ```
 
-Pour le cron, préférer le script `demo-reset.sh`, qui fixe déjà la version et le dossier.
+Ne pas utiliser `PHP_VERSION=8.3 php` seul : le binaire change, mais le `php.ini` reste celui de 8.4.
+
+Pour le cron, préférer le script `demo-reset.sh`, qui fixe déjà la version, le fichier INI et le dossier.
 
 ## 1. Créer le compte
 
@@ -129,8 +132,8 @@ Si `composer` n'est pas disponible :
 
 ```bash
 cd ~/apps/certif
-curl -sS https://getcomposer.org/installer | PHP_VERSION=8.3 php
-PHP_VERSION=8.3 php composer.phar install --no-dev --optimize-autoloader
+curl -sS https://getcomposer.org/installer | /usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini
+/usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini composer.phar install --no-dev --optimize-autoloader
 ```
 
 ## 7. Construire les assets
@@ -206,7 +209,7 @@ DEMO_PASSWORD=Demo1234!
 Générer la clé applicative :
 
 ```bash
-PHP_VERSION=8.3 php artisan key:generate
+/usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini artisan key:generate
 ```
 
 > `APP_URL` et `ASSET_URL` contiennent le chemin `/certif` : c'est ce qui permet à Laravel de générer des URL et des liens d'assets corrects quand l'application n'est pas à la racine du domaine.
@@ -216,7 +219,7 @@ PHP_VERSION=8.3 php artisan key:generate
 ## 9. Migrations et données de démonstration
 
 ```bash
-PHP_VERSION=8.3 php artisan migrate:fresh --seed --force
+/usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini artisan migrate:fresh --seed --force
 ```
 
 `DatabaseSeeder` appelle `DemoSeeder` : catégories, formations, lieux, sessions passées/en cours/à venir, inscriptions, présences, demandes et comptes de démonstration.
@@ -224,8 +227,8 @@ PHP_VERSION=8.3 php artisan migrate:fresh --seed --force
 ## 10. Optimiser pour la production
 
 ```bash
-PHP_VERSION=8.3 php artisan config:cache
-PHP_VERSION=8.3 php artisan view:cache
+/usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini artisan config:cache
+/usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini artisan view:cache
 ```
 
 > **Ne pas lancer `php artisan optimize`** : il inclut `route:cache`, qui échoue à cause des routes déclarées avec des closures dans `routes/web.php`. `config:cache` et `view:cache` suffisent.
@@ -245,7 +248,9 @@ Le script `~/apps/certif/demo-reset.sh` encapsule la commande :
 ```bash
 #!/bin/sh
 cd /home/test-rvss/apps/certif || exit 1
-exec env PHP_VERSION=8.3 php artisan demo:reset --force
+PHP83=$(ls -d /usr/alwaysdata/php/8.3.*/bin/php 2>/dev/null | sort -V | tail -1)
+[ -n "$PHP83" ] || PHP83=/usr/alwaysdata/php/8.3.37/bin/php
+exec "$PHP83" -c /home/test-rvss/php83.ini artisan demo:reset --force
 ```
 
 Dans **Advanced → Scheduled tasks**, ajouter une tâche :
@@ -259,7 +264,9 @@ La commande :
 
 1. vérifie que `DEMO_MODE=true` ;
 2. exécute `migrate:fresh` + `DemoSeeder` ;
-3. vide les caches de config et de vues.
+3. réinitialise la base et les sessions.
+
+Les caches de configuration et de vues ne sont pas vidés : ils restent valides tant que `.env` et les vues ne changent pas.
 
 Les logs de la tâche sont dans `/home/test-rvss/admin/logs/jobs/`. La remise à zéro réinitialise aussi les sessions : les visiteurs connectés sont déconnectés à 4 h du matin. C'est acceptable pour une démo.
 
@@ -285,12 +292,12 @@ Comptes :
 cd ~/apps/certif
 git pull
 composer install --no-dev --optimize-autoloader
-PHP_VERSION=8.3 php artisan migrate --force
-PHP_VERSION=8.3 php artisan config:cache
-PHP_VERSION=8.3 php artisan view:cache
+/usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini artisan migrate --force
+/usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini artisan config:cache
+/usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini artisan view:cache
 ```
 
-Si les seeders ont changé, relancer `PHP_VERSION=8.3 php artisan demo:reset --force` (ou attendre le cron). Si les assets ont changé, reconstruire et renvoyer `public/build`.
+Si les seeders ont changé, relancer `/usr/alwaysdata/php/8.3.37/bin/php -c /home/test-rvss/php83.ini artisan demo:reset --force` (ou attendre le cron). Si les assets ont changé, reconstruire et renvoyer `public/build`.
 
 ## 15. Dépannage
 
