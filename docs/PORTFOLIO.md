@@ -92,6 +92,30 @@ Le contrôle d'accès est centralisé dans le middleware `EnsureUsersHasRole`, a
 - Tableau de bord avec indicateurs (taux de présence, demandes en attente, sessions à venir).
 - Déploiement avec CI/CD (GitHub Actions → alwaysdata).
 
+## Repères pour la session portfolio
+
+Le portfolio et Certif partagent le même compte alwaysdata `test-rvss`. Certif est isolé sous `/certif/` et ne doit pas être déplacé.
+
+| Élément | Valeur |
+|---|---|
+| Site | `https://test-rvss.alwaysdata.net/` |
+| Démo Certif | `https://test-rvss.alwaysdata.net/certif/` |
+| Racine web | `/home/test-rvss/www` |
+| Application | `/home/test-rvss/apps/certif` |
+| Lien public | `/home/test-rvss/www/certif` -> `/home/test-rvss/apps/certif/public` |
+| Base | `test-rvss_certif` / `test-rvss_certif_user1` |
+| Reset | `/home/test-rvss/apps/certif/demo-reset.sh`, tous les jours à 04:00 |
+
+Règles :
+
+- Le portfolio peut remplacer `~/www/index.html` et ajouter ses fichiers dans `~/www`.
+- Ne pas modifier `~/apps/certif`, ni le lien `~/www/certif`, ni `APP_URL` / `ASSET_URL` dans `~/apps/certif/.env`.
+- Pour un autre projet PHP, suivre [HOSTING.md](HOSTING.md) : `~/apps/<nom>` + lien `~/www/<nom>`.
+- Pour un projet Java, .NET ou Node.js, créer un site sur un sous-domaine.
+- Les commandes PHP 8.3 et Composer sont documentées dans [DEPLOY_ALWAYSDATA.md](DEPLOY_ALWAYSDATA.md) et [HOSTING.md](HOSTING.md).
+
+Les textes courts à copier dans le portfolio se trouvent dans [PORTFOLIO_CARD.md](PORTFOLIO_CARD.md).
+
 ---
 
 ## English summary
